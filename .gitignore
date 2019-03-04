@@ -1,0 +1,5 @@
+.venv
+.vscode
+*.code-workspace
+config.py
+__pycache__

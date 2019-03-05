@@ -1,5 +1,6 @@
 .venv
 .vscode
+*.sqlite3
 *.code-workspace
 config.py
 __pycache__

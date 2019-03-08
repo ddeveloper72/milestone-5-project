@@ -1,10 +1,11 @@
-from django.urls import re_path,  reverse_lazy
-from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.urls import path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    re_path('^$', password_reset, {'post_reset_redirect': reverse_lazy('password_reset_done')}, name='password_reset'),
-    re_path(r'^done/$', password_reset_done, name='password_reset_done'),
-    re_path(r'^(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm,
-        {'post_reset_redirect': reverse_lazy('password_reset_complete')}, name='password_reset_confirm'),
-    re_path('^complete/$', password_reset_complete, name='password_reset_complete')
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_change/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('password_reset/done', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(),  name='password_change_done')
 ]

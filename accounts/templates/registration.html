@@ -9,10 +9,25 @@ User Registration
 {% endblock page_heading %}
 
 {% block content %}
-<p>If you have already registered, please login in <a href="{% url 'login' %}">here</a></p>
-<form method="POST">
-    {% csrf_token %}
-    {{ registration_form | crispy}} <!-- .as_p render this a paragraph -->
-    <button type="submit" class="btn btn-default">Register</button>
-</form>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <p>If you have already registered, please login in <a href="{% url 'login' %}">here</a></p>
+            </div>           
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ registration_form | crispy}} <!-- .as_p render this a paragraph -->
+                        <button type="submit" class="btn btn-default btn-primary">Register</button>
+                    </form> 
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock content %}

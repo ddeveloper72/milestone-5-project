@@ -22,7 +22,7 @@ User Registration
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <form method="POST">
+                    <form method="POST" action="{% url 'registration' %}">
                         {% csrf_token %}
                         {{ registration_form | crispy}}
                         <!-- .as_p render this a paragraph -->

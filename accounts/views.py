@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.forms import UserloginForm, UserRegistrationForm
+from accounts.forms import UserloginForm, UserRegistrationForm 
 
 # Create your views here.
 
@@ -52,20 +52,20 @@ def registration(request):
         return redirect(reverse('index')) # redirect a registerd user away from registration to the index
 
     if request.method == "POST":
-        registration_form = UserRegistrationForm(request.POST)
+        registration_form = UserRegistrationForm(request.POST)    
 
         if registration_form.is_valid():
             registration_form.save() # add the user data to the User model in the database
-
             user = auth.authenticate(username=request.POST['username'],
                                     password=request.POST['password1'])
-            
             if user:
                auth.login(user=user, request=request)
                messages.success(request, "You have registerd successfully") 
                return redirect(reverse('index')) # redirect the newly registerd user away from registration to the index
+            else:
+                messages.error(request, "Unable to register your details.  Check your password")        
         else:
-            messages.error(request, "Unable to register your account at this time") # an oops moment? Whats gone wrong...
+            messages.warning(request, "That username already exists!")              
 
     registration_form = UserRegistrationForm()
     return render(request, 'registration.html', {

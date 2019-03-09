@@ -21,5 +21,4 @@ urlpatterns = [
     path('', include('landing_page.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('reset/', include('accounts.url_reset'))
 ]

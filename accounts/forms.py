@@ -8,6 +8,7 @@ class UserloginForm(forms.Form):
     username = forms.CharField()    
     password = forms.CharField(widget=forms.PasswordInput)
 
+
 class UserRegistrationForm(UserCreationForm):
     """Frorm is used to register the user"""    
     password1 = forms.CharField(
@@ -19,7 +20,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta: # Inner class is used by Djano to provide infomation about the forms.
         model = User # Specifies the name of the model where we want to store user information
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
     
     def clean_email(self):
         email = self.cleaned_data.get('email')

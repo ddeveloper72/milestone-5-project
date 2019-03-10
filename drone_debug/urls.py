@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views import static
 
 
 urlpatterns = [
+    path('favicon.ico/', static.serve, ('favicon/favicon.ico'), name="favicon"),
     path('', include('landing_page.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),

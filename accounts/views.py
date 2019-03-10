@@ -62,10 +62,10 @@ def registration(request):
                auth.login(user=user, request=request)
                messages.success(request, "You have registerd successfully") 
                return redirect(reverse('index')) # redirect the newly registerd user away from registration to the index
-            else:
-                messages.error(request, "Unable to register your details.  Check your password")        
+                  
         else:
-            messages.warning(request, "That username already exists!")              
+              messages.error(request, registration_form.errors)            
+            # messages.warning(request, "Plesse check that your passwords match and username/email is unique!")              
 
     registration_form = UserRegistrationForm()
     return render(request, 'registration.html', {

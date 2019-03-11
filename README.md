@@ -12,13 +12,67 @@
 
 #### Strategy
 
+| Focus                                                       | User Needs                                                            | Business Objectives                             |
+|-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| What are you aiming to achieve?                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+| For whom?                                                   |   |  |
+| TARGET AUDIENCE                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+
 #### Scope
+
+| Focus                                                       | Functional Specification                                              | Content Requirements                            |
+|-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
+| Which features?                                             |   |  |
+| What’s on the table?                                        |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
 
 #### Structure
 
+| Focus                                                       | Interaction Design                                                     | Information Architecture                       |
+|-------------------------------------------------------------|------------------------------------------------------------------------|------------------------------------------------|
+| How is the information structured?                          |   |  |
+|                                                             |   |  |
+| How is it logically grouped?                                |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+|                                                             |   |  |
+
 #### Skeleton
 
+| Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
+|-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
+| How will the information be represented?                    |  |  |  |
+| How will the user navigate to the information and features? |  |  |  |
+|                                                             |  |  |  |
+|                                                             |  |  |  |
+|                                                             |  |  |  |
+|                                                             |  |  |  |
+|                                                             |  |  |  |
+
 #### Surface
+
+| Focus                                                       | Visual Design                       |
+|-------------------------------------------------------------|-------------------------------------|
+| What will the finished product look like?                   |  |
+|                                                             |  |
+| What colours, typography and design elements will be used?  |  |
 
 ##### Wireframes
 

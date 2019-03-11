@@ -6,7 +6,7 @@
 
 ## 1. Project Goals
 
-## 2 .The UX Design
+## 2. The UX Design
 *(This template is with thanks from 
 @sarahloh)*
 
@@ -79,7 +79,23 @@
 #### 3. Application Construction
 
 1. Tools used
+
+   * Written in VSCode
+   * The SQL database was created with heroku-postgresql (see database included with repository) and is hosted at amazonaws.com
+   * CSS files were created and stored locally within the application as static files.  These static files were then added to the s3 bucket on Amazon
+   * The app as tested using Chrome dev tools & VSCode debugger
+   * HTML and CSS checked with help from the Mark-up Validation Service
+   * Version management and test branches created in git
+   * Web deployment is hosted on Heroku
+
 2. Reference Literature
+
+   * [django Framework Documentation](https://www.djangoproject.com/)
+   * [PostgreSQL](https://www.postgresql.org/)
+   * [django-bootstrap4](https://readthedocs.org/projects/django-bootstrap4/)
+   * [Amazon AWS](https://aws.amazon.com/)
+   * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
+
 3. Code Development
 4. Deployment Instructions
 

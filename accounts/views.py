@@ -11,6 +11,13 @@ def index(request):
     
     return render(request, 'index.html')
 
+
+@login_required
+def auth_index(request):
+    """Generate the views for the authorized customer"""
+    user = User.objects.get(email=request.user.email)
+    return render(request, 'auth_index.html', {"profile": user})
+
 @login_required # Checks to see if a user is loged in BEFORE running the logout function.   
 def logout(request):
     """Log the user out"""
@@ -35,7 +42,7 @@ def login(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, "Your login is sucessfull!")
-                return redirect(reverse('index'))
+                return redirect(reverse('auth_index'))
                 # security which prevents access to the login page via url bar
 
             else:

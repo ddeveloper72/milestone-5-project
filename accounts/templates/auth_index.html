@@ -6,3 +6,45 @@ Authorized User Home Page
 {% block page_heading %}
 Home
 {% endblock page_heading %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <div>
+                <h4>{{ user }}'s User Profile:</h4>
+            </div>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>
+                        {% if profile %}
+                         <ol>                            
+                            <li>First Name: {{ profile.first_name }}</li>
+                            <li>Last Name: {{ profile.last_name }}</li>
+                            <li>Email: {{ profile.email }}</li>
+                            <li>Last Logged in: {{ profile.last_login }}</li>
+                            <li>Date Joined: {{ profile.date_joined }}</li>
+                            <li>Is Staff: {{ profile.is_staff }}</li>
+                            <li>Is Active: {{ profile.is_active }}</li>            
+                        {% else %}
+                        <ol>
+                            <li>The List is empty</li>
+                        </ol>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

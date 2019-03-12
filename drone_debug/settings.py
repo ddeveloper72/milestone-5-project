@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'landing_page',
     'accounts',
+    'posts',
     'storages',
 ]
 

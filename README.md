@@ -18,6 +18,8 @@ If however the new feature is required immediately, our development team will be
 
 Customers will be able to upvote a bug report made by another customer, should they have the same issue. If there are many upvotes for a particular bug, the product development team will use this statistical data to do as a risk assessment and reassign development time to resolving the bug.
 
+The statistical information will be collected and presented to the customers to show the time line spent on bug resolution and update roll-out.
+
 ## 2. The UX Design
 *(This template is with thanks from 
 @sarahloh)*
@@ -26,42 +28,38 @@ Customers will be able to upvote a bug report made by another customer, should t
 
 | Focus                                                       | User Needs                                                            | Business Objectives                             |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
-| What are you aiming to achieve?                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-| For whom?                                                   |   |  |
-| TARGET AUDIENCE                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
+| What are you aiming to achieve?                             | To be provided with a facility for reporting a bug/issue, prolonging their use of the product.  | To gather user feedback for continues product improvement. To engage with the customer that will maintain and grow our customer base.|
+|                                                             | To be able to see if other users have the same issues.  | Gather statistics from likes from user feedback for product development and marketing. |
+|                                                             | To be be part of a community and help improve the product development. | To provide customers with a facility to input their feedback on our products. |
+| For whom?                                                   | Organizations that use our "SMART" drone navigation system.  |  |
+| TARGET AUDIENCE                                             | Drone Tech Pilots  | To learn and understand the technical needs of the customer, by providing a facility where customers can write feedback in a familiar blog style interface |
+|                                                             | Company purchasing authority |  |
+|                                                             | Customer development authority | Collaborate on needs so we can develop of turnkey features |
+|
 
 #### Scope
 
 | Focus                                                       | Functional Specification                                              | Content Requirements                            |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
-| Which features?                                             |   |  |
-| What’s on the table?                                        |   |  |
+| Which features?                                             | Provide secure authorized platform where users can view bug/issue reports.  | Use a relational SQL database for storing information. |
+| What’s on the table?                                        | Provide the user with a secure logged in space for creating their profile.  |  |
+|                                                             | present the user with a familiar blog layout for presenting information |  |
+|                                                             | Provide a facility for a user to make a payment toward developing a product upgrade  |  |
+|                                                             | To provide a facility where other users can comment on a blog entry by another user.  |  |
+|                                                             | Provide a likes button for a blog entry so that another user can up-vote an issue/bug   |  |
+|                                                             | Provide a statistics dashboard that will present the number of bugs/issues being resolved over time.  |  |
 |                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
-|                                                             |   |  |
+
 
 #### Structure
 
 | Focus                                                       | Interaction Design                                                     | Information Architecture                       |
 |-------------------------------------------------------------|------------------------------------------------------------------------|------------------------------------------------|
-| How is the information structured?                          |   |  |
-|                                                             |   |  |
-| How is it logically grouped?                                |   |  |
-|                                                             |   |  |
+| How is the information structured?                          | Where am I? / How did I get here? / What can I do here? / Where can I go?  | Organizational / Navigational schemas (tree / nested list / hub and spoke / dashboard) |
+|                                                             | A landing page will host visually appealing and textual information about our products and services.  | Tree Structure |
+|                                                             | A login and new user registration button will be available from the navigation bar.  |  |
+| How is it logically grouped?                                | A user will be prompted for their username to log in. If one does not exist, they will be prompted to setup a new profile. Their profile name and email address will need to be unique, different from all the other profiles.  | Start/home page |
+|                                                             | The user   |  |
 |                                                             |   |  |
 |                                                             |   |  |
 |                                                             |   |  |
@@ -70,9 +68,9 @@ Customers will be able to upvote a bug report made by another customer, should t
 
 | Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
 |-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
-| How will the information be represented?                    |  |  |  |
-| How will the user navigate to the information and features? |  |  |  |
-|                                                             |  |  |  |
+| How will the information be represented?                    | See wireframes |  | Title and informational typescripts |
+| How will the user navigate to the information and features? | See wireframes | Links from the navbar |  |
+|                                                             |  | Selecting add feature to  |  |
 |                                                             |  |  |  |
 |                                                             |  |  |  |
 |                                                             |  |  |  |

@@ -22,17 +22,25 @@
                         <p><span class="boldtext">Views: </span>{{ post.views }}</p>
                         <p><span class="boldtext mb-2">Tag: </span>{{ post.tag }}</p>
                         <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to blog</a>
-                        <a href="{% url 'edit_post' post.id %}" class="btn btn-default btn-primary mb-2">Edit Post</a>
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-default btn-primary mr-2 mb-2">Edit Post</a>
+                        <a class="btn btn-default btn-primary mb-2" href="{% url 'add_comment_to_post' pk=post.pk %}">Add
+                            comment</a>
                     </div>
                 </div>
                 {% for comment in post.comments.all %}
-                <div class="comment">
-                    <div class="date">{{ comment.created_date }}</div>
-                    <strong>{{ comment.author }}</strong>
-                    <p>{{ comment.text|linebreaks }}</p>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p><span class="boldtext">Comment by: </span><strong>{{ comment.author }}</strong></p>
+                        <p class="card-text">{{ comment.comment|linebreaks }}</p>
+                        <p><span class="boldtext">Published on: </span>{{ comment.created_date }}</p>
+                    </div>
                 </div>
                 {% empty %}
-                <p>No comments yet</p>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p>No comments yet</p>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

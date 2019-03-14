@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-2 col-sm-3 text-center">
-            <a class="story-img" href="#">
-                <img src="/media/img/profile.png" class="img-circle" alt="Profile image">
+        <div class="card">
+            <div class="col-md-2 col-sm-3 text-center">
+                <a class="story-img" href="#">
+                    <img class="card-img-top img-circle  mt-2" src="{{ MEDIA_URL }}{{ post.image }}" alt="Profile image"></a>
                 <p><span class="boldtext">Author:</span>{{ post.author }}</p>
-        </div>
-        <div class="col-sm-10 col-md-9">
-            {% if post.img %}
-            <img src="/media/{{ post.image }}" alt="Post image" class="img-blogpost">
-            {% endif %}
-        </div>
-        <h3>{{ post.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ post.content}}</p>
-                <p><span class="boldtext">Published on:</span>{{ post.published_date }}</p>
-                <p><span class="boldtext">Views:</span>{{ post.views }}</p>
-                <p><span class="boldtext">Tag:</span>{{ post.tag }}</p>
-                <a href="{% url 'get_posts' %}" class="btn btn-default">Back to blog</a>
-                <a href="{% url 'edit_post' post.id %}" class="btn btn-default">Edit Post</a>
+            </div>
+
+            <div class="col-sm-10 col-md-9">
+                {% if post.img %}
+                <img src="/media/{{ post.image }}" alt="Post image" class="img-blogpost">
+                {% endif %}
+
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p class="card-text">{{ post.content|truncatewords:30}}</p>
+                        <p><span class="boldtext">Published on: </span>{{ post.published_date }}</p>
+                        <p><span class="boldtext">Views: </span>{{ post.views }}</p>
+                        <p><span class="boldtext mb-2">Tag: </span>{{ post.tag }}</p>
+                        <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to blog</a>
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-default btn-primary mb-2">Edit Post</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
- 
+</div>
+
 {% endblock content %}

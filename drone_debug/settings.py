@@ -15,6 +15,7 @@ import os
 # import env
 
 import dj_database_url
+from django.contrib.messages import constants as messages
 
 # Switch Debug between True and False
 if os.environ.get('DEVELOPMENT'):
@@ -100,8 +101,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'drone.sqlite3'),
+        }
     }
-}
 
 
 # Password validation
@@ -130,7 +131,6 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailAuth'
 ]
 
-from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -172,13 +172,14 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_DEFAULT_ACL = None
 
-STATICFILES_LOCATION = 'static'
+STATICFILES_LOCATION = '/static/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 """ STATICFILES_STORAGE = 'custom_storages.StaticStorage' """
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = (
+
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     )
 
@@ -186,7 +187,7 @@ MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 MEDIA_ROOT = (
-    os.path.join(BASE_DIR, "media")
+    os.path.join(BASE_DIR, "media"),
     )
 
 # AWS custom domain and , media files location, gets injected here

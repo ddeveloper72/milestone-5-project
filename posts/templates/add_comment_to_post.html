@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-9">
+                    <h1 class="card-title">New comment</h1>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <form method="POST" enctype="multipart/form-data" class="post-form">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
+                                    blog</a>
+                                <button class="btn btn-primary mb-2"" type=" submit">Save</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

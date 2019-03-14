@@ -19,6 +19,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to="img", blank=True, null=True)
     author = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-created_date']
+
     def __unicode__(self):
         return self.title
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Post
+from .models import Post, Comment
 from .forms import BlogPostForm, CommentForm
 
 
@@ -18,7 +18,6 @@ def get_posts(request):
     return render(request, "blogposts.html", {'posts': posts})
 
 
-
 def post_detail(request, pk):
     """
     Create a view that returns a single
@@ -31,7 +30,6 @@ def post_detail(request, pk):
     post.views += 1
     post.save()
     return render(request, "postdetail.html", {'post': post})
-
 
 
 def create_or_edit_a_post(request, pk=None):
@@ -64,3 +62,15 @@ def add_comment_to_post(request, pk):
     else:
         form = CommentForm()
     return render(request, 'add_comment_to_post.html', {'form': form})
+
+@login_required
+def comment_approve(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.approve()
+    return redirect('post_detail', pk=comment.post.pk)
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('post_detail', pk=comment.post.pk)

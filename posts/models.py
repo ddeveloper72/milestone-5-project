@@ -47,3 +47,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+def approved_comments(self):
+    return self.comments.filter(approved_comment=True)

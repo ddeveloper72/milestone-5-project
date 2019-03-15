@@ -28,6 +28,7 @@
                     </div>
                 </div>
                 {% for comment in post.comments.all %}
+                {% if user.is_authenticated or comment.approved_comment %}
                 <div class="row">
                     <div class="col-sm-9">
                         <p><span class="boldtext">Comment by: </span><strong>{{ comment.author }}</strong></p>
@@ -35,13 +36,14 @@
                         <div class="date">
                             <p><span class="boldtext">Published on: </span>{{ comment.created_date }}</p>
                             {% if not comment.approved_comment %}
-                            <a class="btn btn-default btn-primary" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                            <a class="btn btn-default btn-primary" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                            <a class="btn btn-default btn-primary mr-2 mb-2" href="{% url 'comment_remove' pk=comment.pk %}"><i class="far fa-times-circle"><span> Remove</span></i></a>
+                            <a class="btn btn-default btn-primary mb-2" href="{% url 'comment_approve' pk=comment.pk %}"><i class="far fa-check-circle"><span> Approve</span></i></a>
                             {% endif %}
 
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% empty %}
                 <div class="row">
                     <div class="col-sm-9">

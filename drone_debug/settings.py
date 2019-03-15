@@ -174,7 +174,6 @@ AWS_DEFAULT_ACL = None
 
 STATICFILES_LOCATION = '/static/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-""" STATICFILES_STORAGE = 'custom_storages.StaticStorage' """
 
 
 STATIC_URL = '/static/'

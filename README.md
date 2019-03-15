@@ -103,6 +103,7 @@ The statistical information will be collected and presented to the customers to 
    * [django Framework Documentation](https://www.djangoproject.com/)
    * [PostgreSQL](https://www.postgresql.org/)
    * [django-bootstrap4](https://readthedocs.org/projects/django-bootstrap4/)
+   * [Django Girls Tutorial: Extensions](https://tutorial-extensions.djangogirls.org/en/)
    * [Amazon AWS](https://aws.amazon.com/)
    * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
 

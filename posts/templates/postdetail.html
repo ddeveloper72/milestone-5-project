@@ -32,7 +32,14 @@
                     <div class="col-sm-9">
                         <p><span class="boldtext">Comment by: </span><strong>{{ comment.author }}</strong></p>
                         <p class="card-text">{{ comment.comment|linebreaks }}</p>
-                        <p><span class="boldtext">Published on: </span>{{ comment.created_date }}</p>
+                        <div class="date">
+                            <p><span class="boldtext">Published on: </span>{{ comment.created_date }}</p>
+                            {% if not comment.approved_comment %}
+                            <a class="btn btn-default btn-primary" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a class="btn btn-default btn-primary" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                            {% endif %}
+
+                        </div>
                     </div>
                 </div>
                 {% empty %}

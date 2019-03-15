@@ -33,10 +33,10 @@ class Comment(models.Model):
     comment = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
-        User, default=None, related_name="comment_author", 
+        User, default=None, related_name="comment_author",
         on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE, 
-                            related_name='comments')
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE,
+                                related_name='comments')
     approved_comment = models.BooleanField(default=False)
     is_reported = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)
@@ -45,8 +45,8 @@ class Comment(models.Model):
         self.approved_comment = True
         self.save()
 
+    def approved_comments(self):
+        return self.comment.filter(approved_comment=True)
+
     def __str__(self):
         return self.comment
-
-def approved_comments(self):
-    return self.comments.filter(approved_comment=True)

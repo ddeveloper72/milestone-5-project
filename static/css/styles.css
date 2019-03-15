@@ -4,11 +4,11 @@
 /*                                                                           */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-img {
-    border-radius: 50%;
-  }
+/* Bootstrap card customization */
+.card-img-top {
+ border-radius: calc(1.25rem - 1px);
+}
 
-  /* Bootstrap card customization */
 .card:hover {
   box-shadow:0 30px 70px rgba(0,0,0,.2);
 }

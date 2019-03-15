@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Post, Comment
-from .forms import BlogPostForm, CommentForm
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -42,12 +42,12 @@ def create_or_edit_a_post(request, pk=None):
 
     post = get_object_or_404(Post, pk=pk) if pk else None
     if request.method == "POST":
-        form = BlogPostForm(request.POST, request.FILES, instance=post)
+        form = CommentForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
-            return redirect(post_detail, post.pk)        
+            return redirect(post_detail, post.pk)       
     else:
-        form = BlogPostForm(instance=post) 
+        form = CommentForm(instance=post)
     return render(request, 'blogpostform.html', {'form': form})
 
 
@@ -64,11 +64,13 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'add_comment_to_post.html', {'form': form})
 
+
 @login_required
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
     return redirect('post_detail', pk=comment.post.pk)
+
 
 @login_required
 def comment_remove(request, pk):

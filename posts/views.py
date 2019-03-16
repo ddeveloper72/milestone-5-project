@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import Post, Comment
-from .forms import CommentForm
+from .forms import PostForm, CommentForm
 
 
 # Create your views here.
@@ -43,18 +43,18 @@ def create_or_edit_a_post(request, pk=None):
         post = get_object_or_404(Post, pk=pk) if pk else None
         if request.method == "POST":
             if request.user.is_superuser or request.user.is_staff:
-                form = CommentForm(request.POST, request.FILES, instance=post)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                post = form.save()
-                return redirect(post_detail, post.pk)
-            else:
-                form = CommentForm(instance=post)
-                return render(request, 'blogpostform.html', {'form': form})
+                form = PostForm(request.POST, request.FILES, instance=post)
+                if form.is_valid():
+                    post = form.save(commit=False)
+                    post.author = request.user
+                    post = form.save()
+                    return redirect(post_detail, post.pk)
+                else:
+                    form = PostForm(instance=post)
+                    return render(request, 'blogpostform.html', {'form': form})
 
         else:
-            form = CommentForm(instance=post)
+            form = PostForm(instance=post)
             return render(request, 'blogpostform.html', {'form': form})
 
     else:

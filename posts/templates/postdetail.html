@@ -23,7 +23,7 @@
                             <p><span class="boldtext">Views: </span>{{ post.views }}</p>
                             <p><span class="boldtext mb-2">Tag: </span>{{ post.tag }}</p>
                             <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to blog</a>
-                            <a href="{% url 'edit_post' post.id %}" class="btn btn-default btn-primary mr-2 mb-2">Edit
+                            <a href="{% url 'edit_post' post.id %}" class="btn btn-default btn-primary mr-2 mb-2">Add
                                 Post</a>
                             <a class="btn btn-default btn-primary mb-2" href="{% url 'add_comment_to_post' pk=post.pk %}">Add
                                 comment</a>
@@ -33,6 +33,7 @@
                     {% if user.is_authenticated or comment.approved_comment %}
                     <div class="row">
                         <div class="col-sm-9">
+                            <hr>
                             <p><span class="boldtext">Comment by: </span><strong>{{ comment.author }}</strong></p>
                             <p class="card-text">{{ comment.comment|linebreaks }}</p>
                             <div class="date">

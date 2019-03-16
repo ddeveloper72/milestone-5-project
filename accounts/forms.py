@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
+
 class UserloginForm(forms.Form):
     """Form for user to input login details"""
     username = forms.CharField()    
@@ -16,11 +17,17 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput)
     password2 = forms.CharField(
         label="Password Confirmation",
-        widget = forms.PasswordInput)
+        widget=forms.PasswordInput)
 
-    class Meta: # Inner class is used by Djano to provide infomation about the forms.
-        model = User # Specifies the name of the model where we want to store user information
-        fields = ['username', 'email', 'password1', 'password2']
+    class Meta:
+        """
+        Inner class is used by Djano to provide infomation about the forms.
+        """
+        model = User
+        """
+        Specifies the name of the model where we want to store user information
+        """
+        fields = ['username', 'email', 'password1', 'password2']    
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -40,7 +47,3 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Passwords must match")
         
         return password2
-    
-    
-    
-    

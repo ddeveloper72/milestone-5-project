@@ -45,6 +45,8 @@ def create_or_edit_a_post(request, pk=None):
             if request.user.is_superuser or request.user.is_staff:
                 form = CommentForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
                 post = form.save()
                 return redirect(post_detail, post.pk)
             else:
@@ -65,6 +67,7 @@ def add_comment_to_post(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.author = request.user
             comment.post = post
             comment.save()
             return redirect('post_detail', pk=post.pk)

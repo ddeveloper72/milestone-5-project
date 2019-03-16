@@ -45,7 +45,7 @@
                             
                             {% if user.is_authenticated %}
                                 <li class="nav-item mr-2"><a href="{% url 'logout'  %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                <li class="nav-item mr-2"><a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a></li>        
+                                <li class="nav-item mr-2"><a href="{% url 'profile' %}"><i class="fas fa-user"></i> {{ user }}'s Profile</a></li>        
                             {% else %}        
                                 <li class="nav-item mr-2"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                                 <li class="nav-item mr-2"><a href="{% url 'registration' %}"><i class="fas fa-user-plus"></i> Register</a></li>

@@ -2,31 +2,31 @@
 {% block content %}
 {% for post in posts %}
 <div class="container mt-5">
-    <div class="row">        
-        <div class="card">
-            <div class="col-md-2 col-sm-3 text-center">
-                <a href="#" class="story"><img class="card-img-top img-circle mt-3" src="{{ MEDIA_URL }}{{ post.image }}"
-                        alt="Profile image"></a>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="col-md-2 col-sm-4 text-center">
+                    <a href="{% url 'post_detail' post.id %}" class="story"><img class="card-img-top img-circle mt-3"
+                            src="{{ MEDIA_URL }}{{ post.image }}" alt="Profile image"></a>
+                    <p><span class="boldtext mt-2">Author: </span>{{ post.author }}</p>
+                </div>
+                <div class="col-md-10 col-sm-9">
+                    <h3 class="card-title">{{ post.title }}</h3>
+                    <div class="row">
 
-                <p><span class="boldtext mt-2">Author: </span>{{ post.author }}</p>
-            </div>
+                        <div class="col-sm-12">
+                            <p class="card-text">{{ post.content|truncatewords:30}}</p>
+                            <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Read more</a></p>
+                            <p><span class="boldtext">Published on: </span> {{ post.published_date }}</p>
+                            <p><span class="boldtext">Views: </span>{{ post.views }}</p>
+                            <p><span class="boldtext">Tag: </span>{{ post.tag }}</p>
+                            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+                        </div>
 
-            <div class="col-md-10 col-sm-9">
-                <h3 class="card-title">{{ post.title }}</h3>
-                <div class="row">
-
-                    <div class="col-sm-12">
-                        <p class="card-text">{{ post.content|truncatewords:30}}</p>
-                        <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Read more</a></p>
-                        <p><span class="boldtext">Published on: </span> {{ post.published_date }}</p>
-                        <p><span class="boldtext">Views: </span>{{ post.views }}</p>
-                        <p><span class="boldtext">Tag: </span>{{ post.tag }}</p>
-                        <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
                     </div>
-
-                </div>          
+                </div>
+                <hr>
             </div>
-            <hr>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="col-md-2 col-sm-4 text-center">
+
                     <a href="{% url 'post_detail' post.id %}" class="story"><img class="card-img-top img-circle mt-3"
                             src="{{ MEDIA_URL }}{{ post.image }}" alt="Profile image"></a>
                     <p><span class="boldtext mt-2">Author: </span>{{ post.author }}</p>
@@ -20,7 +21,7 @@
                             <p><span class="boldtext">Published on: </span> {{ post.published_date }}</p>
                             <p><span class="boldtext">Views: </span>{{ post.views }}</p>
                             <p><span class="boldtext">Tag: </span>{{ post.tag }}</p>
-                            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+                            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
                         </div>
 
                     </div>

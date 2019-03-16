@@ -15,7 +15,7 @@ class Post(models.Model):
     published_date = models.DateTimeField(blank=True, null=True,
                                             default=timezone.now)
     views = models.IntegerField(default=0)
-    tag = models.CharField(max_length=30, blank=True, null=True)
+    tag = models.CharField(max_length=60, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
     author = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 

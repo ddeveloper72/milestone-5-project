@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
-
+Add a Comment
 {% block content %}
 <div class="container mt-5">
     <div class="card">
@@ -10,7 +10,6 @@
                     <h1 class="card-title">New comment</h1>
                     <div class="row">
                         <div class="col-sm-12">
-
                             <form method="POST" enctype="multipart/form-data" class="post-form">
                                 {% csrf_token %}
                                 {% bootstrap_form form %}

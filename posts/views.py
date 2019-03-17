@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
+from django.contrib import messages
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 
@@ -79,12 +80,20 @@ def add_comment_to_post(request, pk):
 @login_required
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    comment.approve()
-    return redirect('post_detail', pk=comment.post.pk)
-
+    if request.user.is_superuser or request.user.is_staff:
+        comment.approve()
+        return redirect('post_detail', pk=comment.post.pk)
+    else:
+        messages.info(request, "A staff member will review your post")         
+        return redirect('post_detail', pk=comment.post.pk)
 
 @login_required
 def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    comment.delete()
-    return redirect('post_detail', pk=comment.post.pk)
+    if request.user.is_superuser or request.user.is_staff:
+        comment.delete()
+        return redirect('post_detail', pk=comment.post.pk)
+    else:
+        messages.info(request, "Only a staff member can remove a comment.")    
+        return redirect('post_detail', pk=comment.post.pk)
+

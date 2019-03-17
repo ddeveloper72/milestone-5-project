@@ -35,11 +35,11 @@ Home
                             <li>Date Joined: {{ profile.date_joined }}</li>
                             <li>Is Staff: {{ profile.is_staff }}</li>
                             <li>Is Active: {{ profile.is_active }}</li>
-                            {% else %}
-                            <ol>
-                                <li>The List is empty</li>
-                            </ol>
-
+                        </ol>
+                        {% else %}
+                        <ol>
+                            <li>The List is empty</li>
+                        </ol>
                     </div>
                     {% endif %}
                 </div>
@@ -47,6 +47,5 @@ Home
         </div>
     </div>
 </div>
-</div>
-</div>
+
 {% endblock content %}

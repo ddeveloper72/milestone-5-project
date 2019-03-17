@@ -109,11 +109,16 @@ def registration(request):
         "registration_form": registration_form})
 
 
+@login_required
 def user_profile(request):
-    """T
-    he user's profile page
+    """
+    Get the user's profile page
     """
     user = User.objects.get(email=request.user.email)
     return render(request, 'profile.html', {"profile": user})
+
+
+
+    
 
 

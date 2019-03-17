@@ -20,14 +20,14 @@ def auth_index(request):
     Generate the views for the authorized customer if logged in.
     """
     user = User.objects.get(email=request.user.email)
-    return render(request, 'auth_index.html', {"profile": user})
+    return render(request, 'index.html', {"profile": user})
 
 
 @login_required
 def logout(request):
     """
     Log the user out, if the user is already logged in.
-    """    
+    """
     auth.logout(request)
     messages.success(request, "You have been successfully logged out!")
     return redirect(reverse('index'))
@@ -48,7 +48,7 @@ def login(request):
 
         if login_form.is_valid():
             user = auth.authenticate(username=request.POST['username'],
-                                      password=request.POST['password'])
+                                     password=request.POST['password'])
 
             if user:
                 auth.login(user=user, request=request)
@@ -56,8 +56,7 @@ def login(request):
                 return redirect(reverse('index'))
                 """
                 security which prevents access to the login page via url bar
-                """               
-
+                """
             else:
                 login_form.add_error(None,
                                     "Your username or password is \

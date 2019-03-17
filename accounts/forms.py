@@ -45,5 +45,5 @@ class UserRegistrationForm(UserCreationForm):
 
         if password1 != password2:
             raise ValidationError("Passwords must match")
-                 
+                
         return password2

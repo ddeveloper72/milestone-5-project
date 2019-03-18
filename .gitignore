@@ -1,8 +1,11 @@
 env
 .vscode
-*.code-workspace
 config.py
 __pycache__
 db.sqlite3
+media/
 .coverage
-drone.sqlite3
+*.code-workspace
+*.sqlite3
+*.pyc
+*.png

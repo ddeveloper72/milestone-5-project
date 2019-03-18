@@ -14,10 +14,14 @@ def get_posts(request):
     of Posts that were published prior to 'now'
     and render them to the 'blogpost.html' template.
     """
+    try:
+        posts = Post.objects.filter(published_date__lte=timezone.now()
+                                    ).order_by('-published_date')
+        return render(request, "blogposts.html", {'posts': posts})
+    except:
+        messages.info(request, "There are no posts yet")
+        return redirect(reverse('get_posts'))
 
-    posts = Post.objects.filter(published_date__lte=timezone.now()
-                                ).order_by('-published_date')
-    return render(request, "blogposts.html", {'posts': posts})
 
 
 def post_detail(request, pk):
@@ -27,11 +31,14 @@ def post_detail(request, pk):
     render it to the 'postdetail.html' template,
     or return an error if the post is not found.
     """
-
-    post = get_object_or_404(Post, pk=pk)
-    post.views += 1
-    post.save()
-    return render(request, "postdetail.html", {'post': post})
+    try:
+        post = get_object_or_404(Post, pk=pk)
+        post.views += 1
+        post.save()
+        return render(request, "postdetail.html", {'post': post})
+    except:
+        messages.info(request, "There are no posts yet")
+        return redirect(reverse('get_posts'))
 
 
 def create_or_edit_a_post(request, pk=None):

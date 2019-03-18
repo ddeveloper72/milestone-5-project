@@ -14,7 +14,7 @@ Home
         <div class="col-sm-12">
             <div class="card">
                 <div>
-                    <h4>{{ user }}'s User Profile:</h4>
+                    <h3 class="mx-3">{{ user }}'s User Profile:</h3>
                 </div>
                 {% block alert_message %}
                 {% endblock alert_message %}  
@@ -35,6 +35,13 @@ Home
                             <li>The List is empty</li>
                         </ol>
                     </div>
+                    {% endif %}               
+                    {% if user.is_superuser or user.is_staff %}
+                    <div>
+                        <h4 class="mx-3">Admin Blog Entry</h4>
+                        <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3">New
+                            Post</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>

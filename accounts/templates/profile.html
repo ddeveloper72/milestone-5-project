@@ -16,14 +16,8 @@ Home
                 <div>
                     <h4>{{ user }}'s User Profile:</h4>
                 </div>
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{ message }}
-                </div>
-                {% endfor %}
+                {% block alert_message %}
+                {% endblock alert_message %}  
                 <div class="row">
                     {% if profile %}
                     <div class="col-sm-12">

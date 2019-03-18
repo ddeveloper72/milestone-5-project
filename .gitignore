@@ -5,3 +5,4 @@ config.py
 __pycache__
 db.sqlite3
 .coverage
+drone.sqlite3

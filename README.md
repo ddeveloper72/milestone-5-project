@@ -111,6 +111,31 @@ The statistical information will be collected and presented to the customers to 
 3. Code Development
 4. Deployment Instructions
 
+    1. Instructions for deployment to a hosing site: [Heroku](https://www.heroku.com/)
+
+    In Heroku - Part 1
+
+    1. Log into Heroku
+    2. Select New and Create new App.
+    3. Create a App name, select the region.
+        - then Create app.    
+    4. Select Resources tab, search for add-on
+        - Add Heroku Postgres SQL database, choosing the free hobby plan.
+    5. Select the Settings tab, then select Reveal Config Vars
+        - Verify the new `DATABASE_URL` and value is there for the Postgres database.
+        - Copy and paste the key, value into the workspace settings in VSCode used for environmental settings.
+        - Add a new `SECRET_KEY` key, value pair from your VSCode environmental settings to the heroku Confic Vars
+
+    In VSCode - Part 2
+
+
+    1. From the command pallet, select Developer: Reload Window to reload the project workspace settings
+    2. In the command line, start the virtual environment for the project.
+    3. Test connection to the new Postgres database by noting the instructions from the command line.
+        - Connecting to the local SQLite database should not occur.
+        - There will be an instruction to run python manage.py migrate
+        - A new superuser will be required for the new Postgres database, run python manage.py creatsuperuser and fill in the required superuser details.
+
 #### 4. SQLite3 / PostgreSQL Database Schema
 
 #### 5. Development & Testing

@@ -37,7 +37,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = development
 
 ALLOWED_HOSTS = [
-    os.environ.get('localhost', '127.0.0.1')
+    os.environ.get('localhost', '127.0.0.1'),
+    'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
 

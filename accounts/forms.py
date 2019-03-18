@@ -5,13 +5,17 @@ from django.core.exceptions import ValidationError
 
 
 class UserloginForm(forms.Form):
-    """Form for user to input login details"""
+    """
+    Form for user to input login details
+    """
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(UserCreationForm):
-    """Frorm is used to register the user"""    
+    """
+    Frorm is used to register the user
+    """
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput)
@@ -27,7 +31,7 @@ class UserRegistrationForm(UserCreationForm):
         """
         Specifies the name of the model where we want to store user information
         """
-        fields = ['username', 'email', 'password1', 'password2']    
+        fields = ['username', 'email', 'password1', 'password2']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -45,5 +49,4 @@ class UserRegistrationForm(UserCreationForm):
 
         if password1 != password2:
             raise ValidationError("Passwords must match")
-                
         return password2

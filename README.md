@@ -1,6 +1,7 @@
 # Milestone 5 Project
 
-## Custom Drone deBug
+## [Custom Drone Systems](https://ddeveloper72-custom-drone.herokuapp.com/)
+*for customizing your drone's navigation systems*
 
 ![Index](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/landing_page.png "Django Landing Page")
 
@@ -59,7 +60,7 @@ The statistical information will be collected and presented to the customers to 
 |                                                             | A landing page will host visually appealing and textual information about our products and services.  | Tree Structure |
 |                                                             | A login and new user registration button will be available from the navigation bar.  |  |
 | How is it logically grouped?                                | A user will be prompted for their username to log in. If one does not exist, they will be prompted to setup a new profile. Their profile name and email address will need to be unique, different from all the other profiles.  | Start/home page |
-|                                                             | The user   |  |
+|                                                             |   |  |
 |                                                             |   |  |
 |                                                             |   |  |
 |                                                             |   |  |

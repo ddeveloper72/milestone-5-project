@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'landing_page',
     'accounts',
     'posts',
+    'userprofile',
     'storages',
 ]
 
@@ -89,6 +90,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'drone_debug.wsgi.application'
+
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
 
 # Database

@@ -98,12 +98,16 @@ if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse(
                             os.environ.get('DATABASE_URL'))}
 else:
-    print("Database URL not found. Using SQLite instead")
+    print("Database URL not found. Using MySQL instead")
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'drone.sqlite3'),
-        }
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'drone',
+            'USER': os.environ.get('USER'),
+            'PASSWORD': os.environ.get('PASSWORD'),
+            'HOST': os.environ.get('HOST'),
+            'PORT': os.environ.get('PORT'),        
+            }
     }
 
 

@@ -103,4 +103,3 @@ def comment_remove(request, pk):
     else:
         messages.info(request, "Only a staff member can remove a comment.")    
         return redirect('post_detail', pk=comment.post.pk)
-

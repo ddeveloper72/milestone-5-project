@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def user_profile(request):
-    user = User.objects.get(email=request.user.email)    
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
@@ -17,4 +16,6 @@ def user_profile(request):
         profile = user.profile
         form = UserProfileForm(instance=profile)
 
-    return render(request, 'profile.html', {'form': form}, {"profile": user})
+    user = User.objects.get(email=request.user.email)
+    return render(request, 'profile.html', {'profile': user,
+                                            'form': form})

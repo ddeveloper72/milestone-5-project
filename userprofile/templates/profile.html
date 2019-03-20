@@ -10,9 +10,10 @@ Home
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-sm-12">
             <div class="card">
+            <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 col-md-9">
                 <div>
                     <h4>{{ user }}'s User Profile:</h4>
                 </div>
@@ -23,12 +24,13 @@ Home
 
                 {% block alert_message %}
                 {% endblock alert_message %} 
-                
+                <div class="col-sm-12">
                  <form method="POST">
                     {% csrf_token %}
                     {%  bootstrap_form form  %}
                     <button type="submit" class="btn btn-default btn-primary">Update</button>
                 </form>
+                </div>
                 <div class="row">
                     {% if profile %}
                     <div class="col-sm-12">
@@ -50,6 +52,7 @@ Home
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 

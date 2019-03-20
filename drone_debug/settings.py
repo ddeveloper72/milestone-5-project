@@ -105,7 +105,7 @@ else:
             'NAME': 'drone',
             'USER': os.environ.get('USER'),
             'PASSWORD': os.environ.get('PASSWORD'),
-            'HOST': os.environ.get('HOST'),
+            'HOST': os.environ.get('localhost', '127.0.0.1'),
             'PORT': os.environ.get('PORT'),        
             }
     }

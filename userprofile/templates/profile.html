@@ -24,9 +24,9 @@ Home
                 {% block alert_message %}
                 {% endblock alert_message %} 
                 
-                <form action=""{% url 'profile' %}" metod="post">
+                 <form method="POST">
                     {% csrf_token %}
-                    {{ form.as_url }}
+                    {%  bootstrap_form form  %}
                     <button type="submit" class="btn btn-default btn-primary">Update</button>
                 </form>
                 <div class="row">

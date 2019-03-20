@@ -98,7 +98,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 if "DATABASE_URL" in os.environ:
-    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))} 
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 else:
     print("Database URL not found. Using SQLite instead")
     DATABASES = {
@@ -107,7 +107,7 @@ else:
             'NAME': 'drone',
             'USER': os.environ.get('USER'),
             'PASSWORD': os.environ.get('PASSWORD'),
-            'HOST': os.environ.get('HOST'),
+            'HOST': os.environ.get('localhost', '127.0.0.1'),
             'PORT': os.environ.get('PORT'),        
             }
     }

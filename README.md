@@ -1,7 +1,8 @@
 # Milestone 5 Project
 
 ## [Custom Drone Systems](https://ddeveloper72-custom-drone.herokuapp.com/)
-*for customizing your drone's navigation systems*
+
+* for customizing your drone's navigation systems *
 
 ![Index](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/landing_page.png "Django Landing Page")
 
@@ -22,10 +23,10 @@ Customers will be able to upvote a bug report made by another customer, should t
 The statistical information will be collected and presented to the customers to show the time line spent on bug resolution and update roll-out.
 
 ## 2. The UX Design
-*(This template is with thanks from 
-@sarahloh)*
 
-#### Strategy
+* (This template is with thanks from @sarahloh) *
+
+### Strategy
 
 | Focus                                                       | User Needs                                                            | Business Objectives                             |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
@@ -38,7 +39,7 @@ The statistical information will be collected and presented to the customers to 
 |                                                             | Customer development authority | Collaborate on needs so we can develop of turnkey features |
 |
 
-#### Scope
+### Scope
 
 | Focus                                                       | Functional Specification                                              | Content Requirements                            |
 |-------------------------------------------------------------|-----------------------------------------------------------------------|-------------------------------------------------|
@@ -52,7 +53,7 @@ The statistical information will be collected and presented to the customers to 
 |                                                             |   |  |
 
 
-#### Structure
+### Structure
 
 | Focus                                                       | Interaction Design                                                     | Information Architecture                       |
 |-------------------------------------------------------------|------------------------------------------------------------------------|------------------------------------------------|
@@ -65,7 +66,7 @@ The statistical information will be collected and presented to the customers to 
 |                                                             |   |  |
 |                                                             |   |  |
 
-#### Skeleton
+### Skeleton
 
 | Focus                                                       | Interface Design                                       | Navigational Design  | Information Design  |
 |-------------------------------------------------------------|--------------------------------------------------------|----------------------|---------------------|
@@ -77,7 +78,7 @@ The statistical information will be collected and presented to the customers to 
 |                                                             |  |  |  |
 |                                                             |  |  |  |
 
-#### Surface
+### Surface
 
 | Focus                                                       | Visual Design                       |
 |-------------------------------------------------------------|-------------------------------------|
@@ -85,9 +86,9 @@ The statistical information will be collected and presented to the customers to 
 |                                                             |  |
 | What colours, typography and design elements will be used?  |  |
 
-##### Wireframes
+### Wireframes
 
-#### 3. Application Construction
+## 3. Application Construction
 
 1. Tools used
 
@@ -107,6 +108,7 @@ The statistical information will be collected and presented to the customers to 
    * [Django Girls Tutorial: Extensions](https://tutorial-extensions.djangogirls.org/en/)
    * [Amazon AWS](https://aws.amazon.com/)
    * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
+   * [How to Extend Django User Model](https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#abstractuser)
 
 3. Code Development
 4. Deployment Instructions
@@ -118,13 +120,13 @@ The statistical information will be collected and presented to the customers to 
     1. Log into Heroku
     2. Select New and Create new App.
     3. Create a App name, select the region.
-        - then Create app.    
+        - then Create app.
     4. Select Resources tab, search for add-on
         - Add Heroku Postgres SQL database, choosing the free hobby plan.
     5. Select the Settings tab, then select Reveal Config Vars
         - Verify the new `DATABASE_URL` and value is there for the Postgres database.
         - Copy and paste the key, value into the workspace settings in VSCode used for environmental settings.
-        - Add a new `SECRET_KEY` key, value pair from your VSCode environmental settings to the heroku Confic Vars
+        - Add a new `SECRET_KEY` key, value pair from your VSCode environmental settings to the heroku Config Vars
 
     In VSCode - Part 2
 
@@ -136,9 +138,9 @@ The statistical information will be collected and presented to the customers to 
         - There will be an instruction to run python manage.py migrate
         - A new superuser will be required for the new Postgres database, run python manage.py creatsuperuser and fill in the required superuser details.
 
-#### 4. SQLite3 / PostgreSQL Database Schema
+## 4. SQLite3 / PostgreSQL Database Schema
 
-#### 5. Development & Testing
+## 5. Development & Testing
 
 ### Debugging Strategy
 
@@ -146,7 +148,7 @@ The statistical information will be collected and presented to the customers to 
 
 ### _The fixes implemented_
 
-#### 6. Credits
+## 6. Credits
 
 ### by Duncan Falconer for the Code Institute, 2019
 

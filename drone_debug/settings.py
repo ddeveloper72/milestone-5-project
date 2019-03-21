@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'landing_page',
     'accounts',
     'posts',
+    'userprofile',
     'storages',
 ]
 
@@ -90,15 +91,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drone_debug.wsgi.application'
 
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 if "DATABASE_URL" in os.environ:
-    DATABASES = {'default': dj_database_url.parse(
-                            os.environ.get('DATABASE_URL'))}
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 else:
-    print("Database URL not found. Using SQLite instead")
+    print("Database URL not found. Using MySQL instead")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

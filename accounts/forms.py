@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 
+
 class UserloginForm(forms.Form):
     """
     Form for user to input login details
@@ -50,3 +51,25 @@ class UserRegistrationForm(UserCreationForm):
         if password1 != password2:
             raise ValidationError("Passwords must match")
         return password2
+
+
+class UserNameForm(forms.ModelForm):
+    """
+    Frorm is used to register first and last name
+    """
+  
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}))
+    email = forms.EmailField(required=True)
+ 
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(email=email).exclude(username=username):
+            raise forms.ValidationError(u'Email address must be unique')
+        return email
+  

@@ -3,11 +3,13 @@ env
 config.py
 __pycache__
 db.sqlite3
+drone.sqlite3
 media/
 .coverage
 *.code-workspace
 *.sqlite3
 *.pyc
 *.png
+drone.db
 drone.mwb
 drone.mwb.bak

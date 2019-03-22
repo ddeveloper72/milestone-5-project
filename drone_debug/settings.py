@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'landing_page',
+    'issue_tracker',
     'accounts',
     'blog',
     'userprofile',

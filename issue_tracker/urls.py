@@ -5,5 +5,5 @@ from issue_tracker import views
 # CRUD operation url templates
 urlpatterns = [
     path('', views.get_issues,
-         name='get_posts')
+         name='get_issues')
 ]

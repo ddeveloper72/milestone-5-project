@@ -22,6 +22,7 @@
                             <p><span class="boldtext">Published on: </span>{{ issue.published_date }}</p>
                             <p><span class="boldtext">Views: </span>{{ issue.views }}</p>
                             <p><span class="boldtext mb-2">Tag: </span>{{ issue.tag }}</p>
+                            <p><span class="boldtext">Category: </span>{{ issue.genre }}</p>
                             <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to Issues</a>
                             <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2">New
                                 Bug</a>

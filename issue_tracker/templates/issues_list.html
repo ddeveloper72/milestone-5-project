@@ -23,6 +23,7 @@
                             <p><span class="boldtext">Published on: </span> {{ issue.published_date }}</p>
                             <p><span class="boldtext">Views: </span>{{ issue.views }}</p>
                             <p><span class="boldtext">Tag: </span>{{ issue.tag }}</p>
+                            <p><span class="boldtext">Category: </span>{{ issue.genre }}</p>
                             <a href="{% url 'issue_detail' pk=issue.pk %}">Comments: {{ issue.approved_comments.count }}</a>
                         </div>
 

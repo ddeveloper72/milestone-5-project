@@ -45,23 +45,45 @@ def issue_detail(request, pk):
 
 
 @login_required
-def create_or_edit_a_issue(request, pk=None):
+def new_issue(request, pk=None):
     """
-    Create a view that allows us to create or
-    edit an issue depending if the Issue ID
+    Create a view that allows us to create issue depending if the Issue ID
     is null or not.
     """
-    
     if request.method == "POST":
         form = AddEditIssueFrom(request.POST, request.FILES)
         if form.is_valid():
             issue = form.save(commit=False)
             issue.author = request.user
-            issue.save()
+            issue = form.save()
             return redirect(get_issues)
+
     else:
         form = AddEditIssueFrom()
-    return render(request, 'new_issue_form.html', {'form': form})
+    return render(request, 'new_issue_form.html',
+                  {'form': form})
+
+
+@login_required
+def edit_issue(request, pk=None):
+    """
+    Create a view that allows us to edit an issue based on it product
+    jey in the issues table.
+    """
+    issue = get_object_or_404(Issue, pk=pk) if pk else None
+    if issue.author == request.user:
+        if request.method == "POST":
+            form = AddEditIssueFrom(request.POST, request.FILES,
+                                    instance=issue)
+            if form.is_valid():
+                issue = form.save(commit=False)
+                issue.author = request.user
+                issue = form.save()
+                return redirect(reverse('get_issues'))
+        else:
+            form = AddEditIssueFrom(instance=issue)
+    return render(request, 'new_issue_form.html',
+                  {'form': form})
 
 
 

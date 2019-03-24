@@ -51,15 +51,14 @@ def create_or_edit_a_issue(request, pk=None):
     edit an issue depending if the Issue ID
     is null or not.
     """
-
+    
     if request.method == "POST":
-        form = AddEditIssueFrom(request.POST, request.FILES,
-                                instance=issue)
+        form = AddEditIssueFrom(request.POST, request.FILES)
         if form.is_valid():
             issue = form.save(commit=False)
             issue.author = request.user
-            issue = form.save()
-            return redirect(get_issuesk)
+            issue.save()
+            return redirect(get_issues)
     else:
         form = AddEditIssueFrom()
     return render(request, 'new_issue_form.html', {'form': form})

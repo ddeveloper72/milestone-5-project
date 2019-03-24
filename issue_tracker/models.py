@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# Bug Categories
+
+ISSUE_GENRE = (
+    ('Navigation', 'Navigation'),
+    ('Flight Controls', 'Flight Controls'),
+    ('Auto Pilot', 'Auto Pilot'),
+    ('None', 'None'),
+)
+
 
 class Issue(models.Model):
     """
@@ -23,6 +32,8 @@ class Issue(models.Model):
     issue_author = models.ForeignKey(User, default=None,
                                      on_delete=models.CASCADE)
     priority = models.PositiveIntegerField()
+    genre = models.CharField(max_length=30, choices=ISSUE_GENRE,
+                             default='None')
 
     class Meta:
         ordering = ['-created_date']

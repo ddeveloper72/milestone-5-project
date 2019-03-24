@@ -37,3 +37,7 @@
 hr {
   border-color: aliceblue;
 }
+
+.list-group-item {
+  margin-left: -0.5rem;
+}

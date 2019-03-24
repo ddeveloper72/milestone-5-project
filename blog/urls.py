@@ -11,7 +11,7 @@ urlpatterns = [
             name='new_post'),
     re_path(r'^(?P<pk>\d+)/edit/$', views.create_or_edit_a_post,
             name='edit_post'),
-    path('post/<int:pk>/comment/', views.add_comment_to_post,
+    path('add_comment/<int:pk>/new_comment/', views.add_comment_to_post,
          name='add_comment_to_post'),
     path('comment/<int:pk>/approve/', views.comment_approve,
          name='comment_approve'),

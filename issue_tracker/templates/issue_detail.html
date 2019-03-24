@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <div class="card">
 
-                <div class="col-sm-12 col-md-4">
+                <div class="col-sm-12 col-md-6">
                     <div class="box text-center">
                         <a class="story-img" href="#">
                             <img class="card-img-top img-circle mt-3" src="{{ MEDIA_URL }}{{ issue.image }}"
@@ -14,19 +14,40 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-9">
-                    {% if issue.img %}
-                    <img src="/media/{{ issue.image }}" alt="Issue image" class="img-blogpost">
-                    {% endif %}
-
-                    <h3 class="card-title">{{ issue.title }}</h3>
+                <div class="col-sm-12">
+                   <div class="col-sm-12">
+                        <h3 class="card-title">{{ issue.title }}</h3>
+                    </div>
                     <div class="row">
+
                         <div class="col-sm-12">
-                            <p class="card-text">{{ issue.content|truncatewords:300}}</p>
-                            <p><span class="boldtext">Published on: </span>{{ issue.published_date }}</p>
-                            <p><span class="boldtext">Views: </span>{{ issue.views }}</p>
-                            <p><span class="boldtext mb-2">Tag: </span>{{ issue.tag }}</p>
-                            <p><span class="boldtext">Category: </span>{{ issue.genre }}</p>
+                            
+                                <div class="col-sm-12 col-md-6">
+                                    <p class="card-text">{{ issue.content|truncatewords:300}}</p>
+                                </div>
+                           
+                            <ul class="card">
+                                <div class="row mt-2">                                    
+                                        <div class="col-sm-12 col-md-6">
+                                            <li class="list-group-item"><span class="boldtext">Published on:
+                                                </span>{{ issue.published_date }}</li>
+                                            <li class="list-group-item"><span class="boldtext">Views:
+                                                </span>{{ issue.views }}</li>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <li class="list-group-item"><span class="boldtext mb-2">Tag:
+                                                </span>{{ issue.tag }}</li>
+                                            <li class="list-group-item"><span class="boldtext">Category:
+                                                </span>{{ issue.genre }}</li>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                                <li class="list-group-item"><a href="{% url 'issue_detail' pk=issue.pk %}">Comments: {{ issue.approved_comments.count }}</a></li>
+                                        </div>                                    
+                                </div>
+                            </ul>
+
+                        </div>
+                        <div class="col-sm-12">
                             <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
                                 Issues</a>
                             <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2">New
@@ -52,9 +73,9 @@
                             {% if author.is_superuser or author.is_staff %}
                             <p><span class="boldtext">Comment by Custom Drone: </span><i
                                     class="fas fa-user-check"><strong>{{ comment.author }}</strong></i></p>
+                                    <p></p><span class="boldtext">Comment by: </span>{{ comment.author }}</strong></i></p>
+                                    {% endif %}
                             {% else %}
-                            <p><span class="boldtext">Comment by: </span>{{ comment.author }}</strong></i></p>
-                            {% endif %}
 
                             <p class="card-text">{{ comment.comment|linebreaks }}</p>
                             <div class="date">

@@ -27,7 +27,7 @@
                             <a href="{% url 'edit_issue' issue.id %}" class="btn btn-default btn-primary mr-2 mb-2">Edit
                                 Issue</a>
                             <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2">New
-                                Issue</a>
+                                Bug</a>
                             {% endif %}
                             <a class="btn btn-default btn-primary mb-2" href="{% url 'add_comment_to_issue' pk=issue.pk %}">Add
                                 comment</a>
@@ -42,7 +42,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
-                            <p><span class="boldtext">Comment by: </span><strong>{{ comment.author }}</strong></p>
+                            {% if author.is_superuser or author.is_staff %}
+                            <p><span class="boldtext">Comment by Custom Drone: </span><i class="fas fa-user-check"><strong>{{ comment.author }}</strong></i></p>
+                            {% else %}
+                            <p><span class="boldtext">Comment by: </span>{{ comment.author }}</strong></i></p>
+                            {% endif %}
+                            
                             <p class="card-text">{{ comment.comment|linebreaks }}</p>
                             <div class="date">
                                 <p><span class="boldtext">Published on: </span>{{ comment.created_date }}</p>

@@ -17,7 +17,10 @@ User Login
                 <h4>Login:</h4>
             </div>
             {% block alert_message %}
-            {% endblock alert_message %}            
+            {% endblock alert_message %}  
+              <div>
+                <p>To Register, <a href="{% url 'registration' %}">Sign up here</a></p>
+            </div>          
             <div class="row">
                 <div class="col-sm-12">
                     <form method="POST">

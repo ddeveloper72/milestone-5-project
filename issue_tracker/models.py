@@ -29,9 +29,9 @@ class Issue(models.Model):
     views = models.IntegerField(default=0)
     tag = models.CharField(max_length=60, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
-    issue_author = models.ForeignKey(User, default=None,
-                                     on_delete=models.CASCADE)
-    priority = models.PositiveIntegerField()
+    author = models.ForeignKey(User, default=None,
+                               related_name="issue_author",
+                               on_delete=models.CASCADE)
     genre = models.CharField(max_length=30, choices=ISSUE_GENRE,
                              default='None')
 
@@ -51,11 +51,11 @@ class Comment(models.Model):
     """
     comment = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(
-        User, default=None, related_name="issue_comment_author",
-        on_delete=models.CASCADE)
+    author = models.ForeignKey(User, default=None, 
+                               related_name="issue_comment_author",
+                               on_delete=models.CASCADE)
     issue = models.ForeignKey(Issue, default=None, on_delete=models.CASCADE,
-                                     related_name='comments')
+                              related_name='comments')
     approved_comment = models.BooleanField(default=False)
     is_reported = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)

@@ -43,6 +43,7 @@ def issue_detail(request, pk):
         return redirect(reverse('get_issues'))
     """
 
+
 @login_required
 def create_or_edit_a_issue(request, pk=None):
     """
@@ -50,27 +51,19 @@ def create_or_edit_a_issue(request, pk=None):
     edit an issue depending if the Issue ID
     is null or not.
     """
-    if not request.user or request.user.is_staff or request.user.is_staff:
-        issue = get_object_or_404(Issue, pk=pk) if pk else None
-        if request.method == "POST":
-            if request.user.is_superuser or request.user.is_staff:
-                form = AddEditIssueFrom(request.POST, request.FILES,
-                                        instance=issue)
-                if form.is_valid():
-                    issue = form.save(commit=False)
-                    issue.author = request.user
-                    issue = form.save()
-                    return redirect(issue_detail, issue.pk)
-                else:
-                    form = PostForm(instance=issue)
-                    return render(request, 'new_issue_form.html', {'form': form})
 
-        else:
-            form = AddEditIssueFrom(instance=issue)
-            return render(request, 'new_issue_form.html', {'form': form})
-
+    if request.method == "POST":
+        form = AddEditIssueFrom(request.POST, request.FILES,
+                                instance=issue)
+        if form.is_valid():
+            issue = form.save(commit=False)
+            issue.author = request.user
+            issue = form.save()
+            return redirect(get_issuesk)
     else:
-        return redirect(reverse('get_issues'))
+        form = AddEditIssueFrom()
+    return render(request, 'new_issue_form.html', {'form': form})
+
 
 
 @login_required

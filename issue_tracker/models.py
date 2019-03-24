@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-import datetime
 
 # Create your models here.
 
@@ -44,7 +43,8 @@ class Comment(models.Model):
     author = models.ForeignKey(
         User, default=None, related_name="issue_comment_author",
         on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, default=None, on_delete=models.CASCADE)
+    issue = models.ForeignKey(Issue, default=None, on_delete=models.CASCADE,
+                                     related_name='comments')
     approved_comment = models.BooleanField(default=False)
     is_reported = models.BooleanField(default=False)
     is_hidden = models.BooleanField(default=False)

@@ -41,10 +41,10 @@
 }
 
 .footer {
-  position: relative;
+  position: absolute;
   display: block;
   bottom: 0;
-}
+  width: 100%;
 
 hr {
   border-color: aliceblue;

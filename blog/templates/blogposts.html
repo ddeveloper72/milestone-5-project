@@ -33,15 +33,10 @@
                 </div>
             </div>
         </div>
-        </div>
-        <hr class="featureette-divider">       
+        <hr class="featureette-divider">
 
-
-    </div>
-
-    {% endfor %}
-
-    <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
+        {% if forloop.first %}
+        <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
                 <div class="box">
                     <h3 class="card-header">Your Information
@@ -77,5 +72,7 @@
                 </div>
             </div>
         </div>
-
-    {% endblock content %}
+        {%endif%}
+    </div>
+        {% endfor %}
+        {% endblock content %}

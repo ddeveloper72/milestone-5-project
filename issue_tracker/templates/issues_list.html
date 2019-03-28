@@ -24,20 +24,24 @@
                     <ul class="list-group list-group-flush">
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Published on: </span>
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Published on:
+                                    </span>
                                     {{ issue.published_date }}</li>
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Views: </span>{{ issue.views }}
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Views:
+                                    </span>{{ issue.views }}
                                 </li>
                             </div>
 
                             <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Tag: </span>{{ issue.tag }}</li>
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Tag:
+                                    </span>{{ issue.tag }}</li>
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Category:
                                     </span>{{ issue.genre }}
                                 </li>
                             </div>
                             <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><a href="{% url 'issue_detail' pk=issue.pk %}">Comments:
+                                <li class="list-group-item list-group-flush"><a
+                                        href="{% url 'issue_detail' pk=issue.pk %}">Comments:
                                         {{ issue.approved_comments.count }}</a></li>
                             </div>
                         </div>
@@ -53,16 +57,31 @@
                     <h3 class="card-header">Your Information
                         <i class="fas fa-info-circle"></i>
                     </h3>
+
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor messages %}
+
                     <div class="card-body">
                         <p>Future Text Here</p>
-                        <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info"> 20</span> </p>
-                        <p><span class="boldtext">My Bugs: </span> <span class="badge  badge-pill badge-info"> 5</span> </p>
-                        <p><span class="boldtext">Votes toward my bugs: </span> <span class="badge  badge-pill badge-info"> 8</span>
+                        <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info">
+                                20</span> </p>
+                        <p><span class="boldtext">My Bugs: </span> <span class="badge  badge-pill badge-info"> 5</span>
                         </p>
-                        <p><span class="boldtext">Features in development: </span> <span class="badge  badge-pill badge-info">
+                        <p><span class="boldtext">Votes toward my bugs: </span> <span
+                                class="badge  badge-pill badge-info"> 8</span>
+                        </p>
+                        <p><span class="boldtext">Features in development: </span> <span
+                                class="badge  badge-pill badge-info">
                                 2</span>
                         </p>
-                        <p><span class="boldtext">Features delivered: </span> <span class="badge  badge-pill badge-success">
+                        <p><span class="boldtext">Features delivered: </span> <span
+                                class="badge  badge-pill badge-success">
                                 1</span>
                         </p>
                     </div>
@@ -85,6 +104,6 @@
         </div>
         {% endif %}
     </div>
-    </div>
-    {% endfor %}
-    {% endblock content %}
+</div>
+{% endfor %}
+{% endblock content %}

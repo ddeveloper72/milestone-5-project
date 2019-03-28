@@ -68,7 +68,7 @@ def new_issue(request, pk=None):
 def edit_issue(request, pk=None):
     """
     Create a view that allows us to edit an issue based on it product
-    jey in the issues table.
+    key in the issues table.
     """
     issue = get_object_or_404(Issue, pk=pk) if pk else None
     if issue.author == request.user:
@@ -82,6 +82,11 @@ def edit_issue(request, pk=None):
                 return redirect(reverse('get_issues'))
         else:
             form = AddEditIssueFrom(instance=issue)
+
+    messages.warning(request,
+                     "WARNING Only the author can edit their bug report")
+    return redirect('get_issues')
+
     return render(request, 'new_issue_form.html',
                   {'form': form})
 

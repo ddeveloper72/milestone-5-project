@@ -82,10 +82,10 @@ def edit_issue(request, pk=None):
                 return redirect(reverse('get_issues'))
         else:
             form = AddEditIssueFrom(instance=issue)
-
-    messages.warning(request,
-                     "WARNING Only the author can edit their bug report")
-    return redirect('get_issues')
+    else:
+        messages.warning(request,
+                         "WARNING! Only the author can edit their bug report")
+        return redirect('get_issues')
 
     return render(request, 'new_issue_form.html',
                   {'form': form})

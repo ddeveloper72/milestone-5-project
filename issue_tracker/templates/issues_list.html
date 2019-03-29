@@ -12,8 +12,13 @@
                         <h3 class="card-title">{{ issue.title }}</h3>
                     </div>
                     <div class="col-md-2 col-sm-4 text-center">
+                        {% if issue.image %}
                         <a href="{% url 'issue_detail' issue.id %}"><img class="card-img-top img-circle mt-3"
                                 src="{{ MEDIA_URL }}{{ issue.image }}" alt="Profile image"></a>
+                        {% else %}
+                        <span class="fa-placeholder"><i class="fas fa-bug"></i></span>
+                        {% endif %}
+
                         <p class="mt-3"><span class="boldtext mt-2">Author: </span>{{ issue.author }}</p>
                     </div>
                     <div class="col-md-6">

@@ -40,6 +40,11 @@
   margin-right: auto;
 }
 
+.fa-placeholder {
+  font-size: 6rem;
+  color: #f07474;
+}
+
 .footer {
   position: relative;
   display: block;

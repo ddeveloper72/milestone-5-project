@@ -13,6 +13,11 @@ ISSUE_GENRE = (
     ('None', 'None'),
 )
 
+CATEGORY_GENRE = (
+    ('BUG', 'Bug'),
+    ('FEATURE ', 'Feature'),
+)
+
 
 class Issue(models.Model):
     """
@@ -34,6 +39,8 @@ class Issue(models.Model):
                                on_delete=models.CASCADE)
     genre = models.CharField(max_length=30, choices=ISSUE_GENRE,
                              default='None')
+    category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
+                                default='Bug')
 
     class Meta:
         ordering = ['-created_date']

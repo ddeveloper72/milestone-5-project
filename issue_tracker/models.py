@@ -41,6 +41,8 @@ class Issue(models.Model):
                              default='None')
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='Bug')
+    votes = models.IntegerField(default=0)
+    issue_voters = models.ManyToManyField(User, related_name='issue_upvoters')
 
     class Meta:
         ordering = ['-created_date']

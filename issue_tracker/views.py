@@ -129,3 +129,14 @@ def comment_for_issue_remove(request, pk):
         messages.info(request, "Only a staff member can remove a comment.")    
         return redirect('issue_detail', pk=comment.issue.pk)
 
+
+@login_required
+def upvote(request, pk):
+
+    issue = get_object_or_404(Issue, pk=pk)
+    #if category == 'BUG':
+    issue.votes += 1
+    voter = request.user
+    issue.issue_voters.add(voter)
+    issue.save()
+    return redirect(reverse('get_issues'))

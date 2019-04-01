@@ -34,6 +34,8 @@
                                     </span>{{ issue.views }}</li>
                                     <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
                                     </span>{{ issue.tag }}</li>
+                                    <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
+                                    </span>{{ issue.category }}</li>
                             </div>
                             <div class="col-md-6">
                                 
@@ -61,7 +63,7 @@
                             href="{% url 'add_comment_to_issue' pk=issue.pk %}">Add
                             comment</a>
                         <a class="btn btn-default btn-primary mb-2"
-                            href="{% url 'upvote' pk=issue.pk %}">Add
+                            href="{% url 'upvote' pk=issue.pk issue.category %}">Add
                             Vote</a>
                     </div>
                 </div>

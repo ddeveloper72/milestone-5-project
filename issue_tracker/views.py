@@ -30,18 +30,15 @@ def issue_detail(request, pk):
     """
     Create a view that returns a single
     Post object based on the ID(pk) and
-    render it to the 'postdetail.html' template,
+    render it to the 'issue_detail.html' template,
     or return an error if the post is not found.
-    """
-    #try:
+    """    
+
     issue = get_object_or_404(Issue, pk=pk)
     issue.views += 1
     issue.save()
     return render(request, "issue_detail.html", {'issue': issue})
-    """  except:
-        messages.info(request, "There are no issues logged yet")
-        return redirect(reverse('get_issues'))
-    """
+
 
 
 @login_required
@@ -131,12 +128,16 @@ def comment_for_issue_remove(request, pk):
 
 
 @login_required
-def upvote(request, pk):
+def upvote(request, pk, category):
 
     issue = get_object_or_404(Issue, pk=pk)
-    #if category == 'BUG':
-    issue.votes += 1
-    voter = request.user
-    issue.issue_voters.add(voter)
-    issue.save()
-    return redirect(reverse('get_issues'))
+    if category == 'BUG':
+        issue.votes += 1
+        voter = request.user
+        issue.issue_voters.add(voter)
+        issue.save()
+        return render(request, "issue_detail.html", {'issue': issue})
+        messages.info(request, "Thank you for voting.")
+    else:
+        return redirect(get_issues)
+        

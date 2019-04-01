@@ -6,7 +6,7 @@ from issue_tracker import views
 urlpatterns = [
     path('', views.get_issues,
          name='get_issues'),
-    re_path(r'^(?P<pk>\d+)$', views.issue_detail,
+    re_path(r'^(?P<pk>\d+)/$', views.issue_detail,
             name='issue_detail'),
     re_path(r'^new/$', views.new_issue,
             name='new_issue'),

@@ -63,7 +63,7 @@
                             href="{% url 'add_comment_to_issue' pk=issue.pk %}">Add
                             comment</a>
                         <a class="btn btn-default btn-primary mb-2"
-                            href="{% url 'upvote' pk=issue.pk issue.category %}">Add
+                            href="{% url 'upvote' pk=issue.pk category=issue.category %}">Add
                             Vote</a>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ urlpatterns = [
             name='new_issue'),
     re_path(r'^(?P<pk>\d+)/edit/$', views.edit_issue,
             name='edit_issue'),
-    re_path(r'^(?P<pk>\d+)/vote/$', views.upvote,
+    re_path(r'^(?P<pk>\d+)/vote/(?P<category>.+)/$', views.upvote,
             name='upvote'),
     path('add_comment/<int:pk>/new_comment', views.add_comment_to_issue,
          name='add_comment_to_issue'),

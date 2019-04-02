@@ -4,8 +4,10 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Issue, Comment
 from .forms import AddEditIssueFrom, CommentForm
+from django.core.paginator import Paginator
 
 # Create your views here.
+
 
 
 @login_required
@@ -16,8 +18,11 @@ def get_issues(request):
     and render them to the 'issues_list.html' template.    
     """
     try:
-        issues = Issue.objects.filter(published_date__lte=timezone.now()
+        issue_list = Issue.objects.filter(published_date__lte=timezone.now()
                                       ).order_by('-published_date')
+        paginator = Paginator(issue_list, 3)
+        page = request.GET.get('page')
+        issues = paginator.get_page(page)
         return render(request, "issues_list.html", {'issues': issues})
 
     except:

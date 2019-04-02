@@ -136,8 +136,10 @@ def upvote(request, pk, category):
         bug_voter = request.user
         issue.voter.add(bug_voter)
         issue.save()
-        return render(request, "issue_detail.html", {'issue': issue})
         messages.info(request, "Thank you for voting.")
+        return redirect('issue_detail', pk=issue.pk)
     else:
-        return redirect(get_issues)
+        messages.warning(request,
+                         "WARNING! You may only upvote a BUG")
+    return redirect('issue_detail', pk=issue.pk)
         

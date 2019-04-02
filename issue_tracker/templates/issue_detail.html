@@ -34,14 +34,14 @@
                                     </span>{{ issue.views }}</li>
                                     <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
                                     </span>{{ issue.tag }}</li>
-                                    <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
+                                    <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Request Type:
                                     </span>{{ issue.category }}</li>
                             </div>
                             <div class="col-md-6">
                                 
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Category:
+                                <li class="list-group-item list-group-flush"><span class="boldtext">System Type:
                                     </span>{{ issue.genre }}</li>
-                                    <li class="list-group-item list-group-flush"><span class="boldtext">Votes:
+                                    <li class="list-group-item list-group-flush"><span class="boldtext">User Votes:
                                     </span>{{ issue.votes }}</li>
                                     <li class="list-group-item list-group-flush"><a
                                         href="{% url 'issue_detail' pk=issue.pk %}">Comments:

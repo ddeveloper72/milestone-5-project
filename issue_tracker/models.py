@@ -42,7 +42,7 @@ class Issue(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='BUG')
     votes = models.IntegerField(default=0)
-    issue_voters = models.ManyToManyField(User, related_name='issue_upvoters')
+    voter = models.ManyToManyField(User, related_name='issue_upvoters')
 
     class Meta:
         ordering = ['-created_date']

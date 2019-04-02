@@ -123,6 +123,15 @@
                         <i class="fas fa-info-circle"></i>
                     </h3>
 
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor messages %}
+
                     <div class="card-body">
                         <p>Future Text Here</p>
                         <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info">

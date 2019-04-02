@@ -133,8 +133,8 @@ def upvote(request, pk, category):
     issue = get_object_or_404(Issue, pk=pk)
     if category == 'BUG':
         issue.votes += 1
-        voter = request.user
-        issue.issue_voters.add(voter)
+        bug_voter = request.user
+        issue.voter.add(bug_voter)
         issue.save()
         return render(request, "issue_detail.html", {'issue': issue})
         messages.info(request, "Thank you for voting.")

@@ -58,6 +58,7 @@ def create_or_edit_a_post(request, pk=None):
                 if form.is_valid():
                     post = form.save(commit=False)
                     post.author = request.user
+                    post.published_date = timezone.now()
                     post = form.save()
                     return redirect(post_detail, post.pk)
                 else:
@@ -81,6 +82,9 @@ def add_comment_to_post(request, pk):
             comment.author = request.user
             comment.post = post
             comment.save()
+
+            post.published_date = timezone.now()
+            post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()

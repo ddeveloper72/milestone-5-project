@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Issue, Comment
+from .models import Issue, Comment, UserSeenIssue
 from .forms import AddEditIssueFrom, CommentForm
 from django.core.paginator import Paginator
 
@@ -37,11 +37,16 @@ def issue_detail(request, pk):
     render it to the 'issue_detail.html' template,
     or return an error if the post is not found.
     """
-
-    issue = get_object_or_404(Issue, pk=pk)
-    issue.views += 1
-    issue.save()
-    return render(request, "issue_detail.html", {'issue': issue})
+    try:
+        issue = get_object_or_404(Issue, pk=pk)
+        if not request.user.seen_issue.filter(post_id=pk).exists():
+            issue.views += 1
+            issue.save()
+            UserSeenIssue.objects.create(user=request.user,  post=issue)
+        return render(request, "issue_detail.html", {'issue': issue})
+    except:
+        messages.info(request, "There are no bugs yet")
+        return redirect(reverse('get_issues'))
 
 
 @login_required

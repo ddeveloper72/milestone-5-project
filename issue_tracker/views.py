@@ -80,6 +80,7 @@ def edit_issue(request, pk=None):
             if form.is_valid():
                 issue = form.save(commit=False)
                 issue.author = request.user
+                issue.published_date = timezone.now()
                 issue = form.save()
                 return redirect(reverse('get_issues'))
         else:

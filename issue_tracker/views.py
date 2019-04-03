@@ -9,7 +9,6 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 
-
 @login_required
 def get_issues(request):
     """
@@ -37,13 +36,12 @@ def issue_detail(request, pk):
     Post object based on the ID(pk) and
     render it to the 'issue_detail.html' template,
     or return an error if the post is not found.
-    """    
+    """
 
     issue = get_object_or_404(Issue, pk=pk)
     issue.views += 1
     issue.save()
     return render(request, "issue_detail.html", {'issue': issue})
-
 
 
 @login_required
@@ -94,7 +92,6 @@ def edit_issue(request, pk=None):
                   {'form': form})
 
 
-
 @login_required
 def add_comment_to_issue(request, pk):
     issue = get_object_or_404(Issue, pk=pk)
@@ -105,6 +102,8 @@ def add_comment_to_issue(request, pk):
             comment.author = request.user
             comment.issue = issue
             comment.save()
+            issue.published_date = timezone.now()
+            issue.save()
             return redirect('issue_detail', pk=issue.pk)
     else:
         form = CommentForm()

@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -15,8 +16,11 @@ def get_posts(request):
     and render them to the 'blogpost.html' template.
     """
     try:
-        posts = Post.objects.filter(published_date__lte=timezone.now()
+        blog_list = Post.objects.filter(published_date__lte=timezone.now()
                                     ).order_by('-published_date')
+        paginator = Paginator(blog_list, 3)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
         return render(request, "blogposts.html", {'posts': posts})
     except:
         messages.info(request, "There are no posts yet")

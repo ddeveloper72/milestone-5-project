@@ -75,3 +75,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+class UserSeenIssue(models.Model):
+    user = models.ForeignKey(User, default=None, related_name='seen_issue',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)

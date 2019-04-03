@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Post, Comment
+from .models import Post, Comment, UserSeenPosts
 from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator
 
@@ -36,8 +36,10 @@ def post_detail(request, pk):
     """
     try:
         post = get_object_or_404(Post, pk=pk)
-        post.views += 1
-        post.save()
+        if not request.user.seen_posts.filter(post_id=pk).exists():
+            post.views += 1
+            post.save()
+            UserSeenPosts.objects.create(user=request.user, post=post)
         return render(request, "postdetail.html", {'post': post})
     except:
         messages.info(request, "There are no posts yet")

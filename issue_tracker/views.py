@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Issue, Comment, UserSeenIssue
+from .models import Issue, Comment, UserSeenIssue, UserVoted
 from .forms import AddEditIssueFrom, CommentForm
 from django.core.paginator import Paginator
 
@@ -142,12 +142,18 @@ def upvote(request, pk, category):
 
     issue = get_object_or_404(Issue, pk=pk)
     if category == 'BUG':
-        issue.votes += 1
-        bug_voter = request.user
-        issue.voter.add(bug_voter)
-        issue.save()
-        messages.info(request, "Thank you for voting.")
-        return redirect('issue_detail', pk=issue.pk)
+        if not request.user.has_voted.filter(post_id=pk).exists():
+            issue.votes += 1
+            bug_voter = request.user
+            issue.voter.add(bug_voter)
+            issue.save()
+            UserVoted.objects.create(user=request.user, post=issue)
+            messages.info(request, "Thank you for voting.")
+            return redirect('issue_detail', pk=issue.pk)
+        else:
+            messages.warning(request, "You have already voted.")
+            return redirect('issue_detail', pk=issue.pk)
+
     else:
         messages.warning(request,
                          "WARNING! You may only upvote a BUG")

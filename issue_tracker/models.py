@@ -81,3 +81,9 @@ class UserSeenIssue(models.Model):
     user = models.ForeignKey(User, default=None, related_name='seen_issue',
                              on_delete=models.CASCADE)
     post = models.ForeignKey(Issue, on_delete=models.CASCADE)
+
+
+class UserVoted(models.Model):
+    user = models.ForeignKey(User, default=None, related_name='has_voted',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)

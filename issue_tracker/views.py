@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Issue, Comment
+from .models import Issue, Comment, UserSeenIssue, UserVoted
 from .forms import AddEditIssueFrom, CommentForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -16,8 +17,11 @@ def get_issues(request):
     and render them to the 'issues_list.html' template.    
     """
     try:
-        issues = Issue.objects.filter(published_date__lte=timezone.now()
+        issue_list = Issue.objects.filter(published_date__lte=timezone.now()
                                       ).order_by('-published_date')
+        paginator = Paginator(issue_list, 3)
+        page = request.GET.get('page')
+        issues = paginator.get_page(page)
         return render(request, "issues_list.html", {'issues': issues})
 
     except:
@@ -30,18 +34,19 @@ def issue_detail(request, pk):
     """
     Create a view that returns a single
     Post object based on the ID(pk) and
-    render it to the 'postdetail.html' template,
+    render it to the 'issue_detail.html' template,
     or return an error if the post is not found.
     """
-    #try:
-    issue = get_object_or_404(Issue, pk=pk)
-    issue.views += 1
-    issue.save()
-    return render(request, "issue_detail.html", {'issue': issue})
-    """  except:
-        messages.info(request, "There are no issues logged yet")
+    try:
+        issue = get_object_or_404(Issue, pk=pk)
+        if not request.user.seen_issue.filter(post_id=pk).exists():
+            issue.views += 1
+            issue.save()
+            UserSeenIssue.objects.create(user=request.user,  post=issue)
+        return render(request, "issue_detail.html", {'issue': issue})
+    except:
+        messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))
-    """
 
 
 @login_required
@@ -78,6 +83,7 @@ def edit_issue(request, pk=None):
             if form.is_valid():
                 issue = form.save(commit=False)
                 issue.author = request.user
+                issue.published_date = timezone.now()
                 issue = form.save()
                 return redirect(reverse('get_issues'))
         else:
@@ -91,7 +97,6 @@ def edit_issue(request, pk=None):
                   {'form': form})
 
 
-
 @login_required
 def add_comment_to_issue(request, pk):
     issue = get_object_or_404(Issue, pk=pk)
@@ -102,6 +107,8 @@ def add_comment_to_issue(request, pk):
             comment.author = request.user
             comment.issue = issue
             comment.save()
+            issue.published_date = timezone.now()
+            issue.save()
             return redirect('issue_detail', pk=issue.pk)
     else:
         form = CommentForm()
@@ -129,3 +136,26 @@ def comment_for_issue_remove(request, pk):
         messages.info(request, "Only a staff member can remove a comment.")    
         return redirect('issue_detail', pk=comment.issue.pk)
 
+
+@login_required
+def upvote(request, pk, category):
+
+    issue = get_object_or_404(Issue, pk=pk)
+    if category == 'BUG':
+        if not request.user.has_voted.filter(post_id=pk).exists():
+            issue.votes += 1
+            bug_voter = request.user
+            issue.voter.add(bug_voter)
+            issue.save()
+            UserVoted.objects.create(user=request.user, post=issue)
+            messages.info(request, "Thank you for voting.")
+            return redirect('issue_detail', pk=issue.pk)
+        else:
+            messages.warning(request, "You have already voted.")
+            return redirect('issue_detail', pk=issue.pk)
+
+    else:
+        messages.warning(request,
+                         "WARNING! You may only upvote a BUG")
+    return redirect('issue_detail', pk=issue.pk)
+        

@@ -50,3 +50,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+class UserSeenPosts(models.Model):
+    user = models.ForeignKey(User, default=None, related_name='seen_posts',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)

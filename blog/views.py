@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Post, Comment
+from .models import Post, Comment, UserSeenPosts
 from .forms import PostForm, CommentForm
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -15,8 +16,11 @@ def get_posts(request):
     and render them to the 'blogpost.html' template.
     """
     try:
-        posts = Post.objects.filter(published_date__lte=timezone.now()
+        blog_list = Post.objects.filter(published_date__lte=timezone.now()
                                     ).order_by('-published_date')
+        paginator = Paginator(blog_list, 3)
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
         return render(request, "blogposts.html", {'posts': posts})
     except:
         messages.info(request, "There are no posts yet")
@@ -32,8 +36,10 @@ def post_detail(request, pk):
     """
     try:
         post = get_object_or_404(Post, pk=pk)
-        post.views += 1
-        post.save()
+        if not request.user.seen_posts.filter(post_id=pk).exists():
+            post.views += 1
+            post.save()
+            UserSeenPosts.objects.create(user=request.user, post=post)
         return render(request, "postdetail.html", {'post': post})
     except:
         messages.info(request, "There are no posts yet")
@@ -54,6 +60,7 @@ def create_or_edit_a_post(request, pk=None):
                 if form.is_valid():
                     post = form.save(commit=False)
                     post.author = request.user
+                    post.published_date = timezone.now()
                     post = form.save()
                     return redirect(post_detail, post.pk)
                 else:
@@ -77,6 +84,9 @@ def add_comment_to_post(request, pk):
             comment.author = request.user
             comment.post = post
             comment.save()
+
+            post.published_date = timezone.now()
+            post.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()

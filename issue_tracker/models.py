@@ -13,6 +13,11 @@ ISSUE_GENRE = (
     ('None', 'None'),
 )
 
+CATEGORY_GENRE = (
+    ('BUG', 'Bug'),
+    ('FEATURE ', 'Feature'),
+)
+
 
 class Issue(models.Model):
     """
@@ -34,6 +39,10 @@ class Issue(models.Model):
                                on_delete=models.CASCADE)
     genre = models.CharField(max_length=30, choices=ISSUE_GENRE,
                              default='None')
+    category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
+                                default='BUG')
+    votes = models.IntegerField(default=0)
+    voter = models.ManyToManyField(User, related_name='issue_upvoters')
 
     class Meta:
         ordering = ['-created_date']
@@ -66,3 +75,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+class UserSeenIssue(models.Model):
+    user = models.ForeignKey(User, default=None, related_name='seen_issue',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)
+
+
+class UserVoted(models.Model):
+    user = models.ForeignKey(User, default=None, related_name='has_voted',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)

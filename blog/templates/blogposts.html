@@ -13,10 +13,13 @@
                     </div>
 
                     <div class="col-md-2 col-sm-4 text-center">
-
+                        {% if post.image %}
                         <a href="{% url 'post_detail' post.id %}" class="story"><img
                                 class="card-img-top img-circle mt-3" src="{{ MEDIA_URL }}{{ post.image }}"
                                 alt="Profile image"></a>
+                        {% else %}
+                        <span class="fa-placeholder"><i class="fas fa-bug"></i></span>
+                        {% endif %}
                         <p class="mt-3"><span class="boldtext mt-2">Author: </span>{{ post.author }}</p>
                     </div>
 
@@ -42,6 +45,14 @@
                     <h3 class="card-header">Your Information
                         <i class="fas fa-info-circle"></i>
                     </h3>
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor messages %}
                     <div class="card-body">
                         <p>Future Text Here</p>
                         <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info"> 20</span> </p>
@@ -70,6 +81,23 @@
                     </div>
                     {% endif %}
                 </div>
+            </div>
+            <div class="pagination justify-content-end mr-2">
+                <span class="step-links">
+                    {% if posts.has_previous %}
+                    <a href="?page=1"><i class="fas fa-angle-double-left"></i> first</a>
+                    <a href="?page={{ posts.previous_page_number }}"> previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                    </span>
+
+                    {% if post.has_next %}
+                    <a href="?page={{ posts.next_page_number }}">next</a>
+                    <a href="?page={{ posts.paginator.num_pages }}">last <i class="fas fa-angle-double-right"></i></a>
+                    {% endif %}
+                </span>
             </div>
         </div>
         {% endif %}

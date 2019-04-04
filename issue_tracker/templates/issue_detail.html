@@ -32,18 +32,21 @@
                                     </span>{{ issue.published_date }}</li>
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Views:
                                     </span>{{ issue.views }}</li>
-                            </div>
-                            <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
+                                    <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Tag:
                                     </span>{{ issue.tag }}</li>
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Category:
-                                    </span>{{ issue.genre }}</li>
+                                    <li class="list-group-item list-group-flush"><span class="boldtext mb-2">Request Type:
+                                    </span>{{ issue.category }}</li>
                             </div>
                             <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><a
+                                
+                                <li class="list-group-item list-group-flush"><span class="boldtext">System Type:
+                                    </span>{{ issue.genre }}</li>
+                                    <li class="list-group-item list-group-flush"><span class="boldtext">User Votes:
+                                    </span>{{ issue.votes }}</li>
+                                    <li class="list-group-item list-group-flush"><a
                                         href="{% url 'issue_detail' pk=issue.pk %}">Comments:
-                                        {{ issue.approved_comments.count }}</a></li>
-                            </div>
+                                        {{ issue.approved_comments.count }}</a></li>                                
+                            </div>                            
                         </div>
                     </ul>
 
@@ -56,9 +59,12 @@
                         <a href="{% url 'edit_issue' issue.id %}" class="btn btn-default btn-primary mr-2 mb-2">Edit
                             Bug</a>
                         {% endif %}
-                        <a class="btn btn-default btn-primary mb-2"
+                        <a class="btn btn-default btn-primary mr-2 mb-2"
                             href="{% url 'add_comment_to_issue' pk=issue.pk %}">Add
                             comment</a>
+                        <a class="btn btn-default btn-primary mb-2"
+                            href="{% url 'upvote' pk=issue.pk category=issue.category %}">Add
+                            Vote</a>
                     </div>
                 </div>
                 {% for comment in issue.comments.all %}
@@ -116,6 +122,15 @@
                     <h3 class="card-header">Your Information
                         <i class="fas fa-info-circle"></i>
                     </h3>
+
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor messages %}
 
                     <div class="card-body">
                         <p>Future Text Here</p>

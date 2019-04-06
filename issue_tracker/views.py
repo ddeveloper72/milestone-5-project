@@ -14,11 +14,11 @@ def get_issues(request):
     """
     Create a view that will return a list
     of Issues that were published prior to 'now'
-    and render them to the 'issues_list.html' template.    
+    and render them to the 'issues_list.html' template.
     """
     try:
         issue_list = Issue.objects.filter(published_date__lte=timezone.now()
-                                      ).order_by('-published_date')
+                                          ).order_by('-published_date')
         paginator = Paginator(issue_list, 3)
         page = request.GET.get('page')
         issues = paginator.get_page(page)
@@ -122,7 +122,7 @@ def comment_for_issue_approve(request, pk):
         comment.approve()
         return redirect('issue_detail', pk=comment.issue.pk)
     else:
-        messages.info(request, "A staff member will review your post")         
+        messages.info(request, "A staff member will review your post")
         return redirect('issue_detail', pk=comment.issue.pk)
 
 
@@ -133,7 +133,7 @@ def comment_for_issue_remove(request, pk):
         comment.delete()
         return redirect('issue_detail', pk=comment.issue.pk)
     else:
-        messages.info(request, "Only a staff member can remove a comment.")    
+        messages.info(request, "Only a staff member can remove a comment.")
         return redirect('issue_detail', pk=comment.issue.pk)
 
 
@@ -158,4 +158,3 @@ def upvote(request, pk, category):
         messages.warning(request,
                          "WARNING! You may only upvote a BUG")
     return redirect('issue_detail', pk=issue.pk)
-        

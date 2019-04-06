@@ -45,7 +45,9 @@
                                     </span>{{ issue.votes }}</li>
                                     <li class="list-group-item list-group-flush"><a
                                         href="{% url 'issue_detail' pk=issue.pk %}">Comments:
-                                        {{ issue.approved_comments.count }}</a></li>                                
+                                        {{ issue.approved_comments.count }}</a></li>
+                                    <li class="list-group-item list-group-flush"><span class="boldtext">Ticket Status:
+                                    </span>{{ issue.status }}</li>                               
                             </div>                            
                         </div>
                     </ul>

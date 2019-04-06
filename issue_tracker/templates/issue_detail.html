@@ -52,7 +52,7 @@
                     <div class="mt-4">
                         <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
                             Issues</a>
-                        {% if issue.author %}
+                        {% if user == issue.author %}
                         <a href="{% url 'edit_issue' issue.id %}" class="btn btn-default btn-primary mr-2 mb-2">Edit
                             Bug</a>
                         {% endif %}

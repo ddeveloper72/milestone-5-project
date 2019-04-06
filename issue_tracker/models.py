@@ -95,3 +95,10 @@ class UserVoted(models.Model):
     user = models.ForeignKey(User, default=None, related_name='has_voted',
                              on_delete=models.CASCADE)
     post = models.ForeignKey(Issue, on_delete=models.CASCADE)
+
+
+class UserVotedFeature(models.Model):
+    user = models.ForeignKey(User, default=None,
+                             related_name='has_voted_feature',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)

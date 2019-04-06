@@ -8,14 +8,14 @@ class AddEditIssueFrom(forms.ModelForm):
         model = Issue
         fields = ('title', 'content', 'image', 'tag', 'published_date', 'genre', 'category')
 
-    widgets = {
-        'title': forms.TextInput(
-                attrs={'placeholder': 'Add an issue'}),
-        'content': forms.Textarea(
-                attrs={'placeholder': 'Add the details about your issue'}),
-        'tag': forms.TextInput(
-                attrs={'placeholder': 'keywords identifying issue'})
-    }
+        widgets = {
+            'title': forms.TextInput(
+                    attrs={'placeholder': 'Add an issue'}),
+            'content': forms.Textarea(
+                    attrs={'placeholder': 'Add the details about your issue'}),
+            'tag': forms.TextInput(
+                    attrs={'placeholder': 'keywords identifying issue'})
+        }
 
 
 class CommentForm(forms.ModelForm):
@@ -24,7 +24,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('comment',)
 
-    widgets = {
-        'comment': forms.widgets.TextInput(
-                attrs={'placeholder': 'Add a comment about this issue?'})
-    }
+        widgets = {
+            'comment': forms.widgets.TextInput(
+                    attrs={'placeholder': 'Add a comment about this issue?'})
+        }

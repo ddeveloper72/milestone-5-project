@@ -60,9 +60,23 @@
                             href="{% url 'add_comment_to_issue' pk=issue.pk %}">Add
                             comment</a>
                         {% if user != issue.author %}
+
                         <a class="btn btn-default btn-primary mb-2"
                             href="{% url 'upvote' pk=issue.pk category=issue.category %}">Add
                             Vote</a>
+                        {% endif %}
+
+                        {% if  'FEATURE' == issue.category %}
+                        <form method="post" action="{% url 'add_to_cart' issue.pk %}">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input name="quantity" value="1" type="number" min="0" max="1" class="form-control"
+                                    placeholder="Quantity" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Add</button>
+                                </span>
+                            </div>
+                        </form>
                         {% endif %}
                     </div>
 
@@ -110,7 +124,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
             <div class="card">
@@ -164,7 +178,7 @@
                 </div>
             </div>
         </div>
-      
+
     </div>
 </div>
 

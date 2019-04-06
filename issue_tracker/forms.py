@@ -6,7 +6,7 @@ class AddEditIssueFrom(forms.ModelForm):
 
     class Meta:
         model = Issue
-        fields = ('title', 'content', 'image', 'tag', 'published_date', 'genre', 'category')
+        fields = ('title', 'content', 'image', 'tag', 'published_date', 'genre', 'category', 'status')
 
         widgets = {
             'title': forms.TextInput(

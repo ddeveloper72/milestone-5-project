@@ -15,7 +15,13 @@ ISSUE_GENRE = (
 
 CATEGORY_GENRE = (
     ('BUG', 'Bug'),
-    ('FEATURE ', 'Feature'),
+    ('FEATURE', 'Feature'),
+)
+
+TICKET_STATUS = (
+    ('To do', 'To do'),
+    ('In Progress', 'In Progress'),
+    ('Complete', 'Complete'),
 )
 
 
@@ -41,6 +47,8 @@ class Issue(models.Model):
                              default='None')
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='BUG')
+    status = models.CharField(max_length=10, choices=TICKET_STATUS,
+                              default='To do')
     votes = models.IntegerField(default=0)
     voter = models.ManyToManyField(User, related_name='issue_upvoters')
 
@@ -85,5 +93,12 @@ class UserSeenIssue(models.Model):
 
 class UserVoted(models.Model):
     user = models.ForeignKey(User, default=None, related_name='has_voted',
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(Issue, on_delete=models.CASCADE)
+
+
+class UserVotedFeature(models.Model):
+    user = models.ForeignKey(User, default=None,
+                             related_name='has_voted_feature',
                              on_delete=models.CASCADE)
     post = models.ForeignKey(Issue, on_delete=models.CASCADE)

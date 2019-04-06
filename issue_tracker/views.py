@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
-from .models import Issue, Comment, UserSeenIssue, UserVoted
+from .models import Issue, Comment, UserSeenIssue, UserVoted, UserVotedFeature
 from .forms import AddEditIssueFrom, CommentForm
 from django.core.paginator import Paginator
 

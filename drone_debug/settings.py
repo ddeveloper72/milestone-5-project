@@ -101,6 +101,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse
                  (os.environ.get('DATABASE_URL'))}
+    print("Database URL found. Using PostgreSQL")
 else:
     print("Database URL not found. Using MySQL instead")
     DATABASES = {
@@ -198,7 +199,7 @@ STATICFILES_DIRS = (
 
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
 
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, "media"),

@@ -15,7 +15,7 @@ ISSUE_GENRE = (
 
 CATEGORY_GENRE = (
     ('BUG', 'Bug'),
-    ('FEATURE ', 'Feature'),
+    ('FEATURE', 'Feature'),
 )
 
 TICKET_STATUS = (

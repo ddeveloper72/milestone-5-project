@@ -151,11 +151,20 @@ def upvote(request, pk, category):
             messages.info(request, "Thank you for voting.")
             return redirect('issue_detail', pk=issue.pk)
         else:
-            messages.warning(request, "You have already voted.")
+            messages.warning(request, "You have already voted for this bug.")
             return redirect('issue_detail', pk=issue.pk)
 
-    else:
-        messages.warning(request,
-                         "WARNING! You may only upvote a BUG")
+    elif category == 'FEATURE':
+        if not request.user.has_voted_feature.filter(post_id=pk).exists():
+            issue.votes += 1
+            feature_voter = request.user
+            issue.voter.add(feature_voter)
+            issue.save()
+            UserVotedFeature.objects.create(user=request.user, post=issue)
+            messages.info(request, "Thank you for voting.")
+            return redirect('issue_detail', pk=issue.pk)
+        else:
+            messages.warning(request, "You have already voted for this feature.")
+            return redirect('issue_detail', pk=issue.pk)
+
     return redirect('issue_detail', pk=issue.pk)
-        

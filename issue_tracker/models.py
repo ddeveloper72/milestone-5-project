@@ -51,7 +51,7 @@ class Issue(models.Model):
                               default='To do')
     votes = models.IntegerField(default=0)
     voter = models.ManyToManyField(User, related_name='issue_upvoters',
-                                   default=None,)
+                                   default=None)
     price = models.DecimalField(
         max_digits=6, decimal_places=2, default=80.00)
 

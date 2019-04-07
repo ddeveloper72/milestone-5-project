@@ -166,5 +166,3 @@ def upvote(request, pk, category):
         else:
             messages.warning(request, "You have already voted for this feature.")
             return redirect('issue_detail', pk=issue.pk)
-
-    return redirect('issue_detail', pk=issue.pk)

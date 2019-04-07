@@ -42,14 +42,28 @@
                                     </span>{{ issue.genre }}</li>
                                 <li class="list-group-item list-group-flush"><span class="boldtext">User Votes:
                                     </span>{{ issue.votes }}</li>
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Development Cost:
-                                    </span>{{ issue.price }} per hr</li>
+
                                 <li class="list-group-item list-group-flush"><a
                                         href="{% url 'issue_detail' pk=issue.pk %}">Comments:
                                         {{ issue.approved_comments.count }}</a></li>
                             </div>
                         </div>
-                    </ul>
+                    
+                    {% if  'FEATURE' == issue.category %}
+                        <li class="list-group-item list-group-flush"><span class="boldtext">Development Cost:
+                                    </span>{{ issue.price }} per hr</li>
+                        <form method="post" action="{% url 'add_to_cart' issue.id %}">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input name="quantity" type="number" value="1" min="1" max="1" class="form-control"
+                                    placeholder="Quantity" required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Add</button>
+                                </span>
+                            </div>
+                        </form>
+                        {% endif %}
+                        </ul>
 
                     <div class="mt-4">
                         <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
@@ -68,18 +82,7 @@
                             Vote</a>
                         {% endif %}
 
-                        {% if  'FEATURE' == issue.category %}
-                        <form method="post" action="{% url 'add_to_cart' issue.id %}">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input name="quantity" type="number" value="1" min="1" max="1" class="form-control"
-                                    placeholder="Quantity" required>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="submit">Add</button>
-                                </span>
-                            </div>
-                        </form>
-                        {% endif %}
+                        
                     </div>
 
                     {% for comment in issue.comments.all %}

@@ -14,8 +14,14 @@ ISSUE_GENRE = (
 )
 
 CATEGORY_GENRE = (
-    ('BUG', 'Bug'),
-    ('FEATURE ', 'Feature'),
+    ('BUG', 'BUG'),
+    ('FEATURE ', 'FEATURE'),
+)
+
+TICKET_STATUS = (
+    ('To do', 'To do'),
+    ('In Progress', 'In Progress'),
+    ('Complete', 'Complete'),
 )
 
 
@@ -41,8 +47,11 @@ class Issue(models.Model):
                              default='None')
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='BUG')
+    status = models.CharField(max_length=10, choices=TICKET_STATUS,
+                              default='To do')
     votes = models.IntegerField(default=0)
-    voter = models.ManyToManyField(User, related_name='issue_upvoters')
+    voter = models.ManyToManyField(User, related_name='issue_upvoters',
+                                   default=None,)
     price = models.DecimalField(
         max_digits=6, decimal_places=2, default=80.00)
 

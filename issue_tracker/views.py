@@ -20,8 +20,15 @@ def get_issues(request):
         issue_list = Issue.objects.filter(published_date__lte=timezone.now()
                                           ).order_by('-published_date')
         paginator = Paginator(issue_list, 3)
-        page = request.GET.get('page')
-        issues = paginator.get_page(page)
+        page = request.GET.get('page', 1)
+        try:
+            issues = paginator.page(page)
+        except PageNotAnInteger:
+            # if page is not an ineger, deliver first page
+            issues = paginator.page(1)
+        except EmptyPage:
+            # if page is out of range (eg 9999), deliver last page in range
+            issues = paginator.page(paginator.num_pages)
         return render(request, "issues_list.html", {'issues': issues})
 
     except:

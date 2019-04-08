@@ -19,8 +19,16 @@ def get_posts(request):
         blog_list = Post.objects.filter(published_date__lte=timezone.now()
                                     ).order_by('-published_date')
         paginator = Paginator(blog_list, 3)
-        page = request.GET.get('page')
-        posts = paginator.get_page(page)
+        page_request_var = "page"
+        page = request.GET.get('page', 1)
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            # if page is not an ineger, deliver first page
+            posts = paginator.page(1)
+        except EmptyPage:
+            # if page is out of range (eg 9999), deliver last page in range
+            posts = paginator.page(paginator.num_pages)
         return render(request, "blogposts.html", {'posts': posts})
     except:
         messages.info(request, "There are no posts yet")

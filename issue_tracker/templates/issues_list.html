@@ -105,7 +105,7 @@
                                 1</span>
                         </p>
                         <form action="{% url 'search' %}" method="get">
-                            <input type="text" placeholder="Search for something" name="q">
+                            <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
                             <button type="submit"><i class="fas fa-search"></i> Search</button>
                         </form>
                     </div>
@@ -128,8 +128,8 @@
             <div class="pagination justify-content-end mr-2">
                 <span class="step-links">
                     {% if issues.has_previous %}
-                    <a href="?page=1"><i class="fas fa-angle-double-left"></i> first</a>
-                    <a href="?page={{ issues.previous_page_number }}"> previous</a>
+                    <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fas fa-angle-double-left"></i> first</a>
+                    <a href="?page={{ issues.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"> previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -137,8 +137,8 @@
                     </span>
 
                     {% if issues.has_next %}
-                    <a href="?page={{ issues.next_page_number }}">next</a>
-                    <a href="?page={{ issues.paginator.num_pages }}">last <i class="fas fa-angle-double-right"></i></a>
+                    <a href="?page={{ issues.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+                    <a href="?page={{ issues.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last <i class="fas fa-angle-double-right"></i></a>
                     {% endif %}
                 </span>
             </div>

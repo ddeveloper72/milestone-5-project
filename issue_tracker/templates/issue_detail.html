@@ -179,7 +179,7 @@
                                 1</span>
                         </p>
                         <form action="{% url 'search' %}" method="get">
-                            <input type="text" placeholder="Search for something" name="q">
+                            <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
                             <button type="submit"><i class="fas fa-search"></i> Search</button>
                         </form>
                     </div>

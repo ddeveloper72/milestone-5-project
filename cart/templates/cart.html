@@ -91,6 +91,10 @@
                                 class="badge  badge-pill badge-success">
                                 1</span>
                         </p>
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" name="q">
+                            <button type="submit"><i class="fas fa-search"></i> Search</button>
+                        </form>
                     </div>
                     <div>
                         <p class="mr-2">Total <i class="fas fa-euro-sign"></i> {{ total }}</p>

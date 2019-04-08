@@ -77,7 +77,7 @@
                     <h3 class="card-header">Your Information
                         <i class="fas fa-info-circle"></i>
                     </h3>
-
+                    
                     {% for message in messages %}
                     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -104,6 +104,10 @@
                                 class="badge  badge-pill badge-success">
                                 1</span>
                         </p>
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" name="q">
+                            <button type="submit"><i class="fas fa-search"></i> Search</button>
+                        </form>
                     </div>
                     <div>
                         <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i

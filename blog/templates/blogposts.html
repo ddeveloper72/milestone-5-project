@@ -71,6 +71,10 @@
                         <p><span class="boldtext">Features delivered: </span> <span class="badge  badge-pill badge-success">
                                 1</span>
                         </p>
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" name="q">
+                            <button type="submit"><i class="fas fa-search"></i> Search</button>
+                        </form>
                     </div>
                     <div>
                         <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i

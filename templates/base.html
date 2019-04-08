@@ -60,9 +60,9 @@
             <a href="{% url 'view_cart' %}">
               <i class="fas fa-shopping-cart"></i> Cart
               {% if product_count > 0 %}
-              <span class="badge  badge-pill badge-warning">{#{ product_count }#}</span>
+              <span class="badge  badge-pill badge-warning">{{ product_count }}</span>
               {% endif %}
-            </a>
+            </a> 
           </li>
           {% else %}
           <li class="nav-item mr-2"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
@@ -76,6 +76,7 @@
   </header>
 
   <main class="container-fluid">
+
     {% block content %}
 
     {% endblock %}

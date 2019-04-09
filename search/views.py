@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render
 from django.contrib import messages
 from django.db.models import Q
 from issue_tracker.models import Issue, Comment
@@ -13,7 +13,7 @@ def do_search(request):
     """Create a search that picks up keywords from the
         Issue model
     """
-    queryset_list = Issue.objects
+    queryset_list = Issue.objects.all()
     query = request.GET.get('q')
 
     if query:
@@ -25,8 +25,8 @@ def do_search(request):
             Q(completed__icontains=query) |
             Q(status__icontains=query)
         ).distinct()  # Do not add duplicate items
-
-    paginator = Paginator(queryset_list, 1)
+    
+    paginator = Paginator(queryset_list, 2)
     page_request_var = "page"
     page = request.GET.get('page', 1)
     try:

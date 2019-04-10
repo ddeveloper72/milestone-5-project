@@ -11,7 +11,7 @@
                         <h3 class="card-title">{{ issue.title }}</h3>
                     </div>
 
-                    <div class="col-md-6 col-sm-12 text-center">
+                    <div class="col-md-4 col-sm-12 text-center">
                         {% if issue.image %}
                         <a href="{% url 'issue_detail' issue.id %}"><img class="card-img-top img-circle mt-3"
                                 src="{{ MEDIA_URL }}{{ issue.image }}" alt="Profile image"></a>
@@ -57,23 +57,33 @@
                                     </span>{{ issue.status }}
                                 </li>
                             </div>
-                        </div>
-                    
-                    {% if  'FEATURE' == issue.category %}
-                        <li class="list-group-item list-group-flush"><span class="boldtext">Development Cost:
-                                    </span>{{ issue.price }} per hr</li>
-                        <form method="post" action="{% url 'add_to_cart' issue.id %}">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input name="quantity" type="number" value="1" min="1" max="1" class="form-control"
-                                    placeholder="Quantity" required>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="submit">Add</button>
-                                </span>
+
+                            {% if  'FEATURE' == issue.category %}
+                            <div class="col-md-6">
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Development Cost:
+                                    </span>{{ issue.hours_required }} hours at <i class="fas fa-euro-sign"></i>
+                                    {{ issue.hourly_rate }} per hr.</li>
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Total Cost:
+                                    </span><i class="fas fa-euro-sign"></i> {{ total_cost }}</li>
+                                <form method="post" action="{% url 'add_to_cart' issue.id %}">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input name="quantity" type="number" value="1" min="1" max="1"
+                                            class="form-control" placeholder="Quantity" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit">Add</button>
+                                        </span>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
-                        {% endif %}
-                        </ul>
+                            <div class="col-md 6">
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Minimum Contribution:
+                                    </span>{{ issue.min_hours }} hour.
+                                </li>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </ul>
 
                     <div class="mt-4">
                         <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
@@ -92,7 +102,7 @@
                             Vote</a>
                         {% endif %}
 
-                        
+
                     </div>
 
                     {% for comment in issue.comments.all %}

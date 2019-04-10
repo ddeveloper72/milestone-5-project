@@ -14,7 +14,7 @@
                     <div class="card-header text-center">
                         <h3 class="card-title">{{ issue.title }}</h3>
                     </div>
-                    <div class="col-md-2 col-sm-4 text-center">
+                    <div class="col-md-4 col-sm-12 text-center">
                         {% if issue.image %}
                         <a href="{% url 'issue_detail' issue.id %}"><img class="card-img-top img-circle mt-3"
                                 src="{{ MEDIA_URL }}{{ issue.image }}" alt="Profile image"></a>

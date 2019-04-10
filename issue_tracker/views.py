@@ -40,17 +40,20 @@ def get_issues(request):
 def issue_detail(request, pk):
     """
     Create a view that returns a single
-    Post object based on the ID(pk) and
+    Issue object based on the ID(pk) and
     render it to the 'issue_detail.html' template,
-    or return an error if the post is not found.
+    or return an error if the issue is not found.
     """
     try:
         issue = get_object_or_404(Issue, pk=pk)
+        total_cost = issue.hours_required * 55
+
         if not request.user.seen_issue.filter(post_id=pk).exists():
             issue.views += 1
             issue.save()
-            UserSeenIssue.objects.create(user=request.user,  post=issue)
-        return render(request, "issue_detail.html", {'issue': issue})
+            UserSeenIssue.objects.create(user=request.user, post=issue)
+        return render(request, "issue_detail.html", {'issue': issue,
+                      'total_cost': total_cost})
     except:
         messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))
@@ -75,7 +78,6 @@ def new_issue(request, pk=None):
     return render(request, 'new_issue_form.html',
                   {'form': form})
 
-
 @login_required
 def edit_issue(request, pk=None):
     """
@@ -83,13 +85,32 @@ def edit_issue(request, pk=None):
     key in the issues table.
     """
     issue = get_object_or_404(Issue, pk=pk) if pk else None
+    hours_required = 0
     if issue.author == request.user:
+
         if request.method == "POST":
             form = AddEditIssueFrom(request.POST, request.FILES,
-                                    instance=issue)
+                                    instance=issue)           
+
+            if issue.genre == 'Navigation':
+                hours_required = 3
+                print(hours_required)
+                messages.info(request, "Yay were inside the loop!")
+            elif issue.genre == 'Flight Controls':
+                hours_required = 6
+                print(hours_required)
+                messages.info(request, "Yay were still inside the loop!")
+            elif issue.genre == 'Auto Pilot':
+                hours_required = 9
+                print(hours_required)
+                messages.info(request, "Yay were still inside the loop!")
+            else:
+                messages.warning(request, "Sorry there has been an error")
+
             if form.is_valid():
                 issue = form.save(commit=False)
                 issue.author = request.user
+                issue.hours_required = hours_required
                 issue.published_date = timezone.now()
                 issue = form.save()
                 return redirect(reverse('get_issues'))

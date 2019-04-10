@@ -10,7 +10,6 @@ ISSUE_GENRE = (
     ('Navigation', 'Navigation'),
     ('Flight Controls', 'Flight Controls'),
     ('Auto Pilot', 'Auto Pilot'),
-    ('None', 'None'),
 )
 
 CATEGORY_GENRE = (
@@ -44,7 +43,7 @@ class Issue(models.Model):
                                related_name="issue_author",
                                on_delete=models.CASCADE)
     genre = models.CharField(max_length=30, choices=ISSUE_GENRE,
-                             default='None')
+                             default='Navigation')
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='BUG')
     status = models.CharField(max_length=10, choices=TICKET_STATUS,
@@ -52,8 +51,10 @@ class Issue(models.Model):
     votes = models.IntegerField(default=0)
     voter = models.ManyToManyField(User, related_name='issue_upvoters',
                                    default=None)
-    price = models.DecimalField(
-        max_digits=6, decimal_places=2, default=80.00)
+    hourly_rate = models.DecimalField(
+        max_digits=6, decimal_places=2, default=55.00)
+    hours_required = models.IntegerField(default=0)
+    min_hours = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['-created_date']

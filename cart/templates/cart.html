@@ -26,16 +26,16 @@
                     <div class="col-sm-12"">
                         
                         <p>{{ item.product.content|truncatewords:90 }}</p>
-                        <p>Cost poer hour: <i class=" fas fa-euro-sign"></i> {{ item.product.price }}</p>
+                        <p>Cost for Feature: <i class=" fas fa-euro-sign"></i> {{ item.price }}</p>
                         <p>
                             <form action="{% url 'adjust_cart' item.id %}" class="form-inline" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label for="exampleInputAmount" class="sr-only">New Qty</label>
                                     <div class="input-group">
-                                        <div class="input-group-addon mr-2">Hours:</div>
+                                        <div class="input-group-addon mr-2">Item:</div>
                                         <input type="number" name="quantity" value="{{ item.quantity }}" min="0"
-                                            max="48" class="form-control" rquired="true">
+                                            max="1" class="form-control" rquired="true">
                                     </div>
                                 </div>
                                 <button class="btn btn-primary ml-2" type="submit"><i class="far fa-edit"></i>

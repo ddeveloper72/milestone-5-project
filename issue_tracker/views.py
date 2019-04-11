@@ -65,11 +65,32 @@ def new_issue(request, pk=None):
     Create a view that allows us to create issue depending if the Issue ID
     is null or not.
     """
+    genre = 'genre'
+    hours_required = 'hours_required'
+
     if request.method == "POST":
         form = AddEditIssueFrom(request.POST, request.FILES)
+
+        if request._post['genre'] == 'Navigation':
+            hours_required = 3
+            print(hours_required)
+            messages.info(request, "Yay were inside the loop!")
+        elif request._post['genre'] == 'Flight Controls':
+            hours_required = 6
+            print(hours_required)
+            messages.info(request, "Yay were still inside the loop!")
+        elif request._post['genre'] == 'Auto Pilot':
+            hours_required = 9
+            print(hours_required)
+            messages.info(request, "Yay were still inside the loop!")
+
+        else:
+            messages.warning(request, "Sorry there has been an error")
+
         if form.is_valid():
             issue = form.save(commit=False)
             issue.author = request.user
+            issue.hours_required = hours_required
             issue = form.save()
             return redirect(get_issues)
 

@@ -5,12 +5,13 @@ from .forms import MakePaymentForm, OrderForm
 from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
-from issue_tracker.models import Issues
+from issue_tracker.models import Issue
 import stripe
 
 # Create your views here.
 
 stripe.api_key = settings.STRIPE_SECRET
+
 
 @login_required()
 def checkout(request):

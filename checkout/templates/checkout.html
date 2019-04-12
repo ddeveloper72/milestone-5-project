@@ -36,7 +36,7 @@
                     <div class="card-body mt-2">
                         <p class="card-text">{{ item.product.content|truncatewords:30 }}</p>
                     </div>
-                    <div class="card-caption">
+                    <div class="card-subtitle">
                         <p>Quantity: {{ item.quantity }}</p>
                         <p><i class=" fas fa-euro-sign"></i> {{ item.price }}</p>
                     </div>
@@ -47,7 +47,7 @@
     {% endfor %}
     
         <div class="col-md-6 col-sm-12 mt-2">
-            <p>Total: <i class=" fas fa-euro-sign"></i> {{ total }}</p>
+            <p class="card-subtitle">Total: <i class=" fas fa-euro-sign"></i> {{ total }}</p>
         </div>
  
 

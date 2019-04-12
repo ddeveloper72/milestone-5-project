@@ -1,5 +1,5 @@
 from django.db import models
-from issue_tracker.models import Issues
+from issue_tracker.models import Issue
 
 # Create your models here.
 
@@ -20,9 +20,13 @@ class Order(models.Model):
 # Returning a string which is a summary of the order
 
 
-lass OrderLineItem(models.Model):
-    order = models.ForeignKey(Order, null=False)
-    product = models.ForeignKey(Issue, null=False)
+class OrderLineItem(models.Model):
+    order = models.ForeignKey(Order,
+                              on_delete=models.CASCADE,
+                              null=False)
+    product = models.ForeignKey(Issue,
+                                on_delete=models.CASCADE,
+                                null=False)
     quantity = models.IntegerField(blank=False)
 
     def __str__(self):

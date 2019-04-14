@@ -1,9 +1,17 @@
+{% block _asside %}
 <div class="col-sm-12 col-md-4 flex-first mb-sm-3">
     <div class="card">
         <div class="box">
-            <h3 class="card-header">Your Information
-                <i class="fas fa-info-circle"></i>
-            </h3>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h3>Your Information</h3>
+                    </div>
+                    <div class="offset-sm-12">
+                        <h3><i class="fas fa-info-circle ml-2"></i></h3>
+                    </div>
+                </div>
+            </div>
             {% for message in messages %}
             <div class="alert {{ message.tags }} alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -28,7 +36,7 @@
                 </p>
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
-                    <button type="submit"><i class="fas fa-search"></i> Search</button>
+                    <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
                 </form>
             </div>
             <div>
@@ -67,3 +75,4 @@
         </span>
     </div>
 </div>
+{% endblock _asside %}

@@ -15,6 +15,7 @@ stripe.api_key = settings.STRIPE_SECRET
 
 @login_required()
 def checkout(request):
+
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
@@ -29,10 +30,11 @@ def checkout(request):
             total = 0
             for id, quantity in cart.items():
                 product = get_object_or_404(Issue, pk=id)
-                total += quantity * product.price
+                price = product.hourly_rate * product.hours_required
+                total += quantity * price
                 order_line_item = OrderLineItem(
                     product=product,
-                    quantity=quantity, 
+                    quantity=quantity,
                     order=order
                     )
                 order_line_item.save()
@@ -53,7 +55,7 @@ def checkout(request):
                 messages.error(request, "your payment was successful")
                 request.session['cart'] = {}
                 # Empties the cart from the session after payment
-                return redirect(reverse('products'))
+                return redirect(reverse('get_issues'))
             else:
                 messages.error(request, "Unable to take payment")
         else:

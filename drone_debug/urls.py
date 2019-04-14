@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 from django.views.generic.base import RedirectView
+from .settings import MEDIA_ROOT
 
 favicon_view = RedirectView.as_view(url='favicon/favicon.ico', permanent=True)
 
@@ -32,4 +34,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('userprofile.urls')),
     path('search/', include('search.urls')),
+    path('media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

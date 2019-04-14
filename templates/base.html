@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,17 +19,8 @@
 
   <!-- local CSS -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block head_js %} {% endblock head_js %}
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
 
 </head>
 
@@ -62,7 +53,7 @@
               {% if product_count > 0 %}
               <span class="badge  badge-pill badge-warning">{{ product_count }}</span>
               {% endif %}
-            </a> 
+            </a>
           </li>
           {% else %}
           <li class="nav-item mr-2"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
@@ -84,14 +75,26 @@
 
   <footer class="footer mt-auto">
     <div class="container">
-      <p class="text-muted text-center mt-5">Milestone 5 project for the Code Institute <span class="ml-sm-2 ml-md-5">Duncan
+      <p class="text-muted text-center mt-5">Milestone 5 project for the Code Institute <span
+          class="ml-sm-2 ml-md-5">Duncan
           Falconer, 2018</span> <a href="https://github.com/ddeveloper72/milestone-5-project" target="_blank"><i
             class="fab fa-github"></i></a></p>
     </div>
   </footer>
 
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+{% block body_js %} {% endblock body_js %}
 </body>
 
 </html>

@@ -56,6 +56,8 @@ class Issue(models.Model):
         max_digits=6, decimal_places=2, default=55.00)
     hours_required = models.IntegerField(default=0)
     min_hours = models.IntegerField(default=1)
+    purchased = models.IntegerField(default=0)
+    paid = models.BooleanField(default=False, blank=False)
 
     class Meta:
         ordering = ['-created_date']
@@ -107,17 +109,3 @@ class UserVotedFeature(models.Model):
                              related_name='has_voted_feature',
                              on_delete=models.CASCADE)
     post = models.ForeignKey(Issue, on_delete=models.CASCADE)
-
-
-class FeatureOrders(models.Model):
-    title = models.CharField(max_length=140,
-                             blank=False)
-    author = models.ForeignKey(User, default=None,
-                               related_name="issue_author",
-                               on_delete=models.CASCADE)
-    purchased = models.IntegerField(default=0)
-    paid = models.BooleanField(default=False, blank=False)
-
-    def __str__(self):
-        return self.feature_title
-        

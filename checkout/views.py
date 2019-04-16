@@ -50,9 +50,18 @@ def checkout(request):
                 # is multiplied by a factor of 100
             except stripe.error.CardError:
                 messages.error(request, "Your card was declined!")
-
+            # Collect statistics on features purchsed
             if customer.paid:
-                messages.error(request, "your payment was successful")
+
+                for id, quantity in cart.items():
+                    issue = get_object_or_404(Issue, pk=id)
+                    purchased = issue.purchased
+                    issue.purchased = purchased + 1
+                    if issue.paid is False:
+                        issue.paid = True
+                    issue.save()
+
+                messages.success(request, "your payment was successful")
                 request.session['cart'] = {}
                 # Empties the cart from the session after payment
                 return redirect(reverse('get_issues'))

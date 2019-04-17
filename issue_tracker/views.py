@@ -99,6 +99,7 @@ def new_issue(request, pk=None):
     return render(request, 'new_issue_form.html',
                   {'form': form})
 
+
 @login_required
 def edit_issue(request, pk=None):
     """
@@ -184,6 +185,19 @@ def comment_for_issue_remove(request, pk):
     else:
         messages.info(request, "Only a staff member can remove a comment.")
         return redirect('issue_detail', pk=comment.issue.pk)
+
+
+@login_required
+def remmove_item(request, pk):
+    issue = get_object_or_404(Issue, pk=pk)
+    if request.user.is_superuser or request.user.is_staff:
+        issue.delete()
+        messages.warning(request,
+                         "The item has been removed")
+        return redirect('get_issues')
+    else:
+        messages.info(request, "Only a staff member can remove an item.")
+        return redirect('issue_detail', pk=issue.issue.pk)
 
 
 @login_required

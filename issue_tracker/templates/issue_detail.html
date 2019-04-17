@@ -60,15 +60,15 @@
                                 </li>
                                 {% else %}
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Minimum
-                                    Contribution:
-                                </span>{{ issue.min_hours }} hour.
+                                        Contribution:
+                                    </span>{{ issue.min_hours }} hour.
                                 </li>
                                 {% endif %}
                             </div>
 
                             {% if  'FEATURE' == issue.category %}
                             <div class="col-md-6">
-                                
+
                                 <form method="post" action="{% url 'add_to_cart' issue.id %}">
                                     {% csrf_token %}
                                     <div class="input-group">
@@ -97,7 +97,8 @@
                         {% if user != issue.author %}
 
                         <a class="btn btn-default btn-primary mb-2"
-                            href="{% url 'upvote' pk=issue.pk category=issue.category %}"><i class="far fa-thumbs-up"></i> Add
+                            href="{% url 'upvote' pk=issue.pk category=issue.category %}"><i
+                                class="far fa-thumbs-up"></i> Add
                             Vote</a>
 
                         {% endif %}

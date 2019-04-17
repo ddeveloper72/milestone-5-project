@@ -27,6 +27,10 @@ body, html {
   padding: 0 0.5em;
 }
 
+.bug-complete {
+  color: #10c310;
+}
+
 /* Bootstrap card customization */
 .card-img-top {
  border-radius: calc(1.25rem - 1px);

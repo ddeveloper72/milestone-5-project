@@ -9,6 +9,17 @@ Add or Edit an Issue
 Add or Edit an Issue
 {% endblock page_heading %}
 
+{% block stylesheet %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
+{% block body_js %}
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <script>
+    var simplemde = new SimpleMDE();
+  </script>
+{% endblock body_js %}
+
 {% block content %}
 <div class="mt-3">
 

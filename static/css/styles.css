@@ -67,6 +67,10 @@ body, html {
   margin-right: auto;
 }
 
+.editor-toolbar {
+  background-color: #ffffff;
+}
+
 .fa-placeholder {
   font-size: 6rem;
   color: #f07474;

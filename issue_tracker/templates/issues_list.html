@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load humanize %}
 {% block content %}
 
 
@@ -36,9 +37,9 @@
                     <ul class="list-group list-group-flush">
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <li class="list-group-item list-group-flush"><span class="boldtext">Published on:
+                                <li class="list-group-item list-group-flush"><span class="boldtext">Published:
                                     </span>
-                                    {{ issue.published_date }}
+                                    {{ issue.published_date|naturaltime }}
                                 </li>
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Tag:
                                     </span>{{ issue.tag }}

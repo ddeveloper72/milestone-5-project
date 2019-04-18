@@ -17,8 +17,9 @@
   <!-- fontawsome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
-  <!-- local CSS -->
+    <!-- local CSS -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block stylesheet %}{% endblock stylesheet %}
   {% block head_js %} {% endblock head_js %}
 
 

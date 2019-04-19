@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import messages
 from .models import Issue, Comment, UserSeenIssue, UserVoted, UserVotedFeature
+from checkout.models import OrderLineItem
+from django.db.models import Count
 from .forms import AddEditIssueFrom, CommentForm
 from django.core.paginator import Paginator
 
@@ -19,6 +21,11 @@ def get_issues(request):
     try:
         issue_list = Issue.objects.filter(published_date__lte=timezone.now()
                                           ).order_by('-published_date')
+        total_comments = Comment.objects.filter().count()
+        votes_counted = UserVoted.objects.filter().count()
+        feature_votes_counted = UserVotedFeature.objects.filter().count()
+        features = Issue.objects.filter(category__contains='FEATURE').count()
+        sold = OrderLineItem.objects.filter().count()
         paginator = Paginator(issue_list, 3)
         page = request.GET.get('page', 1)
         try:
@@ -29,7 +36,17 @@ def get_issues(request):
         except EmptyPage:
             # if page is out of range (eg 9999), deliver last page in range
             issues = paginator.page(paginator.num_pages)
-        return render(request, "issues_list.html", {'issues': issues})
+        return render(request, "issues_list.html", {'issues': issues,
+                                                    'votes_counted':
+                                                    votes_counted,
+                                                    'feature_votes_counted':
+                                                    feature_votes_counted,
+                                                    'total_comments':
+                                                    total_comments,
+                                                    'features':
+                                                    features,
+                                                    'sold':
+                                                    sold})
 
     except:
         messages.info(request, "There are no issues logged yet")
@@ -47,6 +64,7 @@ def issue_detail(request, pk):
     try:
         issue = get_object_or_404(Issue, pk=pk)
         total_cost = issue.hours_required * 55
+        votes_counted = UserVoted.objects.filter(pk=pk).count()
 
         if not request.user.seen_issue.filter(post_id=pk).exists():
             issue.views += 1

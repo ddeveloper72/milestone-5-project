@@ -17,6 +17,6 @@ urlpatterns = [
           name='comment_approve'),
      path('comment/<int:pk>/remove/', views.comment_remove,
           name='comment_remove'),
-     path('post/<int:pk>/remove/', views.remove_post,
-          name='remove_post'),
+     re_path(r'^(?P<pk>\d+)/remove/$', views.remove_post,
+             name='remove_post'),
 ]

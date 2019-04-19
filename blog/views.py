@@ -121,3 +121,16 @@ def comment_remove(request, pk):
     else:
         messages.info(request, "Only a staff member can remove a comment.")    
         return redirect('post_detail', pk=comment.post.pk)
+
+
+@login_required
+def remove_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.user.is_superuser or request.user.is_staff:
+        post.delete()
+        messages.warning(request,
+                         "The item has been removed")
+        return redirect(reverse('get_posts'))
+    else:
+        messages.info(request, "Only a staff member can remove an item.")
+        return redirect('post_detail', pk=post.pk)

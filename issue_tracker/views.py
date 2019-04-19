@@ -64,14 +64,26 @@ def issue_detail(request, pk):
     try:
         issue = get_object_or_404(Issue, pk=pk)
         total_cost = issue.hours_required * 55
-        votes_counted = UserVoted.objects.filter(pk=pk).count()
+        total_comments = Comment.objects.filter().count()
+        votes_counted = UserVoted.objects.filter().count()
+        feature_votes_counted = UserVotedFeature.objects.filter().count()
+        features = Issue.objects.filter(category__contains='FEATURE').count()
 
         if not request.user.seen_issue.filter(post_id=pk).exists():
             issue.views += 1
             issue.save()
             UserSeenIssue.objects.create(user=request.user, post=issue)
         return render(request, "issue_detail.html", {'issue': issue,
-                      'total_cost': total_cost})
+                                                     'total_cost':
+                                                     total_cost,
+                                                     'votes_counted':
+                                                     votes_counted,
+                                                     'total_comments':
+                                                     total_comments,
+                                                     'feature_votes_counted':
+                                                     feature_votes_counted,
+                                                     'features':
+                                                     features})
     except:
         messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))

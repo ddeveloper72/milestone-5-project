@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load bootstrap4 %}
+{% block page_title %}
+Login
+{% endblock page_title %}
+
+{% block page_heading %}
+Confirm Delete
+{% endblock page_heading %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card mb-3">
+                <div class="box">
+                    <div>
+                        <h4>Confirm Delete</h4>
+                    </div>
+                    {% block alert_message %}
+                    {% endblock alert_message %}
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form method="POST" action=".">
+                                {% csrf_token %}
+                                <p>Are you sure you want to delete: "{{ post.title }}"?"</p>
+                                <p class="card-text">{{ post.get_content_as_markdown|truncatewords:20}}</p>
+                                <input type="submit" value="Confirm" class="btn btn-default btn-warning mr-2">
+                                <a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Return to
+                                    post</a>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -24,8 +24,10 @@
             {% endfor messages %}
             <div class="card-body">
                 <p>Future Text Here</p>
-                <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info"> 20</span>
+                
+                <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info"> 10</span>
                 </p>
+                
                 <p><span class="boldtext">My Bugs: </span> <span class="badge  badge-pill badge-info"> 5</span> </p>
                 <p><span class="boldtext">Votes toward my bugs: </span> <span class="badge  badge-pill badge-info">
                         {{ issue.votes }}</span>
@@ -45,9 +47,6 @@
                 <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i
                         class="fas fa-bug"></i> New
                     Bug</a>
-                <a href="#" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i class="fas fa-shopping-cart"></i>
-                    New
-                    Feature</a>
                 {% if user.is_superuser or user.is_staff %}
                 <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"><i
                         class="fas fa-blog"></i> New

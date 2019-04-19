@@ -30,7 +30,7 @@
                         {% endif %}
 
                         <div class="col-sm-12">
-                            <p class="card-text">{{ post.get_content_as_markdown|truncatewords:300}}</p>
+                            <p class="card-text">{{ post.get_content_as_markdown|truncatewords:400}}</p>
                             <p><span class="boldtext">Published: </span>{{ post.published_date|naturaltime }}</p>
                             <p><span class="boldtext">Views: </span>{{ post.views }}</p>
                             <p><span class="boldtext mb-2">Tag: </span>{{ post.tag }}</p>

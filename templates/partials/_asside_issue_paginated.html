@@ -23,18 +23,18 @@
 
             <div class="card-body">
                 <p>Future Text Here</p>
-                <p><span class="boldtext">My Comments: </span> <span class="badge  badge-pill badge-info">
-                        20</span> </p>
-                <p><span class="boldtext">My Bugs: </span> <span class="badge  badge-pill badge-info"> 5</span>
+                <p><span class="boldtext">Total Comments: </span> <span class="badge  badge-pill badge-info">
+                        {{ total_comments }}</span> </p>
+                <p><span class="boldtext">Votes for Bugs: </span> <span class="badge  badge-pill badge-info"> {{ votes_counted }}</span>
                 </p>
-                <p><span class="boldtext">Votes toward my bugs: </span> <span class="badge  badge-pill badge-info">
-                        8</span>
+                <p><span class="boldtext">Votes for Features: </span> <span class="badge  badge-pill badge-info">
+                        {{ feature_votes_counted }}</span>
                 </p>
                 <p><span class="boldtext">Features in development: </span> <span class="badge  badge-pill badge-info">
-                        2</span>
+                        {{ features }}</span>
                 </p>
-                <p><span class="boldtext">Features delivered: </span> <span class="badge  badge-pill badge-success">
-                        1</span>
+                <p><span class="boldtext">Features sold: </span> <span class="badge  badge-pill badge-success">
+                        {{ sold }}</span>
                 </p>
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
@@ -45,9 +45,6 @@
                 <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i
                         class="fas fa-bug"></i> New
                     Bug</a>
-                <a href="#" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i class="fas fa-shopping-cart"></i>
-                    New
-                    Feature</a>
                 {% if user.is_superuser or user.is_staff %}
                 <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"><i
                         class="fas fa-blog"></i> New

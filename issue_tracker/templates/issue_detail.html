@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <p class="card-text">{{ issue.content|truncatewords:300}}</p>
+                        <p class="card-text">{{ issue.get_content_as_markdown|truncatewords:400}}</p>
                     </div>
 
                     <ul class="list-group list-group-flush">

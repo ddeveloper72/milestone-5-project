@@ -12,15 +12,10 @@ Add or Edit a Post
 
 
 {% block stylesheet %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {% endblock %}
 
-{% block body_js %}
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-  <script>
-    var simplemde = new SimpleMDE();
-  </script>
-{% endblock body_js %}
+
 
 {% block content %}
 <div class="mt-3">
@@ -38,7 +33,7 @@ Add or Edit a Post
                             {% bootstrap_form form %}
                             <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
                                 blog</a>
-                            <button class="btn btn-primary mb-2" type=" submit">Save</button>
+                            <button class="btn btn-primary mb-2" type="submit">Save</button>
                         </form>
                     </div>
                 </div>
@@ -50,3 +45,10 @@ Add or Edit a Post
     </div>
 
     {% endblock content %}
+
+    {% block body_js %}
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE();
+    </script>
+    {% endblock body_js %}

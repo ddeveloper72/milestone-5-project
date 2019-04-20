@@ -1,5 +1,4 @@
 from django.db import models
-from django.shortcuts import reverse
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
@@ -48,9 +47,6 @@ class Post(models.Model):
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
 
-    def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"pk": self.pk})
-
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
@@ -77,10 +73,11 @@ class Comment(models.Model):
     """
     comment = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(
-        User, default=None, related_name="blog_comment_author",
-        on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE,
+    author = models.ForeignKey(User, default=None,
+                               related_name="blog_comment_author",
+                               on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, default=None,
+                             on_delete=models.CASCADE,
                              related_name='comments')
     approved_comment = models.BooleanField(default=False)
     is_reported = models.BooleanField(default=False)

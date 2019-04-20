@@ -67,8 +67,7 @@
             </span>
 
             {% if issues.has_next %}
-            <a
-                href="?page={{ issues.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            <a href="?page={{ issues.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
             <a href="?page={{ issues.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last
                 <i class="fas fa-angle-double-right"></i></a>
             {% endif %}

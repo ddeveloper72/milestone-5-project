@@ -221,13 +221,18 @@ def comment_for_issue_remove(request, pk):
 def remmove_item(request, pk):
     issue = get_object_or_404(Issue, pk=pk)
     if request.user.is_superuser or request.user.is_staff:
-        issue.delete()
-        messages.warning(request,
-                         "The item has been removed")
-        return redirect('get_issues')
+        if request.method == 'POST':
+            issue.delete()
+            messages.warning(request,
+                             "The item has been removed")
+            return redirect(reverse('get_issues'))
+        context = {
+            'issue': issue
+            }
+        return (render(request, 'confirm_issue_delete.html', context))
     else:
         messages.info(request, "Only a staff member can remove an item.")
-        return redirect('issue_detail', pk=issue.issue.pk)
+        return redirect('issue_detail', pk=issue.pk)
 
 
 @login_required

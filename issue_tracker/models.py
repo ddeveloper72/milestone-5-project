@@ -3,6 +3,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.html import mark_safe
+from markdown import markdown
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
@@ -71,6 +73,9 @@ class Issue(models.Model):
     class Meta:
         ordering = ['-created_date']
 
+    def get_content_as_markdown(self):
+        return mark_safe(markdown(self.content, safe_mode='escape'))
+
     def __unicode__(self):
         return self.title
 
@@ -79,9 +84,6 @@ class Issue(models.Model):
 
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
-
-    def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"pk": self.pk})
 
 
 def create_slug(instance, new_slug=None):
@@ -109,10 +111,11 @@ class Comment(models.Model):
     """
     comment = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, default=None, 
+    author = models.ForeignKey(User, default=None,
                                related_name="issue_comment_author",
                                on_delete=models.CASCADE)
-    issue = models.ForeignKey(Issue, default=None, on_delete=models.CASCADE,
+    issue = models.ForeignKey(Issue, default=None,
+                              on_delete=models.CASCADE,
                               related_name='comments')
     approved_comment = models.BooleanField(default=False)
     is_reported = models.BooleanField(default=False)

@@ -68,7 +68,7 @@
                 Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
             </span>
 
-            {% if post.has_next %}
+            {% if posts.has_next %}
             <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
             <a href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last
                 <i class="fas fa-angle-double-right"></i></a>

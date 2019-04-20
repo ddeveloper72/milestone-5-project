@@ -19,8 +19,8 @@
 
     <!-- local CSS -->
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  {% block stylesheet %}{% endblock stylesheet %}
-  {% block head_js %} {% endblock head_js %}
+
+  {% block stylesheet %}{% endblock %}
 
 
 </head>
@@ -95,7 +95,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
-{% block body_js %} {% endblock body_js %}
+
+  {% block body_js %}{% endblock body_js %}
+
 </body>
 
 </html>

@@ -20,6 +20,6 @@ urlpatterns = [
              name='comment_for_issue_approve'),
         path('comment/<int:pk>/remove/', views.comment_for_issue_remove,
              name='comment_for_issue_remove'),
-        path('issue/<int:pk>/remove/', views.remmove_item,
-             name='remmove_item'),
+        re_path(r'^(?P<pk>\d+)/remove/$', views.remmove_item,
+                name='remmove_item'),
 ]

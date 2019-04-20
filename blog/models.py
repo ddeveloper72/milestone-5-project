@@ -1,10 +1,13 @@
 from django.db import models
+from django.shortcuts import reverse
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
 from markdown import markdown
+from django.db.models.signals import pre_save
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -14,6 +17,7 @@ class Post(models.Model):
     A single blog post
     """
     title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(blank=True, null=True,
                                           default=timezone.now)
@@ -24,8 +28,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, default=None,
                                related_name="blog_author",
                                on_delete=models.CASCADE)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    content_type = models.ForeignKey(ContentType, default=True,
+                                     on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField(default=True)
     content_object = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
@@ -37,8 +42,33 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return self.title
+
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
+
+    def get_absolute_url(self):
+        return reverse("posts:detail", kwargs={"pk": self.pk})
+
+
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.title)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Post.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" % (slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+        if not instance.slug:
+            instance.slug = create_slug(instance)
+
+pre_save.connect(pre_save_post_receiver, sender=Post)
 
 
 class Comment(models.Model):

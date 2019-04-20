@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponseRedirect
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from django.contrib import messages
 from .models import Post, Comment, UserSeenPosts
@@ -129,15 +130,14 @@ def remove_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.user.is_superuser or request.user.is_staff:
         if request.method == 'POST':
-            parent_obj_url = post.content_object.get_absolute_url()
             post.delete()
             messages.warning(request,
                              "The item has been removed")
-            return HttpResponseRedirect(parent_obj_url)
+            return redirect(reverse('get_posts'))
         context = {
             'post': post
             }
-        return (render(request, 'confirm_delete.html', context))
+        return (render(request, 'confirm_blog_delete.html', context))
     else:
         messages.info(request, "Only a staff member can remove an item.")
         return redirect('post_detail', pk=post.pk)

@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
 
+
 class EmailAuth:
-    """Authenticate a user by an exact match on their email and password"""
+    """
+    Authenticate a user by an exact match on their email and password
+    """
 
     def authenticate(self, username=None, password=None):
         """
@@ -15,7 +18,7 @@ class EmailAuth:
             return None
         except User.DoesNotExist:
             return None
-        
+
     def get_user(self, user_id):
         """
         Used by Django authentication system to retrieve

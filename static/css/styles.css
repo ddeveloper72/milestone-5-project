@@ -85,6 +85,11 @@ body, html {
   color: #f07474;
 }
 
+.regform i {
+  font-size: 2rem;
+  padding: 0;
+}
+
 hr {
   border-color: aliceblue;
 }
@@ -96,23 +101,44 @@ hr {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*                           Card Header Media Queries                       */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-@media screen and (min-width: 995px) {
+@media (min-width: 992px) {
   div.card-header h3 {
     font-size: 1.6rem;
   }
 }
 
-@media screen and (max-width: 994px) {
+@media (max-width: 991px) {
   div.card-header h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;    
   }
 }
 
+@media (min-width: 576px) {
+  .mb-sm-3, .my-sm-3 {
+    font-size: 0.8rem;
+  }  
+  .regform i {
+    font-size: 1.6rem;
+    padding-right: 1rem;
+  }
+}
 
+@media (min-width: 576px) {
+.col-sm-12 {
+  font-size: 0.8rem;
+}
+}
+
+@media (max-width: 991px) {
+  .regform i {
+    font-size: 1rem;
+    padding-right: 1rem;
+}
+}
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*                             Markdown Media Queries                        */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-@media (min-width: 995px){
+@media (min-width: 992px){
   .col-sm-12 h1 {
       font-size: 1.8rem;
     } 
@@ -124,7 +150,7 @@ hr {
       }
   }
 
-@media (max-width: 994px){
+@media (max-width: 991px){
 .col-sm-12 h1 {
     font-size: 1.5rem;
   } 

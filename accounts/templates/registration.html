@@ -28,7 +28,7 @@ User Registration
                 <div class="col-sm-12">
                     <form method="POST" action="{% url 'registration' %}">
                         {% csrf_token %}
-                        {% bootstrap_form registration_form %}
+                        {% bootstrap_form registration_form type='non_fields' %}
                         <div clsss="row">
                             
                                 <ul class="form-text text-muted">

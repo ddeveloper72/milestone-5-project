@@ -113,7 +113,7 @@
                             Vote</a>
                         {% endif %}
                         {% if user.is_superuser or user.is_staff %}
-                        <a class="btn btn-default btn-primary mb-2" href="{% url 'status_update' pk=issue.pk %}"><i class="fas fa-edit"></i> Update</a>
+                        <a class="btn btn-default btn-primary mr-2 mb-2" href="{% url 'status_update' pk=issue.pk %}"><i class="fas fa-edit"></i> Update</a>
                         <a class="btn btn-default btn-primary mb-2" href="{% url 'remmove_item' pk=issue.pk %}"><i
                                 class="far fa-trash-alt"></i> Remove</a>
                         {% endif %}

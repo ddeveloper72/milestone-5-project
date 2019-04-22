@@ -53,7 +53,7 @@ class Issue(models.Model):
                              default='Navigation')
     category = models.CharField(max_length=10, choices=CATEGORY_GENRE,
                                 default='BUG')
-    status = models.CharField(max_length=10, choices=TICKET_STATUS,
+    status = models.CharField(max_length=12, choices=TICKET_STATUS,
                               default='To do')
     votes = models.IntegerField(default=0)
     voter = models.ManyToManyField(User, related_name='issue_upvoters',

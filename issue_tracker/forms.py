@@ -29,3 +29,10 @@ class CommentForm(forms.ModelForm):
             'comment': forms.widgets.TextInput(
                     attrs={'placeholder': 'Add a comment about this issue?'})
         }
+
+
+class IssueStatusForm(forms.ModelForm):
+
+    class Meta:
+        model = Issue
+        fields = ['status', ]

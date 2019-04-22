@@ -78,7 +78,7 @@ body, html {
 }
 
 .editor-toolbar {
-  background-color: #ffffff;
+  opacity: 0.8;
 }
 
 .fa-placeholder {
@@ -157,24 +157,30 @@ p > img {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 @media (min-width: 992px){
   .col-sm-12 h1 {
-      font-size: 1.8rem;
-    } 
+    font-size: 1.8rem;
+  } 
   .col-sm-12 h2 {
     font-size: 1.5rem;
-    }
-    .col-sm-12 p li b, strong {
-      font-size: 1rem;
-      }
   }
+  .col-sm-12 h3 {
+    font-size: 1.2rem;
+  }
+  .col-sm-12 p li b, strong {
+    font-size: 1rem;
+  }
+}
 
 @media (max-width: 991px){
-.col-sm-12 h1 {
+  .col-sm-12 h1 {
     font-size: 1.5rem;
   } 
-.col-sm-12 h2 {
-  font-size: 1.2rem;
+  .col-sm-12 h2 {
+    font-size: 1.2rem;
+  }
+  .col-sm-12 h3 {
+    font-size: 1rem;
   }
   .col-sm-12 p li b, strong {
     font-size: 0.8rem;
-    }
+  }
 }

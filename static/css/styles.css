@@ -37,8 +37,16 @@ body, html {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*                         Bootstrap card customization                      */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-.bug-complete {
-  color: #10c310;
+.task-start i {
+  color: #da5863;
+}
+
+.task-inprogress i {
+  color: #daad58;
+}
+
+.task-complete i {
+  color: #58da5d;
 }
 
 .card-img-top {
@@ -78,7 +86,8 @@ body, html {
 }
 
 .editor-toolbar {
-  opacity: 0.8;
+  opacity: .8;
+  background-color: #ffffff;
 }
 
 .fa-placeholder {

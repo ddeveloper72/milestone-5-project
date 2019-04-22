@@ -5,7 +5,7 @@ from django.contrib import messages
 from .models import Issue, Comment, UserSeenIssue, UserVoted, UserVotedFeature
 from checkout.models import OrderLineItem
 from django.db.models import Count
-from .forms import AddEditIssueFrom, CommentForm
+from .forms import AddEditIssueFrom, CommentForm, IssueStatusForm
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -139,10 +139,9 @@ def edit_issue(request, pk=None):
     issue = get_object_or_404(Issue, pk=pk) if pk else None
     hours_required = 0
     if issue.author == request.user:
-
         if request.method == "POST":
             form = AddEditIssueFrom(request.POST, request.FILES,
-                                    instance=issue)           
+                                    instance=issue)
 
             if issue.genre == 'Navigation':
                 hours_required = 3
@@ -264,3 +263,37 @@ def upvote(request, pk, category):
         else:
             messages.warning(request, "You have already voted for this feature.")
             return redirect('issue_detail', pk=issue.pk)
+
+
+@login_required
+def status_update(request, pk):
+    """
+    Update the status of an issue.
+    """
+    issue = get_object_or_404(Issue, pk=pk)
+    form = IssueStatusForm(request.POST)
+    if request.user.is_superuser or request.user.is_staff:
+        if request.method == "POST":
+
+            if request._post['status'] == 'To do':
+                new_status = request._post['status']
+            elif request._post['status'] == 'In Progress':
+                new_status = request._post['status']
+            elif request._post['status'] == 'Complete':
+                new_status = request._post['status']
+            else:
+                messages.warning(request, "Sorry there has been an error")
+
+            if form.is_valid():
+                issue = form.save(commit=False)
+                issue.status = new_status
+                issue.save(update_fields=['status'])
+                messages.info(request, "The status has been updated")
+                return redirect('issue_detail', issue.pk)
+            else:
+                messages.warning(request,
+                                 "Only a staff member can update this item")
+        return render(request, "status_form.html", {'issue': issue, 'form': form})
+    else:
+        messages.info(request, "Only a staff member can update an item.")
+        return redirect('issue_detail', issue.pk)

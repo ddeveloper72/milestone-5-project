@@ -114,6 +114,25 @@ hr {
 }
 
 @media (min-width: 576px) {
+.col-sm-12 {
+  font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 991px) {
+  .col-sm-12 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .regform i {
+    font-size: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 576px) {
   .mb-sm-3, .my-sm-3 {
     font-size: 0.8rem;
   }  
@@ -123,17 +142,10 @@ hr {
   }
 }
 
-@media (min-width: 576px) {
-.col-sm-12 {
-  font-size: 0.8rem;
-}
-}
-
-@media (max-width: 991px) {
-  .regform i {
+@media (min-width: 991px) {
+.mb-sm-3, .my-sm-3 {
     font-size: 1rem;
-    padding-right: 1rem;
-}
+  }
 }
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*                             Markdown Media Queries                        */

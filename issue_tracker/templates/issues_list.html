@@ -12,13 +12,18 @@
             {% for issue in issues %}
             <div class="card mb-3">
                 <div class="box">
-                    <div class="card-header text-center">
-                    {% if issue.completed %}
-                        <h3 class="card-title">{{ issue.title }} - <i class="bug-complete fas fa-flag-checkered"></i></h3>
-                        {% else %}
-                         <h3 class="card-title">{{ issue.title }}</i></h3>
-                    {% endif %}
-                    </div>
+                        <div class="card-header text-center">
+                                {% if issue.status == 'Complete' %}
+                                <h3 class="card-title task-complete">{{ issue.title }} - <i class="fas fa-thermometer-full"
+                                        data-toggle="tooltip" data-placement="top" title="Bug resolved"></i></h3>
+                                {% elif issue.status == 'In Progress'%}
+                                <h3 class="card-title task-inprogress">{{ issue.title }} - <i class="fas fa-thermometer-half"
+                                        data-toggle="tooltip" data-placement="top" title="Bug being investigated"></i></h3>
+                                {% else %}
+                                <h3 class="card-title task-start">{{ issue.title }} - <i class="fas fa-thermometer-empty"
+                                        data-toggle="tooltip" data-placement="top" title="Bug reported"></i></h3>
+                                {% endif %}
+                            </div>
                     <div class="col-md-4 col-sm-12 text-center">
                         {% if issue.image %}
                         <a href="{% url 'issue_detail' issue.id %}"><img class="card-img-top img-circle mt-3"

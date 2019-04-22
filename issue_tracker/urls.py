@@ -22,4 +22,6 @@ urlpatterns = [
              name='comment_for_issue_remove'),
         re_path(r'^(?P<pk>\d+)/remove/$', views.remmove_item,
                 name='remmove_item'),
+        re_path(r'^(?P<pk>\d+)/update/$', views.status_update,
+                name='status_update'),
 ]

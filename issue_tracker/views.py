@@ -63,6 +63,7 @@ def issue_detail(request, pk):
     """
     try:
         issue = get_object_or_404(Issue, pk=pk)
+        form = IssueStatusForm(request.POST)
         total_cost = issue.hours_required * 55
         total_comments = Comment.objects.filter().count()
         votes_counted = UserVoted.objects.filter().count()
@@ -74,16 +75,15 @@ def issue_detail(request, pk):
             issue.save()
             UserSeenIssue.objects.create(user=request.user, post=issue)
         return render(request, "issue_detail.html", {'issue': issue,
-                                                     'total_cost':
-                                                     total_cost,
+                                                     'total_cost': total_cost,
                                                      'votes_counted':
                                                      votes_counted,
                                                      'total_comments':
                                                      total_comments,
                                                      'feature_votes_counted':
                                                      feature_votes_counted,
-                                                     'features':
-                                                     features})
+                                                     'features': features,
+                                                     'form': form})
     except:
         messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))
@@ -141,7 +141,7 @@ def edit_issue(request, pk=None):
     if issue.author == request.user:
         if request.method == "POST":
             form = AddEditIssueFrom(request.POST, request.FILES,
-                                    instance=issue)
+                                    instance=issue)           
 
             if issue.genre == 'Navigation':
                 hours_required = 3
@@ -287,13 +287,13 @@ def status_update(request, pk):
             if form.is_valid():
                 issue = form.save(commit=False)
                 issue.status = new_status
-                issue.save(update_fields=['status'])
+                issue.save()
                 messages.info(request, "The status has been updated")
-                return redirect('issue_detail', issue.pk)
+                return redirect('issue_detail', pk=issue.pk)
             else:
                 messages.warning(request,
                                  "Only a staff member can update this item")
         return render(request, "status_form.html", {'issue': issue, 'form': form})
     else:
         messages.info(request, "Only a staff member can update an item.")
-        return redirect('issue_detail', issue.pk)
+        return redirect(reverse('get_issues'))

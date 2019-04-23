@@ -63,6 +63,7 @@ class Issue(models.Model):
     hours_required = models.IntegerField(default=0)
     min_hours = models.IntegerField(default=1)
     purchased = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     paid = models.BooleanField(default=False, blank=False)
     content_type = models.ForeignKey(ContentType, default=True,
                                      on_delete=models.CASCADE)

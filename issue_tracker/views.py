@@ -63,7 +63,6 @@ def issue_detail(request, pk):
     """
     try:
         issue = get_object_or_404(Issue, pk=pk)
-        form = IssueStatusForm(request.POST)
         total_cost = issue.hours_required * 55
         total_comments = Comment.objects.filter().count()
         votes_counted = UserVoted.objects.filter().count()
@@ -82,8 +81,7 @@ def issue_detail(request, pk):
                                                      total_comments,
                                                      'feature_votes_counted':
                                                      feature_votes_counted,
-                                                     'features': features,
-                                                     'form': form})
+                                                     'features': features})
     except:
         messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))
@@ -271,29 +269,22 @@ def status_update(request, pk):
     Update the status of an issue.
     """
     issue = get_object_or_404(Issue, pk=pk)
-    form = IssueStatusForm(request.POST)
+    form = IssueStatusForm()
     if request.user.is_superuser or request.user.is_staff:
+
         if request.method == "POST":
-
-            if request._post['status'] == 'To do':
-                new_status = request._post['status']
-            elif request._post['status'] == 'In Progress':
-                new_status = request._post['status']
-            elif request._post['status'] == 'Complete':
-                new_status = request._post['status']
-            else:
-                messages.warning(request, "Sorry there has been an error")
-
+            form = IssueStatusForm(request.POST)
             if form.is_valid():
-                issue = form.save(commit=False)
-                issue.status = new_status
+                status = request.POST.get('status')
+                issue.status = status
                 issue.save()
                 messages.info(request, "The status has been updated")
-                return redirect('issue_detail', pk=issue.pk)
+                return redirect('issue_detail', issue.pk)
             else:
                 messages.warning(request,
-                                 "Only a staff member can update this item")
-        return render(request, "status_form.html", {'issue': issue, 'form': form})
+                                 "The Status Form is not valid")
+        return render(request, "status_form.html", {'issue': issue,
+                                                    'form': form})
     else:
         messages.info(request, "Only a staff member can update an item.")
         return redirect(reverse('get_issues'))

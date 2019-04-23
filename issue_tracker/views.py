@@ -119,6 +119,7 @@ def new_issue(request, pk=None):
             issue = form.save(commit=False)
             issue.author = request.user
             issue.hours_required = hours_required
+            issue.price = hours_required * 55
             issue = form.save()
             return redirect(get_issues)
 
@@ -160,8 +161,9 @@ def edit_issue(request, pk=None):
                 issue = form.save(commit=False)
                 issue.author = request.user
                 issue.hours_required = hours_required
+                issue.price = hours_required * 55
                 issue.published_date = timezone.now()
-                issue = form.save()
+                issue.save()
                 return redirect(reverse('get_issues'))
         else:
             form = AddEditIssueFrom(instance=issue)

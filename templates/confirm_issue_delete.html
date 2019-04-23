@@ -30,7 +30,7 @@ Confirm Delete
                                 <p>by {{ issue.author}}?</p>
                                 <p class="card-text">{{ issue.content|truncatewords:20 }}</p>
                                 <input type="submit" value="Confirm" class="btn btn-default btn-warning mr-2">
-                                <a href="{{% url 'issue_detail' issue.id %}" class="btn btn-default btn-primary">Return to
+                                <a href="{% url 'issue_detail' issue.id %}" class="btn btn-default btn-primary">Return to
                                     post</a>
                             </form>
                         </div>

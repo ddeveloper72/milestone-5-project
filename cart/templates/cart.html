@@ -27,7 +27,7 @@
                         <div class="card-body mt-4">
                             <p class="card-text">{{ item.product.content|truncatewords:90 }}</p>
                             <p class="card-subtitle">Cost for Feature: <i class=" fas fa-euro-sign"></i>
-                                {{ item.price }}</p>
+                                {{ item.product.price }}</p>
 
                         </div>
                         <form action="{% url 'adjust_cart' item.id %}" class="form-inline" method="post">

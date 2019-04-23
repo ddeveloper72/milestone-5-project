@@ -19,17 +19,18 @@ Confirm Delete
                     <div>
                         <h4>Status Update</h4>
                     </div>
-                    
                     <div class="row">
                         <div class="col-sm-12">
                             <form method="POST" action=".">
-                                    <p>Author: {{ issue.author }}</p>
+                                <p>Author: {{ issue.author }}</p>
+                                <p>Current Status: {{ issue.status }}</p>
                                 {% csrf_token %}
-                                {% for field in form %}
-                                {% bootstrap_field field %}
-                                {% endfor %}
+
+                                {% bootstrap_form form %}
+
                                 <input type="submit" value="Confirm" class="btn btn-default btn-warning mr-2">
-                                <a href="{% url 'issue_detail' issue.id %}" class="btn btn-default btn-primary">Return to
+                                <a href="{% url 'issue_detail' issue.id %}" class="btn btn-default btn-primary">Return
+                                    to
                                     post</a>
                             </form>
                         </div>

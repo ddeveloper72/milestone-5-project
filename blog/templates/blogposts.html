@@ -26,7 +26,11 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <p class="card-text">{{ post.get_content_as_markdown|truncatewords:60}}</p>
+
+                        <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+
+                        <div class="card-text">{{ post.get_content_as_markdown|truncatewords:60 }}</div>
+                        
                         <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Read
                                 more</a></p>
                         <p><span class="boldtext">Published: </span> {{ post.published_date|naturaltime }}</p>

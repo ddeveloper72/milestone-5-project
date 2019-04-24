@@ -33,7 +33,11 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <p class="card-text">{{ issue.get_content_as_markdown|truncatewords:400}}</p>
+
+                         <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+                         
+                        <div class="card-text">{{ issue.get_content_as_markdown|truncatewords:400}}</div>
+
                     </div>
 
                     <ul class="list-group list-group-flush">

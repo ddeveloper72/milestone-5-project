@@ -35,9 +35,9 @@
                         <p class="mt-3"><span class="boldtext mt-2">Author: </span>{{ issue.author }}</p>
                     </div>
                     <div class="col-sm-12">
-                        <p class="card-text">{{ issue.get_content_as_markdown|truncatewords:60}}</p>
-                        <p><a href="{% url 'issue_detail' issue.id %}"
-                                class="btn btn-default btn-primary mt-2 ml-2">Read more</a></p>
+                        <div class="card-text">{{ issue.get_content_as_markdown|truncatewords:60}}</div>
+                        <a href="{% url 'issue_detail' issue.id %}"
+                                class="btn btn-default btn-primary mt-2 ml-2">Read more</a>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-6">

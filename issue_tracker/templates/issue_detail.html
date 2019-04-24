@@ -34,15 +34,16 @@
 
                     <div class="col-sm-12">
 
-                         <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
-                         
+                        <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+
                         <div class="card-text">{{ issue.get_content_as_markdown|truncatewords:400}}</div>
 
                     </div>
 
-                    <ul class="list-group list-group-flush">
-                        <div class="row mt-2">
-                            <div class="col-md-6">
+
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Published:
                                     </span>{{ issue.published_date|naturaltime }}
                                 </li>
@@ -57,8 +58,10 @@
                                         {{ issue.approved_comments.count }}
                                     </a>
                                 </li>
-                            </div>
-                            <div class="col-md-6">
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
                                 <li class="list-group-item list-group-flush"><span class="boldtext">Views:
                                     </span>{{ issue.views }}
                                 </li>
@@ -79,25 +82,25 @@
                                     </span>{{  issue.hours_required }} hours
                                 </li>
                                 {% endif %}
-                            </div>
-
-                            {% if  'FEATURE' == issue.category %}
-                            <div class="col-md-6">
-
-                                <form method="post" action="{% url 'add_to_cart' issue.id %}">
-                                    {% csrf_token %}
-                                    <div class="input-group">
-                                        <input name="quantity" type="number" value="1" min="1" max="1"
-                                            class="form-control" placeholder="Quantity" required>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit">Add</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
-                            {% endif %}
+                            </ul>
                         </div>
-                    </ul>
+
+                        {% if  'FEATURE' == issue.category %}
+                        <div class="col-md-6">
+
+                            <form method="post" action="{% url 'add_to_cart' issue.id %}">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input name="quantity" type="number" value="1" min="1" max="1" class="form-control"
+                                        placeholder="Quantity" required>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit">Add</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
 
                     <div class="mt-4">
                         <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
@@ -115,14 +118,14 @@
                             href="{% url 'upvote' pk=issue.pk category=issue.category %}"><i
                                 class="far fa-thumbs-up"></i> Add
                             Vote</a>
-                            
+
                         {% endif %}
                         {% if user.is_superuser or user.is_staff %}
                         <a class="btn btn-default btn-primary mr-2 mb-2" href="{% url 'status_update' pk=issue.pk %}"><i
                                 class="fas fa-edit"></i> Update</a>
                         <a class="btn btn-default btn-primary mb-2" href="{% url 'remmove_item' pk=issue.pk %}"><i
                                 class="far fa-trash-alt"></i> Remove</a>
-                        {% endif %}                        
+                        {% endif %}
 
                     </div>
 
@@ -177,7 +180,7 @@
         {% include 'partials/_asside.html' %}
 
     </div>
-</div>
+
 
 
 {% endblock content %}

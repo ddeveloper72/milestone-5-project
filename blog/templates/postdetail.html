@@ -29,7 +29,11 @@
                         {% endif %}
 
                         <div class="col-sm-12">
-                            <p class="card-text">{{ post.get_content_as_markdown|truncatewords:400}}</p>
+
+                             <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+
+                            <div class="card-text">{{ post.get_content_as_markdown|truncatewords:400 }}</div>
+
                             <p><span class="boldtext">Published: </span>{{ post.published_date|naturaltime }}</p>
                             <p><span class="boldtext">Views: </span>{{ post.views }}</p>
                             <p><span class="boldtext mb-2">Tag: </span>{{ post.tag }}</p>

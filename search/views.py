@@ -23,7 +23,8 @@ def do_search(request):
             Q(tag__icontains=query) |
             Q(genre__icontains=query) |
             Q(completed__icontains=query) |
-            Q(status__icontains=query)
+            Q(status__icontains=query) |
+            Q(content__icontains=query)
         ).distinct()  # Do not add duplicate items
     
     paginator = Paginator(queryset_list, 2)

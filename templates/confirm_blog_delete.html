@@ -27,7 +27,11 @@ Confirm Delete
                             <form method="POST" action=".">
                                 {% csrf_token %}
                                 <p>Are you sure you want to delete: "{{ post.title }} ?"</p>
-                                <p class="card-text">{{ post.get_content_as_markdown|truncatewords:20}}</p>
+
+                                <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+
+                                <div class="card-text">{{ post.get_content_as_markdown|truncatewords:20 }}</div>
+
                                 <input type="submit" value="Confirm" class="btn btn-default btn-warning mr-2">
                                 <a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Return to
                                     post</a>

@@ -44,8 +44,15 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def post_count(self):
+        return Post.objects.all().count()
+
     def approved_comments(self):
         return self.comments.filter(approved_comment=True)
+
+    def pending_approval(self):
+        return self.comments.filter(approved_comment=False)
+
 
 
 def create_slug(instance, new_slug=None):

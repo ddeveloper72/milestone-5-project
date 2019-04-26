@@ -37,8 +37,9 @@
                     <div class="col-sm-12">
 
                         <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
-
+                        {% autoescape on %}
                         <div class="card-text">{{ issue.get_content_as_markdown|truncatewords:60}}</div>
+                        {% endautoescape %}
 
                         <a href="{% url 'issue_detail' issue.id %}" class="btn btn-default btn-primary mt-2 ml-2">Read
                             more</a>

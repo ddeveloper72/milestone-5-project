@@ -36,8 +36,9 @@
                     <div class="col-sm-12">
 
                         <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
-
+                        {% autoescape on %}
                         <div class="card-text">{{ issue.get_content_as_markdown|truncatewords:400}}</div>
+                        {% endautoescape %}
 
                     </div>
 

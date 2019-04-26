@@ -29,8 +29,9 @@
                     <div class="col-sm-12">
 
                         <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
-
+                        {% autoescape on %}
                         <div class="card-text">{{ post.get_content_as_markdown|truncatewords:60 }}</div>
+                        {% endautoescape %}
                         
                         <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Read
                                 more</a></p>
@@ -49,8 +50,17 @@
                 New Blog</a>
             {% endif %}
         </div>
-        <hr class="featureette-divider">        
-        {% include 'partials/_asside_post_paginated.html' %}       
+        <hr class="featureette-divider"> 
+
+        {% if user.is_superuser or user.is_staff %}
+
+        {% include 'partials/_asside_admin.html' %}
+
+        {% else %}
+
+        {% include 'partials/_asside.html' %}
+
+        {% endif%}     
         
     </div>
 </div>

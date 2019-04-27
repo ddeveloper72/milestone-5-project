@@ -30,7 +30,7 @@
                                 {{ post.post_count }}</span> </p>
                         <form action="{% url 'search' %}" method="get">
                             <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
-                            <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
+                            <button class="mt-2 btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
                         </form>
                     </div>
                     <div>

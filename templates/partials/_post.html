@@ -1,0 +1,49 @@
+{% block _asside %}
+<div class="col-sm-12 col-md-4 flex-first mb-sm-3">
+        <div class="card">
+                <div class="box">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <h3>Our Blog</h3>
+                            </div>
+                            <div class="offset-sm-12 ml-auto">
+                                <div class="regform"><i class="fas fa-blog"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor messages %}
+                    <div class="card-body">
+                        <p>Watch this space...</p>
+                        <p>At Custom Drone, we love to share our stories</p>
+                        <p>Our blog lets us hear back from users of our products</p>
+                        <p>It also provides a medium in which you can contribute your own expereinces<br />
+                        using our sofware products on your own Custome Drone</p>
+                        <p><span class="boldtext">Blog Entries: </span> <span class="badge  badge-pill badge-info">
+                                {{ post.post_count }}</span> </p>
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
+                            <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
+                        </form>
+                    </div>
+                    <div>
+                        <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i
+                                class="fas fa-bug"></i> New
+                            Bug</a>
+                        {% if user.is_superuser or user.is_staff %}
+                        <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"><i
+                                class="fas fa-blog"></i> New
+                            Blog</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+</div>
+{% endblock _asside %}

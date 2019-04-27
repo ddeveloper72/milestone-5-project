@@ -42,11 +42,8 @@ Add or Edit a Post
         
         {% if user.is_superuser or user.is_staff %}
 
-        {% include 'partials/_asside_admin.html' %}
+        {% include 'partials/_post_admin.html' %}
 
-        {% else %}
-
-        {% include 'partials/_asside.html' %}
 
         {% endif%}
 

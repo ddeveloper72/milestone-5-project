@@ -24,22 +24,10 @@
             <h4>About this:</h4>
                 <p>In this section yoy will find both bugs and features</p>
                 <p>Read more about the bugs that our users have reported and see also the <em>New Features</em> that users have suggested that are in development or are availabe for sale.</p>
-                
-                <p><span class="boldtext">Votes for Bugs: </span> <span class="badge  badge-pill badge-info">
-                        {{ votes_counted }}</span>
-                </p>
-                <p><span class="boldtext">Votes for Features: </span> <span class="badge  badge-pill badge-info">
-                        {{ feature_votes_counted }}</span>
-                </p>
-                <p><span class="boldtext">Features in development: </span> <span class="badge  badge-pill badge-info">
-                        {{ features }}</span>
-                </p>
-                <p><span class="boldtext">Features sold: </span> <span class="badge  badge-pill badge-success">
-                        {{ sold }}</span>
-                </p>
+
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
-                    <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
+                    <button class="mt-2 btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
                 </form>
             </div>
             <div>
@@ -67,7 +55,7 @@
                 Page {{ issues.number }} of {{ issues.paginator.num_pages }}.
             </span>
 
-            {% if posts.has_next %}
+            {% if issues.has_next %}
             <a href="?page={{ issues.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
             <a href="?page={{ issues.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last
                 <i class="fas fa-angle-double-right"></i></a>

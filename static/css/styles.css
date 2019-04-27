@@ -18,6 +18,10 @@ body, html {
   border-radius: 9px;
 }
 
+.badge-info {
+  color: #000;
+  background-color: #eda419;
+}
 /* Bootstrap button */
 .btn_small {
   height: 24px;

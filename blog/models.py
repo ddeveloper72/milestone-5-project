@@ -54,7 +54,6 @@ class Post(models.Model):
         return self.comments.filter(approved_comment=False)
 
 
-
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
     if new_slug is not None:

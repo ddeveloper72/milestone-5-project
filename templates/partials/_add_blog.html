@@ -1,0 +1,56 @@
+{% block _asside %}
+
+<div class="col-sm-12 col-md-4 ml-md-auto flex-first mb-sm-3">
+    <div class="card">
+        <div class="box">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h3>Adding a Post...</h3>
+                    </div>
+                    <div class="offset-sm-12 ml-auto">
+                        <div class="regform"><i class="far fa-comments"></i></div>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor messages %}
+            <div class="card-body">
+                <p>Please add in some information about the topic posted</p>                
+                <p>Be aware of the infomation that you are about to share</p>
+                <p>Were infomation or media is copied from another site,<br />
+                please insure that the source is credited in the post.</p>
+                <p>Posts can be deleted at any time by the admin or staff.
+                {% if  'FEATURE' == issue.category %}
+                <p><span class="boldtext">Sales of this Feature: </span> <span class="badge  badge-pill badge-success">
+                        {{ issue.purchased }}</span>
+                </p>
+                {% endif %}
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
+                    <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
+                </form>
+            </div>
+            <div>                
+                {% if user.is_superuser or user.is_staff %}
+                <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"><i
+                        class="fas fa-blog"></i> New
+                    Blog</a>
+                {% else %}
+                <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i
+                    class="fas fa-bug"></i> New
+                Bug</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+
+{% endblock _asside %}

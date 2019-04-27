@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load bootstrap4 %}
-Add a Comment
+Add Comment
 
 {% block content %}
 
@@ -19,17 +19,18 @@ Add a Comment
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             <a href="{% url 'get_issues' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
-                                Bugs</a>
-                            <button class="btn btn-primary mb-2" type="submit">Save</button>
+                                bugs</a>
+                            <button class="btn btn-success mb-2" type="submit">Save</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        {% include 'partials/_asside.html' %}
+        {% include 'partials/_add_comment.html' %}
 
     </div>
 </div>
 
 {% endblock content %}
+

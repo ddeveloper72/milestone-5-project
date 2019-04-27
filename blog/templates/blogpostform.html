@@ -33,7 +33,7 @@ Add or Edit a Post
                             {% bootstrap_form form %}
                             <a href="{% url 'get_posts' %}" class="btn btn-default btn-primary mr-2 mb-2">Back to
                                 blog</a>
-                            <button class="btn btn-primary mb-2" type="submit">Save</button>
+                            <button class="btn btn-success mb-2" type="submit">Save</button>
                         </form>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ Add or Edit a Post
         
         {% if user.is_superuser or user.is_staff %}
 
-        {% include 'partials/_post_admin.html' %}
+        {% include 'partials/_add_blog.html' %}
 
 
         {% endif%}

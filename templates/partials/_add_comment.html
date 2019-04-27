@@ -27,14 +27,9 @@
                 <p>Please add in some information about the topic posted</p>                
                 <p>You are welcome to share your experience and add more information</p>
                 <p>Note that all comments will be moderated and are subject to approval by our staff.
-                {% if  'FEATURE' == issue.category %}
-                <p><span class="boldtext">Sales of this Feature: </span> <span class="badge  badge-pill badge-success">
-                        {{ issue.purchased }}</span>
-                </p>
-                {% endif %}
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
-                    <button class="mt-2" type="submit"><i class="fas fa-search"></i> Search</button>
+                    <button class="mt-2 btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
                 </form>
             </div>
             <div>                

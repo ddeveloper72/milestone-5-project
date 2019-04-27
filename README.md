@@ -109,6 +109,7 @@ The statistical information will be collected and presented to the customers to 
    * [Amazon AWS](https://aws.amazon.com/)
    * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
    * [How to Extend Django User Model](https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#abstractuser)
+   * [How to count All Objects of a Database Table in Django](http://www.learningaboutelectronics.com/Articles/How-to-count-all-objects-of-a-database-table-in-Django.php)
 
 3. Code Development
 4. Deployment Instructions

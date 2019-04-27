@@ -11,6 +11,8 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+
+
 def get_posts(request):
     """
     Create a view that will return a list
@@ -19,7 +21,7 @@ def get_posts(request):
     """
     try:
         blog_list = Post.objects.filter(published_date__lte=timezone.now()
-                                    ).order_by('-published_date')
+                                        ).order_by('-published_date')
         paginator = Paginator(blog_list, 3)
         page_request_var = "page"
         page = request.GET.get('page', 1)
@@ -31,7 +33,21 @@ def get_posts(request):
         except EmptyPage:
             # if page is out of range (eg 9999), deliver last page in range
             posts = paginator.page(paginator.num_pages)
-        return render(request, "blogposts.html", {'posts': posts})
+        # to collect stats, pk has to exist
+        if len(blog_list) > 0:
+            post = get_object_or_404(Post, pk=1)
+            count = post.post_count()
+            approved = post.approved_comments()
+            pending = post.pending_approval()
+        else:
+            count = 0
+            apporved = 0
+            pending = 0
+
+        return render(request, "blogposts.html", {'posts': posts,
+                                                  'count': count,
+                                                  'approved': approved,
+                                                  'pending': pending})
     except:
         messages.info(request, "There are no posts yet")
         return redirect(reverse('get_posts'))
@@ -46,6 +62,8 @@ def post_detail(request, pk):
     """
     try:
         post = get_object_or_404(Post, pk=pk)
+        count = post.post_count()
+        print(count)
         if not request.user.seen_posts.filter(post_id=pk).exists():
             post.views += 1
             post.save()

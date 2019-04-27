@@ -5,10 +5,10 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-10">
-                        <h3>Your Information</h3>
+                        <h3>Bugs & Featrues</h3>
                     </div>
                     <div class="offset-sm-12 ml-auto">
-                        <div class="regform"><i class="fas fa-info-circle ml-2"></i></div>
+                        <div class="regform"><i class="fas fa-folder-open"></i></div>
                     </div>
                 </div>
             </div>
@@ -21,9 +21,10 @@
             </div>
             {% endfor messages %}
             <div class="card-body">
-                <p>Future Text Here</p>
-                <p><span class="boldtext">Blog Entries: </span> <span class="badge  badge-pill badge-info">
-                        {{ count }}</span> </p>
+            <h4>About this:</h4>
+                <p>In this section yoy will find both bugs and features</p>
+                <p>Read more about the bugs that our users have reported and see also the <em>New Features</em> that users have suggested that are in development or are availabe for sale.</p>
+                
                 <p><span class="boldtext">Votes for Bugs: </span> <span class="badge  badge-pill badge-info">
                         {{ votes_counted }}</span>
                 </p>
@@ -55,20 +56,20 @@
     </div>
     <div class="pagination justify-content-end mr-2">
         <span class="step-links">
-            {% if posts.has_previous %}
+            {% if issues.has_previous %}
             <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
                     class="fas fa-angle-double-left"></i> first</a>
-            <a href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            <a href="?page={{ issues.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
                 previous</a>
             {% endif %}
 
             <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                Page {{ issues.number }} of {{ issues.paginator.num_pages }}.
             </span>
 
             {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
-            <a href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last
+            <a href="?page={{ issues.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            <a href="?page={{ issues.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">last
                 <i class="fas fa-angle-double-right"></i></a>
             {% endif %}
         </span>

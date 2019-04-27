@@ -12,17 +12,8 @@
             {% for issue in issues %}
             <div class="card mb-3">
                 <div class="box">
-                    <div class="card-header text-center">
-                        {% if issue.status == 'Complete' %}
-                        <h3 class="card-title task-complete">{{ issue.title }} - <i class="fas fa-thermometer-full"
-                                data-toggle="tooltip" data-placement="top" title="Bug resolved"></i></h3>
-                        {% elif issue.status == 'In Progress'%}
-                        <h3 class="card-title task-inprogress">{{ issue.title }} - <i class="fas fa-thermometer-half"
-                                data-toggle="tooltip" data-placement="top" title="Bug being investigated"></i></h3>
-                        {% else %}
-                        <h3 class="card-title task-start">{{ issue.title }} - <i class="fas fa-thermometer-empty"
-                                data-toggle="tooltip" data-placement="top" title="Bug reported"></i></h3>
-                        {% endif %}
+                    <div class="card-header text-center">                      
+                        <h3 class="card-title task-complete">{{ issue.title }}</h3>                       
                     </div>
                     <div class="col-md-4 col-sm-12 text-center">
                         {% if issue.image %}
@@ -88,7 +79,17 @@
                 Cancel</a>
             {% endif %}
         </div>
-        {% include 'partials/_asside_issue_paginated.html' %}
+        {% if user.is_superuser or user.is_staff %}
+
+        {% include 'partials/_issue_admin_paginated.html' %}
+
+        {% else %}
+
+        {% include 'partials/_issue_paginated.html' %}
+
+        {% endif%}     
+        
+
     </div>
 </div>
 

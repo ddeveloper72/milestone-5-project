@@ -11,14 +11,14 @@ Home
 
 
 {% block stylesheet %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {% endblock %}
 
 {% block body_js %}
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-  <script>
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
     var simplemde = new SimpleMDE();
-  </script>
+</script>
 {% endblock body_js %}
 
 {% block content %}
@@ -31,7 +31,6 @@ Home
                     <div class="card-header text-centre">
                         <h3 class="mx-3 ">{{ user }}'s User Profile:</h3>
                     </div>
-
                     {% for field in form %}
                     {{ field.error }}
                     {% endfor %}
@@ -44,40 +43,53 @@ Home
                             {%  bootstrap_form username_form  %}
                             {%  bootstrap_form userbio_form  %}
                             <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-default btn-primary mb-4">Save</button>
+                                <button type="submit" class="btn btn-default btn-success mb-4">Save</button>
                             </div>
                         </form>
                     </div>
-
-                    {% if profile %}
+                    {% if user.is_superuser or user.is_staff %}
                     <div class="card-body">
+                        {% if profile %}
                         <div class="technical">
-                            <h3>Develpment Data</h3>
+                            <h3>Admin/Staff Develpment Data</h3>
                         </div>
-                        <ol>
-                            <li>First Name: {{ profile.first_name }}</li>
-                            <li>Last Name: {{ profile.last_name }}</li>
-                            <li>Email: {{ profile.email }}</li>
-                            <li>Last Logged in: {{ profile.last_login }}</li>
-                            <li>Date Joined: {{ profile.date_joined }}</li>
-                            <li>Is Staff: {{ profile.is_staff }}</li>
-                            <li>Is Active: {{ profile.is_active }}</li>
-                        </ol>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-flush">First Name: {{ profile.first_name }}
+                                    </li>
+                                    <li class="list-group-item list-group-flush">Last Name: {{ profile.last_name }}</li>
+                                    <li class="list-group-item list-group-flush">Email: {{ profile.email }}</li>
+                                    <li class="list-group-item list-group-flush">Last Logged in:
+                                        {{ profile.last_login }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-flush">Date Joined: {{ profile.date_joined }}
+                                    </li>
+                                    <li class="list-group-item list-group-flush">Is Staff: {{ profile.is_staff }}</li>
+                                    <li class="list-group-item list-group-flush">Is Active: {{ profile.is_active }}</li>
+                                </ul>
+                            </div>
+                        </div>
                         {% else %}
-                        <ol>
-                            <li>The List is empty</li>
-                        </ol>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-flush">The List is empty</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-
-    {% include 'partials/_asside.html' %}
-
+    {% include 'partials/_profile.html' %}
 </div>
-
-
-
+</div>
 {% endblock content %}

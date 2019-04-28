@@ -43,6 +43,7 @@ def get_posts(request):
         return redirect(reverse('get_posts'))
 
 
+@login_required
 def post_detail(request, pk):
     """
     Create a view that returns a single
@@ -68,6 +69,7 @@ def post_detail(request, pk):
         return redirect(reverse('get_posts'))
 
 
+@login_required
 def create_or_edit_a_post(request, pk=None):
     """
     Create a view that allows us to create or
@@ -96,7 +98,7 @@ def create_or_edit_a_post(request, pk=None):
     else:
         return redirect(reverse('get_posts'))
 
-
+@login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":

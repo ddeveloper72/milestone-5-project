@@ -60,9 +60,9 @@
             </div>
             {% else %}
             <div class="col-sm-12">
-                <p>Your Cart is Empty</p>
-                <a href="{% url 'get_issues' %}" class="btn btn-primary ml-2" role="button">
-                    Cancel</a>
+                <h2>Your Cart is Empty<h3>
+                <a href="{% url 'get_issues' %}" class="btn btn-warning ml-2" role="button">
+                    <i class="fas fa-undo"></i> Return to Issues</a>
             </div>
 
             {% endif %}

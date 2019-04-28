@@ -1,0 +1,106 @@
+{% block _asside %}
+<div class="col-sm-12 col-md-4 flex-first mb-sm-3">
+    <div class="card">
+        <div class="box">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h3>Task Information:</h3>
+                    </div>
+                    <div class="offset-sm-12 ml-auto">
+                        <div class="regform"><i class="fas fa-award"></i></div>
+                    </div>
+                </div>
+            </div>
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor messages %}
+
+            <div class="card-body">
+                <p>Staff may view the following statistics of the actifity taking place.</p>
+                <p>The bugs and features reported need to be monitored</p>
+                <p>Featrues logged and paid for need to be prioritized</p>
+                <p>Bugs reported need to be verified.  Bugs with the higest number of votes take priority after feature development.</p>
+                <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <h3>Bug Resolution</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_to_do.count }}</span> To do</li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_in_progress.count }}</span> In Progress
+                                </li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_complete.count }}</span> Complete</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Bugs by Category</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_navigation.count }}</span> Navigation
+                                </li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_flight_controls.count }}</span> Flight
+                                    Controls
+                                </li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ bug_auto_pilot.count }}</span> Auto Pilot
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <h3>Features Development</h3>
+                            <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-flush"><span
+                                            class="badge badge-pill badge-info">{{ fea_to_do.count }}</span> To do</li>
+                                    <li class="list-group-item list-group-flush"><span
+                                            class="badge badge-pill badge-info">{{ fea_in_progress.count }}</span> In Progress
+                                    </li>
+                                    <li class="list-group-item list-group-flush"><span
+                                            class="badge badge-pill badge-info">{{ fea_complete.count }}</span> Complete</li>
+                                </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Features Categories</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ fea_navigation.count }}</span> Navigation
+                                </li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ fea_flight_controls.count }}</span> Flight
+                                    Controls
+                                </li>
+                                <li class="list-group-item list-group-flush"><span
+                                        class="badge badge-pill badge-info">{{ fea_auto_pilot.count }}</span> Auto Pilot
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
+                    <button class="mt-2 btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
+                </form>
+            </div>
+            <div>                
+                {% if user.is_superuser or user.is_staff %}
+                <a href="{% url 'new_post' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"><i
+                        class="fas fa-blog"></i> New
+                    Blog</a>
+                {% else %}
+                <a href="{% url 'new_issue' %}" class="btn btn-default btn-primary mr-2 mb-2 mx-3"> <i
+                    class="fas fa-bug"></i> New
+                Bug</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock _asside %}

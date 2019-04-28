@@ -20,7 +20,7 @@ def get_issues(request):
     """
     try:
         issue_list = Issue.objects.filter(published_date__lte=timezone.now()
-                                          ).order_by('-published_date')
+                                         ).order_by('-published_date')
         bug_to_do = Issue.objects.filter(status='To do',
                                          category='BUG')
         bug_in_progress = Issue.objects.filter(status='In Progress',
@@ -46,7 +46,9 @@ def get_issues(request):
                                                    category='FEATURE')
         fea_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
                                               category='FEATURE')
-        
+        approved = Comment.objects.filter(approved_comment=True)
+        pending = Comment.objects.filter(approved_comment=False)
+
         paginator = Paginator(issue_list, 3)
         page = request.GET.get('page', 1)
         try:
@@ -58,6 +60,8 @@ def get_issues(request):
             # if page is out of range (eg 9999), deliver last page in range
             issues = paginator.page(paginator.num_pages)
         return render(request, "issues_list.html", {'issues': issues,
+                                                    'approved': approved,
+                                                    'pending': pending,
                                                     'bug_to_do': bug_to_do,
                                                     'bug_in_progress': bug_in_progress,
                                                     'bug_complete': bug_complete,
@@ -112,12 +116,16 @@ def issue_detail(request, pk):
         fea_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
                                               category='FEATURE')
 
+        approved = Comment.objects.filter(approved_comment=True)
+        pending = Comment.objects.filter(approved_comment=False)
 
         if not request.user.seen_issue.filter(post_id=pk).exists():
             issue.views += 1
             issue.save()
             UserSeenIssue.objects.create(user=request.user, post=issue)
         return render(request, "issue_detail.html", {'issue': issue,
+                                                     'approved': approved,
+                                                     'pending': pending,
                                                      'bug_to_do': bug_to_do,
                                                      'bug_in_progress': bug_in_progress,
                                                      'bug_complete': bug_complete,

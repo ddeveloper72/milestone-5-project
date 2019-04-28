@@ -33,20 +33,15 @@
                         <form action="{% url 'adjust_cart' item.id %}" class="form-inline" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label for="exampleInputAmount" class="sr-only">New Qty</label>
+                                <label>New Qty</label>
                                 <div class="input-group">
                                     <div class="input-group-addon mr-2">Item:</div>
-                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="1"
-                                        class="form-control" rquired="true">
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="1" class="form-control">                                    
                                 </div>
+                                <button class="btn btn-primary ml-2" type="submit"><i class="far fa-edit"></i> Ammend</button>
+                                <a href="{% url 'empty_cart' item.id %}" class="btn btn-primary ml-2" role="button"><i class="far fa-trash-alt"></i> Item</a>
                             </div>
-                            <button class="btn btn-primary ml-2" type="submit"><i class="far fa-edit"></i>
-                                Ammend</button>
-                            <a href="{% url 'empty_cart' item.id %}" class="btn btn-primary ml-2" role="button"><i
-                                    class="far fa-trash-alt"></i>
-                                Item</a>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -56,21 +51,19 @@
             <div class="col-sm-12">
                 <p class="text-right">Total: <i class="fas fa-euro-sign"></i> {{ total }}
                     <a href="{% url 'checkout' %}" class="btn btn-success ml-2" role="button"><i
-                            class="far fa-check-circle"></i></span> Checkout</a></p>
+                            class="far fa-check-circle"></i> Checkout</a></p>
             </div>
             {% else %}
             <div class="col-sm-12">
                 <h2>Your Cart is Empty<h3>
-                <a href="{% url 'get_issues' %}" class="btn btn-warning ml-2" role="button">
-                    <i class="fas fa-undo"></i> Return to Issues</a>
+                        <a href="{% url 'get_issues' %}" class="btn btn-warning ml-2" role="button">
+                            <i class="fas fa-undo"></i> Return to Issues</a>
             </div>
 
             {% endif %}
         </div>
-
         {% include 'partials/_cart.html' %}
-
     </div>
+</div>
 
-
-    {% endblock content %}
+{% endblock content %}

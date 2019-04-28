@@ -24,16 +24,16 @@
             <div class="card-body">
                 <p>Please review each comment before approving.</p>
                 <div class="row mt-3">
-                    <div class="col-sm-6">
-                        <h3>Comments: {{approved.count|add:pending.count}}</h3>
-                        <ul class="list-group list-group-flush">
+                    <div class="col-xs-12 col-sm-6">
+                        <h3 class="title-partial">Comments</h3>
+                        <ul class="list-group list-group-flush list_partial">
                             <li class="list-group-item list-group-flush"><span
                                     class="badge  badge-pill badge-info">{{ approved.count }} </span> approved...</li>
                         </ul>
                     </div>
-                    <div class="col-sm-6">
-                        <h3>Pending Approval</h3>
-                        <ul class="list-group list-group-flush">
+                    <div class="col-xs-12 col-sm-6">
+                        <h3 class="title-partial">Pending Approval</h3>
+                        <ul class="list-group list-group-flush list_partial">
                             <li class="list-group-item list-group-flush"><span
                                     class="badge  badge-pill badge-info">{{  pending.count }}</span></li>
                         </ul>

@@ -4,7 +4,7 @@
 
 {% block head_js %}
 
-<script  src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v2/"></script>
 <script>
     //<![CDATA[
     Stripe.publishableKey = '{{ publishable }}';
@@ -24,7 +24,7 @@
         <div class="card">
             <div class="box">
                 <div class="card-header text-center">
-                    <h3 class="card-title">{{ item.product.title|truncatewords:2 }}</h3>
+                    <h3 class="card-title">{{ item.product.title|truncatewords:15 }}</h3>
                 </div>
                 <div class="col-sm-12">
                     {% if item.product.image %}
@@ -35,7 +35,10 @@
                     {% endif %}
 
                     <div class="card-body mt-2">
-                        <p class="card-text">{{ item.product.content|truncatewords:30 }}</p>
+                        <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+                        {% autoescape on %}
+                        <div class="card-text">{{ item.product.get_content_as_markdown|truncatewords:60 }}</div>
+                        {% endautoescape %}
                     </div>
                     <div class="card-subtitle">
                         <p>Quantity: {{ item.quantity }}</p>
@@ -46,14 +49,10 @@
         </div>
     </div>
     {% endfor %}
-   
-        {% include 'partials/_asside.html' %}
 
-   
+    {% include 'partials/_cart.html' %}
+
 </div>
-
-
-
 
 <div class="col-md-6 col-sm-12 mt-2 mb-2">
     <p class="card-subtitle">Total: <i class=" fas fa-euro-sign"></i> {{ total }}</p>
@@ -78,13 +77,12 @@
         </div>
 
         <div class="form-group col-md-12">
-            <input class="btn btn-primary" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
+            <input class="btn btn-success" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
         </div>
     </div>
 </form>
 
 {% endblock content %}
 {% block body_js %}
- <script src="{% static 'js/stripe.js' %}"></script> 
+<script src="{% static 'js/stripe.js' %}"></script>
 {% endblock body_js %}
-

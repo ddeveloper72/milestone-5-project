@@ -25,6 +25,7 @@
                 <p>The items that you have chosen to purchase will be kept here, safe thill you choose to checkout or update your shopping cart.</p>
                 <p>Use the search bar below to search for features.</p>
                 <p>When you add and item, it will appear here.</p>
+                <p>Items ordered will be sent to the address provided at checkout.</p>
                
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">

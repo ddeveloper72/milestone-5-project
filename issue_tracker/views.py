@@ -21,11 +21,32 @@ def get_issues(request):
     try:
         issue_list = Issue.objects.filter(published_date__lte=timezone.now()
                                           ).order_by('-published_date')
-        total_comments = Comment.objects.filter().count()
-        votes_counted = UserVoted.objects.filter().count()
-        feature_votes_counted = UserVotedFeature.objects.filter().count()
-        features = Issue.objects.filter(category__contains='FEATURE').count()
-        sold = OrderLineItem.objects.filter().count()
+        bug_to_do = Issue.objects.filter(status='To do',
+                                         category='BUG')
+        bug_in_progress = Issue.objects.filter(status='In Progress',
+                                               category='BUG')
+        bug_complete = Issue.objects.filter(status='Complete',
+                                            category='BUG')
+        bug_navigation = Issue.objects.filter(genre='Navigation',
+                                              category='BUG')
+        bug_flight_controls = Issue.objects.filter(genre='Flight Controls',
+                                                   category='BUG')
+        bug_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
+                                              category='BUG')
+
+        fea_to_do = Issue.objects.filter(status='To do',
+                                         category='FEATURE')
+        fea_in_progress = Issue.objects.filter(status='In Progress',
+                                               category='FEATURE')
+        fea_complete = Issue.objects.filter(status='Complete',
+                                            category='FEATURE')
+        fea_navigation = Issue.objects.filter(genre='Navigation',
+                                              category='FEATURE')
+        fea_flight_controls = Issue.objects.filter(genre='Flight Controls',
+                                                   category='FEATURE')
+        fea_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
+                                              category='FEATURE')
+        
         paginator = Paginator(issue_list, 3)
         page = request.GET.get('page', 1)
         try:
@@ -37,16 +58,18 @@ def get_issues(request):
             # if page is out of range (eg 9999), deliver last page in range
             issues = paginator.page(paginator.num_pages)
         return render(request, "issues_list.html", {'issues': issues,
-                                                    'votes_counted':
-                                                    votes_counted,
-                                                    'feature_votes_counted':
-                                                    feature_votes_counted,
-                                                    'total_comments':
-                                                    total_comments,
-                                                    'features':
-                                                    features,
-                                                    'sold':
-                                                    sold})
+                                                    'bug_to_do': bug_to_do,
+                                                    'bug_in_progress': bug_in_progress,
+                                                    'bug_complete': bug_complete,
+                                                    'bug_navigation':bug_navigation,
+                                                    'bug_flight_controls': bug_flight_controls,
+                                                    'bug_auto_pilot': bug_auto_pilot,
+                                                    'fea_to_do': fea_to_do,
+                                                    'fea_in_progress': fea_in_progress,
+                                                    'fea_complete': fea_complete,
+                                                    'fea_navigation': fea_navigation,
+                                                    'fea_flight_controls': fea_flight_controls,
+                                                    'fea_auto_pilot': fea_auto_pilot })
 
     except:
         messages.info(request, "There are no issues logged yet")

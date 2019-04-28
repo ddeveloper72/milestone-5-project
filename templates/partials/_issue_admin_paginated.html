@@ -29,6 +29,22 @@
                     development.</p>
                 <div class="row mt-3">
                     <div class="col-sm-6">
+                        <h3>Comments</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge  badge-pill badge-info">{{ approved.count }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Pending Approval</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge  badge-pill badge-info">{{  pending.count }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
                         <h3>Bug Resolution</h3>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item list-group-flush"><span
@@ -60,14 +76,14 @@
                     <div class="col-sm-6">
                         <h3>Features Development</h3>
                         <ul class="list-group list-group-flush">
-                                <li class="list-group-item list-group-flush"><span
-                                        class="badge badge-pill badge-info">{{ fea_to_do.count }}</span> To do</li>
-                                <li class="list-group-item list-group-flush"><span
-                                        class="badge badge-pill badge-info">{{ fea_in_progress.count }}</span> In Progress
-                                </li>
-                                <li class="list-group-item list-group-flush"><span
-                                        class="badge badge-pill badge-info">{{ fea_complete.count }}</span> Complete</li>
-                            </ul>
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge badge-pill badge-info">{{ fea_to_do.count }}</span> To do</li>
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge badge-pill badge-info">{{ fea_in_progress.count }}</span> In Progress
+                            </li>
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge badge-pill badge-info">{{ fea_complete.count }}</span> Complete</li>
+                        </ul>
                     </div>
                     <div class="col-sm-6">
                         <h3>Features Categories</h3>

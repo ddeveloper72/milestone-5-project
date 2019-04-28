@@ -27,6 +27,22 @@
                 <p>Featrues logged and paid for need to be prioritized</p>
                 <p>Bugs reported need to be verified.  Bugs with the higest number of votes take priority after feature development.</p>
                 <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <h3>Comments</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge  badge-pill badge-info">{{ approved.count }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Pending Approval</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-flush"><span
+                                    class="badge  badge-pill badge-info">{{  pending.count }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
                         <div class="col-sm-6">
                             <h3>Bug Resolution</h3>
                             <ul class="list-group list-group-flush">

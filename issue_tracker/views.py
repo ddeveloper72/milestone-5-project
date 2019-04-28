@@ -157,16 +157,16 @@ def new_issue(request, pk=None):
 
         if request._post['genre'] == 'Navigation':
             hours_required = 3
-            print(hours_required)
-            messages.info(request, "Yay were inside the loop!")
+            messages.info(request, "The task is given '%s' hours." %
+                          hours_required)
         elif request._post['genre'] == 'Flight Controls':
             hours_required = 6
-            print(hours_required)
-            messages.info(request, "Yay were still inside the loop!")
+            messages.info(request, "The task is given '%s' hours." %
+                          hours_required)
         elif request._post['genre'] == 'Auto Pilot':
             hours_required = 9
-            print(hours_required)
-            messages.info(request, "Yay were still inside the loop!")
+            messages.info(request, "The task is given '%s' hours." %
+                          hours_required)
 
         else:
             messages.warning(request, "Sorry there has been an error")
@@ -196,20 +196,20 @@ def edit_issue(request, pk=None):
     if issue.author == request.user:
         if request.method == "POST":
             form = AddEditIssueFrom(request.POST, request.FILES,
-                                    instance=issue)           
+                                    instance=issue) 
 
             if issue.genre == 'Navigation':
                 hours_required = 3
-                print(hours_required)
-                messages.info(request, "Yay were inside the loop!")
+                messages.warning(request, "The task is given '%s' hours." %
+                                 hours_required)
             elif issue.genre == 'Flight Controls':
                 hours_required = 6
-                print(hours_required)
-                messages.info(request, "Yay were still inside the loop!")
+                messages.warning(request, "The task is given '%s' hours." %
+                                 hours_required)
             elif issue.genre == 'Auto Pilot':
                 hours_required = 9
-                print(hours_required)
-                messages.info(request, "Yay were still inside the loop!")
+                messages.warning(request, "The task is given '%s' hours." %
+                                 hours_required)
             else:
                 messages.warning(request, "Sorry there has been an error")
 

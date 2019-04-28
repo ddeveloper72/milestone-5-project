@@ -86,25 +86,50 @@ def issue_detail(request, pk):
     """
     try:
         issue = get_object_or_404(Issue, pk=pk)
-        total_cost = issue.hours_required * 55
-        total_comments = Comment.objects.filter().count()
-        votes_counted = UserVoted.objects.filter().count()
-        feature_votes_counted = UserVotedFeature.objects.filter().count()
-        features = Issue.objects.filter(category__contains='FEATURE').count()
+        bug_to_do = Issue.objects.filter(status='To do',
+                                         category='BUG')
+        bug_in_progress = Issue.objects.filter(status='In Progress',
+                                               category='BUG')
+        bug_complete = Issue.objects.filter(status='Complete',
+                                            category='BUG')
+        bug_navigation = Issue.objects.filter(genre='Navigation',
+                                              category='BUG')
+        bug_flight_controls = Issue.objects.filter(genre='Flight Controls',
+                                                   category='BUG')
+        bug_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
+                                              category='BUG')
+
+        fea_to_do = Issue.objects.filter(status='To do',
+                                         category='FEATURE')
+        fea_in_progress = Issue.objects.filter(status='In Progress',
+                                               category='FEATURE')
+        fea_complete = Issue.objects.filter(status='Complete',
+                                            category='FEATURE')
+        fea_navigation = Issue.objects.filter(genre='Navigation',
+                                              category='FEATURE')
+        fea_flight_controls = Issue.objects.filter(genre='Flight Controls',
+                                                   category='FEATURE')
+        fea_auto_pilot = Issue.objects.filter(genre='Auto Pilot',
+                                              category='FEATURE')
+
 
         if not request.user.seen_issue.filter(post_id=pk).exists():
             issue.views += 1
             issue.save()
             UserSeenIssue.objects.create(user=request.user, post=issue)
         return render(request, "issue_detail.html", {'issue': issue,
-                                                     'total_cost': total_cost,
-                                                     'votes_counted':
-                                                     votes_counted,
-                                                     'total_comments':
-                                                     total_comments,
-                                                     'feature_votes_counted':
-                                                     feature_votes_counted,
-                                                     'features': features})
+                                                     'bug_to_do': bug_to_do,
+                                                     'bug_in_progress': bug_in_progress,
+                                                     'bug_complete': bug_complete,
+                                                     'bug_navigation':bug_navigation,
+                                                     'bug_flight_controls': bug_flight_controls,
+                                                     'bug_auto_pilot': bug_auto_pilot,
+                                                     'fea_to_do': fea_to_do,
+                                                     'fea_in_progress': fea_in_progress,
+                                                     'fea_complete': fea_complete,
+                                                     'fea_navigation': fea_navigation,
+                                                     'fea_flight_controls': fea_flight_controls,
+                                                     'fea_auto_pilot': fea_auto_pilot })
     except:
         messages.info(request, "There are no bugs yet")
         return redirect(reverse('get_issues'))

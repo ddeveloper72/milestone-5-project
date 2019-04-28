@@ -26,8 +26,6 @@
                 <p>Our blog lets us hear back from users of our products</p>
                 <p>It also provides a medium in which you can contribute your own expereinces<br />
                 using our sofware products on your own Custome Drone</p>
-                <p><span class="boldtext">Blog Entries: </span> <span class="badge  badge-pill badge-info">
-                        {{ count }}</span> </p>
                 <form action="{% url 'search' %}" method="get">
                     <input type="text" placeholder="Search for something" name="q" value="{{ request.GET.q }}">
                     <button class="mt-2 btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>

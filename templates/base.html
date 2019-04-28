@@ -58,6 +58,7 @@
             </a>
           </li>
           {% else %}
+          <li class="nav-item mr-2"><a href="{% url 'get_posts'  %}"><i class="fas fa-blog"></i> Blog</a></li>
           <li class="nav-item mr-2"><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
           <li class="nav-item mr-2"><a href="{% url 'registration' %}"><i class="fas fa-user-plus"></i> Register</a>
           </li>

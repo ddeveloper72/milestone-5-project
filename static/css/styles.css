@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 body, html {
     font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     height: 100%;
 }
 
@@ -77,7 +77,7 @@ body, html {
   overflow:hidden;
 }
 
-.card .box .img img {
+.card .box .img img { 
   width:100%;
   max-width: 300px;
   height:auto; 
@@ -90,22 +90,29 @@ body, html {
 }
 
 .editor-toolbar {
-  opacity: .8;
   background-color: #ffffff;
 }
 
 .fa-placeholder {
-  font-size: 6rem;
+  font-size: 60px;
   color: #f07474;
 }
 
 .regform i {
-  font-size: 2rem;
+  font-size: 30px;
   padding: 0;
+  display: block;
+  margin-top: 4px;
+  align-content: center;
 }
 
 hr {
   border-color: aliceblue;
+}
+
+.img img {
+  max-width: 240px;
+  width: 100%;
 }
 
 .list-group-item {
@@ -116,98 +123,48 @@ p > img {
   width: 100%;
   max-width: 300px;
 }
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*                           Card Header Media Queries                       */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/* @media (min-width: 992px) {
-  div.card-header h3 {
-    font-size: 1.6rem;
-  }
-}
 
-@media (min-width: 991px) {
-  div.card-header h3 {
-    font-size: 1rem;    
-  }
-} */
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*                              Media Queries                                */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 @media only screen and (min-width:320px) {
 .title-partial {
-  font-size: 1.5rem;
+  font-size: 10px;
   }
 .list_partial{
- font-size: 1rem;
+ font-size: 10px;
+  }
+.card .box {
+  padding: 15px;
   }
 }
 
 @media only screen and (min-width:768px) {
   .title-partial {
-    font-size: 1.5rem;
+    font-size: 14px;
     }
   .list_partial{
-    font-size: 1rem;
+    font-size: 12px;
     }
   }
 
-/* @media only screen and (min-width: 991px) {
-  .col-sm-12 {
-    font-size: 1rem;
+@media screen and (min-width: 576px) {
+  .col-xs-12 {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+      flex: 0 0 50%;
+      max-width: 100%;
   }
 }
 
-@media only screen and (min-width: 991px) {
-  .regform i {
-    font-size: 1rem;
-    padding-right: 1rem;
-  }
+  @media screen and (min-width: 320px) {
+    .col-xs-12 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 50%;
+        width: 100%;
+        max-width: 100%;
+        padding: 0
+    }
 }
-
-@media only screen and (min-width: 576px) {
-  .mb-sm-3, .my-sm-3 {
-    font-size: 0.8rem;
-  }  
-  .regform i {
-    font-size: 1.6rem;
-    padding-right: 1rem;
-  }
-}
-
-@media only screen and (min-width: 991px) {
-.mb-sm-3, .my-sm-3 {
-    padding: 0;
-    font-size: 1rem;
-  }
-} */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/*                             Markdown Media Queries                        */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-/* @media only screen and (min-width: 992px){
-  .col-sm-12 h1 {
-    font-size: 1.8rem;
-  } 
-  .col-sm-12 h2 {
-    font-size: 1.5rem;
-  }
-  .col-sm-12 h3 {
-    font-size: 1.2rem;
-  }
-  .col-sm-12 p li b, strong {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 991px){
-  .col-sm-12 h1 {
-    font-size: 1.5rem;
-  } 
-  .col-sm-12 h2 {
-    font-size: 1.2rem;
-  }
-  .col-sm-12 h3 {
-    font-size: 1rem;
-  }
-  .col-sm-12 p li b, strong {
-    font-size: 0.8rem;
-  }
-}
- */

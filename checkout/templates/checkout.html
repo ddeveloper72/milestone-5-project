@@ -16,9 +16,6 @@
 
 {% block content %}
 <div class="row flex-column-reverse flex-md-row mt-3">
-
-
-
     {% for item in cart_items %}
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 mb-3">
         <div class="card">
@@ -57,7 +54,7 @@
 <div class="col-md-6 col-sm-12 mt-2 mb-2">
     <p class="card-subtitle">Total: <i class=" fas fa-euro-sign"></i> {{ total }}</p>
 </div>
-</div>
+
 <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
     <div class="col-sm-12">
         <legend>Payment Details</legend>

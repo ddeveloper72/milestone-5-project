@@ -108,12 +108,16 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
 1. Tools used
 
    * Written in VSCode
-   * The SQL database was created with heroku-postgresql (see database included with repository) and is hosted at amazonaws.com
+   * Python 3.7.2
+   * jQuery
    * CSS and JavaScript files were created and stored locally within the application as static files.  These static files were then added to the s3 bucket on Amazon
+   * The SQL database was created with heroku-postgresql (see database included with repository) and is hosted at amazonaws.com
    * The app as tested using Chrome dev tools & VSCode debugger
    * HTML and CSS checked with help from the W3 Validation Service
    * Version management and test branches created in git
    * Web deployment is hosted on Heroku
+
+   
 
 2. Reference Literature
 
@@ -130,12 +134,17 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
    
    ### Running Locally in VSCode
 
-   * Download and install Python 3.7.2 and install in your windows environment if you haven't already installed the latest version of python.
-   * Create a project environment for Django, by creating a virtual environment. Rin `python -m venv env`
-   * In VS Code, open the Command Palette (View > Command Palette or (Ctrl+Shift+P)). Then select the Python: Select Interpreter command.
-   * Select the virtual environment python interpreter for your project.
-   * Start the virtual environment from the terminal by typing in `env\scripts\activate` then press enter.
-   * To setup the project files in this new virtual environment, type in `pip install -r requirements.txt` and press enter.
+    1. Download and install Python 3.7.2 and install in your windows environment if you haven't already installed the latest version of python.
+    2. Create a project environment for Django, by creating a virtual environment. 
+       1. Run `python -m venv env`
+    3. In VS Code, open the Command Palette (View > Command Palette or (Ctrl+Shift+P)). Then select the Python: Select Interpreter command.
+    4. Select the virtual environment python interpreter for your project.
+    5. Start the virtual environment from the terminal by typing in:
+       1. `env\scripts\activate`
+    6. To setup the project files in this new virtual environment, type in:
+       1. `pip install -r requirements.txt`
+    7. Create a proc file
+       1. `echo web: gunicorn django_debug.wsgi:application > Procfile`
   
     You wil need to setup the environmental variabes in VSCode for production and debug versions of the project.
 
@@ -189,11 +198,13 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
 
     ```
     Update the gitignore file to to exclude the following file types:
+    Use the following command line command:
+    * `echo env.py >> .gitignore`
 
    1.  env
    2.  .vscode
    3.  config.py
-   4.  __pycache__
+   4.  '__pycache__'
    5.  *.sqlite3
    6.  media/
    7.  .coverage
@@ -213,18 +224,35 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
     1. Log into Heroku
     2. Select New and Create new App.
     3. Create a App name, select the region.
-        - then Create app.
+   
+        * then Create app.
+  
     4. Select Resources tab, search for add-on
-        - Add Heroku Postgres SQL database, choosing the free hobby plan.
+   
+        * Add Heroku Postgres SQL database, choosing the free hobby plan.
+  
     5. Select the Settings tab, then select Reveal Config Vars
-        - Verify the new `DATABASE_URL` and value is there for the Postgres database.
-        - Add in the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to the heroku Config Vars to enable connection to the AWS S3 bucket
-        - Add in the `STRIPE_PUBLISHABLE` and `STRIPE_SECRET` keys to the heroku Config Vars to enable connection to Sripe.
-        - Add in the `EMAIL_HOST_USER` and the `EMAIL_HOST_PASSWORD` details to the heroku Config Vars for the email password reset system.
-        - Copy and paste the key, value, pairs into the workspace settings, but not the Postgres database URL in VSCode used for environmental settings (see above).
-        - Add a new `SECRET_KEY` key, value pair from your VSCode environmental settings to the heroku Config Vars.
+   
+        * Verify the new `DATABASE_URL` and value is there for the Postgres database.
+        * Add in the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to the heroku Config Vars to enable connection to the AWS S3 bucket
+        * Add in the `STRIPE_PUBLISHABLE` and `STRIPE_SECRET` keys to the heroku Config Vars to enable connection to Sripe.
+        * Add in the `EMAIL_HOST_USER` and the `EMAIL_HOST_PASSWORD` details to the heroku Config Vars for the email password reset system.
+        * Copy and paste the key, value, pairs into the workspace settings, but not the Postgres database URL in VSCode used for environmental settings (see above).
+        * Add a new `SECRET_KEY` key, value pair from your VSCode environmental settings to the heroku Config Vars.
+        * Our static files are not hosted on Heroku, so set DISABLE_COLLECTSTATIC to 1 in the Config Vars.
+  
     6. Copy these config Vars from the .vscode/settings.json file and this time include the Postgres URL data.
+    7. Don't forget to update the allowed hosts for Heroku in your Django settings file.
+    8. Lastly, becasse our code is deployed to GitHub, select the deploy tab in Heroku and connect the app to the GitHub repository.  Then select automatic deploment from the _master_ branch.  This way deployments from VSCode to the master branch, will be automatically pulled by Heroku.
 
+    ```Python
+
+    ALLOWED_HOSTS = [
+    os.environ.get('localhost', '127.0.0.1'),
+    'ddeveloper72-custom-drone.herokuapp.com'
+    ]
+
+    ```
 
     In VSCode - Part 2
 
@@ -232,16 +260,21 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
     1. To stat the project using MySQL, load the project as a project workspace.
     or...
     1. To open it using the Postgres production database, right click the project folder in windows and open with VSCode.
-    
+
     2. In the command line, start the virtual environment for the project.
     3. For deploying our models to the production database (we have already made our development models in MySQL), test connection to the new Postgres database by noting the instructions from the command line.
-        - Connecting to the local MySQL database should not occur.
-        - There will be an instruction to run python manage.py migrate
-        - run migrate to create new models on the Postgres database.  The existing migrations will be used.
-        - A new superuser will be required for the new Postgres database, run python manage.py creatsuperuser and fill in the required superuser details.
-        - Run the app, python manage.py runserver and login as the administrator.  All your db models should be clean and empty.
 
-## 4. MySQL / PostgreSQL Database Schema
+        * Connecting to the local MySQL database should not occur.
+        * There will be an instruction to `run python manage.py migrate`,
+        * Then run `run python manage.py makemigrations`
+        * Then run `run python manage.py migrate` again.
+        * run migrate to create new models on the Postgres database.  The existing migrations will be used.
+        * A new superuser will be required for the new Postgres database, run `python manage.py creatsuperuser` and fill in the required superuser details to create  super user.
+        * Run the app, `python manage.py runserver` and login as the administrator.  All your db models should be clean and empty.
+  
+    4. 
+
+## 4. MySQL / PostgreSQL Database Schema (using MySQL Workbench)
 
 The EER drawing for the project has been divided into two sections, namely the Blog models EER and the Issues models EER.
 
@@ -255,10 +288,32 @@ Figure of the Blog EER diagram.
 
 ### Debugging Strategy
 
-### _The issues found_
+    I thought that the best way to test this application as I have done in the past, was to run a beta test by putting the application on Heroku and then letting everyone in my college try it. While doing so, I asked for feedback on the application. This is the feedback I got:
+    
+   ### *Issues Found*
 
-### _The fixes implemented_
+    1. The blog page is conciderd to to be the main front end of the site and wasan't publically accessible.
+    2. The main user registration page wasn't showing error messages.  Once the user had registed, the errors remaind queued on their profile page.
+    3. I had trouble counting stats data accumulating in the issues model for the different categories of bugs and features.
+    4. I had trouble trying to assign a inteerger value for hours required to do a particular taks.  There were three different task types and so need 3 different ammounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
+    5. Collegues have come back to me wth problems that they ahve noticed with the media queries for transitioning between mobile viw, table and larger sccreens.
+    6. The shopping cart is meant to bable to align all the items in the cart horizontally, to where it meed the user asside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
+    7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've notiched how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
+
+
+   ### *The Fixes Implemented*
+
+    1. Moved a copu of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
+    2. Mesagin was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
+    3. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
+    4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an enf elif cunction now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
+    5. I am still working on debuggin the media queries.
+    6. I need to implement a change to the cart framework to make the changes.
+    7. I haven't found a way yet to safey truncate the Markdown text.  For the purpose of this excercise, I have had to remove truncate words till a solution can be found.
+
+
 
 ## 6. Credits
+
 
 ### by Duncan Falconer for the Code Institute, 2019

@@ -17,8 +17,14 @@ User Login
             <div>
                 <h4>Login:</h4>
             </div>
-            {% block alert_message %}
-            {% endblock alert_message %}  
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor messages %}  
               <div>
                 <p>To Register, <a href="{% url 'registration' %}">Sign up here</a></p>
             </div>          

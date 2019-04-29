@@ -89,16 +89,16 @@ def registration(request):
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             if user:
-               auth.login(user=user, request=request)
-               messages.success(request, "You have registerd successfully")
-               return redirect(reverse('index'))
-               """
-               redirect the newly registerd user away from registration to 
-               the index
-               """
-                  
+                auth.login(user=user, request=request)
+                messages.success(request, "You have registerd successfully")
+                return redirect(reverse('index'))
+                """
+                redirect the newly registerd user away from registration to 
+                the index
+                """
+
         else:
-            messages.error(request, registration_form.errors)            
+            messages.error(request, registration_form.errors)
             """
             messages.warning(request, "Plesse check that your passwords
             match and username/email is unique!")

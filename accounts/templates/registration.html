@@ -22,8 +22,14 @@ User Registration
             <div>
                 <p>If you have already registered, please login in <a href="{% url 'login' %}">here</a></p>
             </div>
-            {% block alert_message %}
-            {% endblock alert_message %}
+             {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor messages %}
             <div class="row">
                 <div class="col-sm-12">
                     <form method="POST" action="{% url 'registration' %}">

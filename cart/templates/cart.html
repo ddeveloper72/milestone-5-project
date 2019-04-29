@@ -33,9 +33,9 @@
                         <form action="{% url 'adjust_cart' item.id %}" class="form-inline" method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label>New Qty</label>
+                                <label class="mr-2">New Qty</label>
                                 <div class="input-group">
-                                    <div class="input-group-addon mr-2">Item:</div>
+                                    <div class="input-group-addon mr-2 mt-2">Item:</div>
                                     <input type="number" name="quantity" value="{{ item.quantity }}" min="0" max="1" class="form-control">                                    
                                 </div>
                                 <button class="btn btn-primary ml-2" type="submit"><i class="far fa-edit"></i> Ammend</button>

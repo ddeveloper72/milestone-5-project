@@ -9,7 +9,7 @@ media/
 *.code-workspace
 *.sqlite3
 *.pyc
-*.png
 drone.db
 drone.mwb
 drone.mwb.bak
+drone.mwb.beforefix

@@ -114,6 +114,7 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
    * The SQL database was created with heroku-postgresql (see database included with repository) and is hosted at amazonaws.com
    * The app as tested using Chrome dev tools & VSCode debugger
    * HTML and CSS checked with help from the W3 Validation Service
+   * [Darkly](https://bootswatch.com/darkly/) Bootswatch theme. 
    * Version management and test branches created in git
    * Web deployment is hosted on Heroku
 
@@ -129,6 +130,7 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
    * [Deploying with Git \| Heroku Dev Centre](https://devcenter.heroku.com/articles/git)
    * [How to Extend Django User Model](https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#abstractuser)
    * [How to count All Objects of a Database Table in Django](http://www.learningaboutelectronics.com/Articles/How-to-count-all-objects-of-a-database-table-in-Django.php)
+   * [Stack Overflow](http://stackoverflow.com)
 
 3. Code Development
    

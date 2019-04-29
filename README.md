@@ -127,7 +127,7 @@ Figure of the blog page as seen by the Admin of Staff.
 
 Figure of the blog form as seen by the Admin of Staff.
 
-![7-Bug_by_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/7-Bug_Admin_Staff.png "Blog form for Admin-Staff")
+![7-Bug_by_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/7-Bug_by_Admin_Staff.png "Bug view for Admin-Staff")
 
 Figure of the blog form as seen by the Admin of Staff.
 

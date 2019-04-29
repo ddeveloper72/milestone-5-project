@@ -4,6 +4,9 @@
 
 * for customizing your drone's navigation systems *
 
+
+[![Build Status](https://travis-ci.org/ddeveloper72/milestone-5-project.svg?branch=master)](https://travis-ci.org/ddeveloper72/milestone-5-project)
+
 ## Preface
 
 Custom Drone deBug is a fictitious organization that specialize in developing high-tech drone navigation systems.  The navigation systems of our imaginary drones can be programmed and customized to suit our customer's needs.  The drones are used for a variety different industry purposes, such as search and rescue and inspection.  
@@ -259,5 +262,3 @@ Figure of the Blog EER diagram.
 ## 6. Credits
 
 ### by Duncan Falconer for the Code Institute, 2019
-
-[![Build Status](https://travis-ci.org/ddeveloper72/milestone-5-project.svg?branch=master)](https://travis-ci.org/ddeveloper72/milestone-5-project)

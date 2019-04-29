@@ -323,6 +323,40 @@ _Figure 10 of the Issues EER diagram._
 
 ## 5. Development & Testing
 
+### Testing
+
+The project brief was to follow a a pattern of Test Driven Development. Testing was carried out writing functions and then verify the data returned from the function. In this case, print statements were created to print cursor from a data collection and then print specific objects or key value pairs.
+
+Where CRUD operations were being carried out, the data was verified by watching the updates being carried out to the my local storage managed by MySQL Workbench.
+
+Server codes were used to monitor POST GET transitions from the forms.
+
+#### The following manual tests were carried out:
+
+As a logged out user:
+
+* From the landing page, I should only see the index page content as intended, login, blog and register and title navbar. _Pass_
+* I could click on each link, which brought me to the respective page. _Pass_
+* I clicked the _blog page_ contains link and was brought to the blog page. _Pass_
+* From the blog page, I clicked on links and used the search function that would normally access other parts of the site.  Clicking these links, brought me to the login page. _Pass_
+* On the _login page_, I attempted to login without any registered details. An error message told me my "user name or password is incorrect". _Pass_
+* On the _Registration page_ I tried to register with a user name, a email address that I knew was already taken, and then a unique password. An error message told me my email address had to be unique. _Pass_
+* On the _Registration page_ I tried to register with a user name, a unique email address, and two different passwords.  An error message told me my passwords had to match. _Pass_
+* On the _Registration page_ I tried to register with a user name, a unique email address, and a numeric password.  An error message told me my passwords could not be entirely numeric. _Pass_
+* On the _Registration page_ I tried to register with a user name, a unique email address, and a alphanumeric password longer that the 4 character limit.  I was successfully registered and brought to the index page. _Pass_
+* I logged out again and then tried to access the following pages
+  * Issues - redirected me to the login page. _Pass_
+  * Posts - brought me to the posts page. _Pass_
+  * Cart - redirected me to the login page. _Pass_
+  * Admin - redirected me to the admin login page. _Pass_
+  * 
+* 
+
+
+
+
+
+
 ### Debugging Strategy
 
     I thought that the best way to test this application as I have done in the past, was to run a beta test by putting the application on Heroku and then letting everyone in my college try it. While doing so, I asked for feedback on the application. This is the feedback I got:

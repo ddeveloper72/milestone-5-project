@@ -103,6 +103,39 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
 
 ### Wireframes
 
+![1-Login](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/1-Login.png "Login mockups")
+
+Figure of the login design.
+
+![2-Register](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/2-Register.png "Registration form mockups")
+
+Figure of the registration form design.
+
+![3-Index](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/3-Index_Page.png "Index page mockups")
+
+Figure of the index page proposal.
+
+![4-User_Profile](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/4-User_Profile.png "User Profile page")
+
+Figure of the index page proposal.
+
+![5-Blog_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/5-Blog_Admin_Staff.png "Blog page for Admin-Staff page")
+
+Figure of the blog page as seen by the Admin of Staff.
+
+![6-Blog_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/6-Blog_Admin_Staff.png "Blog form for Admin-Staff")
+
+Figure of the blog form as seen by the Admin of Staff.
+
+![7-Bug_by_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/7-Blog_Admin_Staff.png "Blog form for Admin-Staff")
+
+Figure of the blog form as seen by the Admin of Staff.
+
+![8-Bug_by_User](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/8-Bug_by_User.png "Bug view by Admin-Staff")
+
+Figure of the bug view as seen by the Admin of Staff.
+
+
 ## 3. Application Construction
 
 1. Tools used
@@ -286,6 +319,8 @@ Figure of the Blog EER diagram.
 
 ![Issues EER diagram](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/issues_eer.png "Issues model EER schema")
 
+Figure of the Issues EER diagram.
+
 ## 5. Development & Testing
 
 ### Debugging Strategy
@@ -294,24 +329,24 @@ Figure of the Blog EER diagram.
     
    ### *Issues Found*
 
-    1. The blog page is conciderd to to be the main front end of the site and wasan't publically accessible.
-    2. The main user registration page wasn't showing error messages.  Once the user had registed, the errors remaind queued on their profile page.
-    3. I had trouble counting stats data accumulating in the issues model for the different categories of bugs and features.
-    4. I had trouble trying to assign a inteerger value for hours required to do a particular taks.  There were three different task types and so need 3 different ammounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
-    5. Collegues have come back to me wth problems that they ahve noticed with the media queries for transitioning between mobile viw, table and larger sccreens.
-    6. The shopping cart is meant to bable to align all the items in the cart horizontally, to where it meed the user asside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
-    7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've notiched how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
+1. The blog page is conciderd to to be the main front end of the site and wasan't publically accessible.
+2. The main user registration page wasn't showing error messages.  Once the user had registed, the errors remaind queued on their profile page.
+3. I had trouble counting stats data accumulating in the issues model for the different categories of bugs and features.
+4. I had trouble trying to assign a inteerger value for hours required to do a particular taks.  There were three different task types and so need 3 different ammounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
+5. Collegues have come back to me wth problems that they ahve noticed with the media queries for transitioning between mobile viw, table and larger sccreens.
+6. The shopping cart is meant to bable to align all the items in the cart horizontally, to where it meed the user asside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
+7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've notiched how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
 
 
    ### *The Fixes Implemented*
 
-    1. Moved a copu of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
-    2. Mesagin was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
-    3. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
-    4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an enf elif cunction now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
-    5. I am still working on debuggin the media queries.
-    6. I need to implement a change to the cart framework to make the changes.
-    7. I haven't found a way yet to safey truncate the Markdown text.  For the purpose of this excercise, I have had to remove truncate words till a solution can be found.
+1. Moved a copu of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
+2. Mesagin was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
+3. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
+4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an enf elif cunction now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
+5. I am still working on debuggin the media queries.
+6. I need to implement a change to the cart framework to make the changes.
+7. I haven't found a way yet to safey truncate the Markdown text.  For the purpose of this excercise, I have had to remove truncate words till a solution can be found.
 
 
 

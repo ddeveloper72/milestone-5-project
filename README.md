@@ -105,35 +105,35 @@ I hope that anyone using this app will enjoy using it.  Its is a starter app and
 
 ![1-Login](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/1-Login.png "Login mockups")
 
-Figure of the login design.
+_Figure 1 Wireframe of the login design._
 
 ![2-Register](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/2-Register.png "Registration form mockups")
 
-Figure of the registration form design.
+_Figure 2 Wireframe of the registration form design._
 
 ![3-Index](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/3-Index_Page.png "Index page mockups")
 
-Figure of the index page proposal.
+_Figure 3 of the index page proposal._
 
 ![4-User_Profile](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/4-User_Profile.png "User Profile page")
 
-Figure of the index page proposal.
+_Figure 4 Wireframe of the index page proposal._
 
 ![5-Blog_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/5-Blog_Admin_Staff.png "Blog page for Admin-Staff page")
 
-Figure of the blog page as seen by the Admin of Staff.
+_Figure 5 Wireframe of the blog page as seen by the Admin of Staff._
 
 ![6-Blog_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/6-Blog_Admin_Staff.png "Blog form for Admin-Staff")
 
-Figure of the blog form as seen by the Admin of Staff.
+_Figure 6 Wireframe of the blog form as seen by the Admin of Staff._
 
 ![7-Bug_by_Admin_Staff](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/7-Bug_by_Admin_Staff.png "Bug view for Admin-Staff")
 
-Figure of the blog form as seen by the Admin of Staff.
+_Figure 7 Wireframe of the blog form as seen by the Admin of Staff._
 
 ![8-Bug_by_User](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/8-Bug_by_User.png "Bug view by Admin-Staff")
 
-Figure of the bug view as seen by the Admin of Staff.
+_Figure 8 Wireframe of the bug view as seen by the Admin of Staff._
 
 
 ## 3. Application Construction
@@ -315,11 +315,11 @@ The EER drawing for the project has been divided into two sections, namely the B
 
 ![Blog EER diagram](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/blog_eer.png "Blog model EER schema")
 
-Figure of the Blog EER diagram.
+_Figure 9 of the Blog EER diagram._
 
 ![Issues EER diagram](https://github.com/ddeveloper72/milestone-5-project/blob/master/static/readme/issues_eer.png "Issues model EER schema")
 
-Figure of the Issues EER diagram.
+_Figure 10 of the Issues EER diagram._
 
 ## 5. Development & Testing
 
@@ -329,28 +329,30 @@ Figure of the Issues EER diagram.
     
    ### *Issues Found*
 
-1. The blog page is conciderd to to be the main front end of the site and wasan't publically accessible.
-2. The main user registration page wasn't showing error messages.  Once the user had registed, the errors remaind queued on their profile page.
+1. The blog page is considered to to be the main front end of the site and wasn't publicly accessible.
+2. The main user registration page wasn't showing error messages.  Once the user had registered, the errors remind queued on their profile page.
 3. I had trouble counting stats data accumulating in the issues model for the different categories of bugs and features.
-4. I had trouble trying to assign a inteerger value for hours required to do a particular taks.  There were three different task types and so need 3 different ammounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
-5. Collegues have come back to me wth problems that they ahve noticed with the media queries for transitioning between mobile viw, table and larger sccreens.
-6. The shopping cart is meant to bable to align all the items in the cart horizontally, to where it meed the user asside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
-7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've notiched how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
+4. I had trouble trying to assign a integer value for hours required to do a particular tasks.  There were three different task types and so need 3 different amounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
+5. Colleagues have come back to me with problems that they have noticed with the media queries for transitioning between mobile view, table and larger screens.
+6. The shopping cart is meant to be able to align all the items in the cart horizontally, to where it meets the user aside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
+7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've noticed how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
 
 
    ### *The Fixes Implemented*
 
-1. Moved a copu of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
-2. Mesagin was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
+1. Moved a copy of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
+2. Messaging was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
 3. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
-4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an enf elif cunction now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
-5. I am still working on debuggin the media queries.
+4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an if, elif, else function now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
+5. I am still working on debugging the media queries.
 6. I need to implement a change to the cart framework to make the changes.
-7. I haven't found a way yet to safey truncate the Markdown text.  For the purpose of this excercise, I have had to remove truncate words till a solution can be found.
-
+7. I haven't found a way yet to safety truncate the Markdown text.  For the purpose of this exercise, I have had to remove truncate words till a solution can be found.
 
 
 ## 6. Credits
 
+* There are loads of people that I want to give credit to. These include, first and foremost my family for their support!
+
+* My friends within the Code Institute who go by the Slack handles @robinz_alumni  @JoWings, @Eventret_Mentor, @Miro_lead, @JohnL3_Alumni, @Sonya, , my Mentor, Nishant and tutors as well and many others. You guys have helped me to find my way and personally shared resources like UXD design templates-to help keep my thoughts on task and on track and help with my C9 and VSCode coding environments. Thank you ladies and gentlemen!
 
 ### by Duncan Falconer for the Code Institute, 2019

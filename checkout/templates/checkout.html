@@ -24,14 +24,14 @@
                 <div class="card-header text-center">
                     <h3 class="card-title">{{ item.product.title }}</h3>
                 </div>
-                <!-- <div class="col-md-4 col-sm-4 text-center">
+                <div class="col-md-4 col-sm-4 text-center">
                     {% if item.product.image %}
                     <a href="{% url 'issue_detail' item.product.id %}"><img class="card-img-top img-circle mt-3 product"
                             src="{{ MEDIA_URL }}{{ item.product.image }}" alt="Profile image"></a>
                     {% else %}
                     <span class="fa-placeholder"><i class="fas fa-bug"></i></span>
                     {% endif %}
-                </div> -->
+                </div>
                 <div class="col-sm-12 mb-3 mt-3">
                     <div class="card-subtitle">
                         <p>Quantity: {{ item.quantity }}</p>
@@ -42,7 +42,7 @@
         </div>
         {% endfor %}
     </div>
-    {% include 'partials/_cart.html' %}
+    <!-- {% include 'partials/_cart.html' %} -->
 </div>
 <div class="col-md-6 col-sm-12 mt-2 mb-2">
     <p class="card-subtitle">Total: <i class=" fas fa-euro-sign"></i> {{ total }}</p>

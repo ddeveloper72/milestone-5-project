@@ -333,7 +333,9 @@ Server codes were used to monitor POST GET transitions from the forms.
 
 #### The following manual tests were carried out:
 
-As a logged out user:
+**(This method of manual testing was suggested with thanks, by @johnL)**
+
+Checks as logged out user:
 
 * From the landing page, I should only see the index page content as intended, login, blog and register and title navbar. _Pass_
 * I could click on each link, which brought me to the respective page. _Pass_
@@ -345,16 +347,54 @@ As a logged out user:
 * On the _Registration page_ I tried to register with a user name, a unique email address, and a numeric password.  An error message told me my passwords could not be entirely numeric. _Pass_
 * On the _Registration page_ I tried to register with a user name, a unique email address, and a alphanumeric password longer that the 4 character limit.  I was successfully registered and brought to the index page. _Pass_
 * I logged out again and then tried to access the following pages
+  
   * Issues - redirected me to the login page. _Pass_
   * Posts - brought me to the posts page. _Pass_
   * Cart - redirected me to the login page. _Pass_
   * Admin - redirected me to the admin login page. _Pass_
-  * 
-* 
+  
+Checks as a logged in user:
+
+* From the landing page, I should only see the index page content as intended, logout, blog, bugs and my name as the profile link, and the shopping cart link on the title navbar. _Pass_
+* I tested each link to be sure I was brought to the correct page and that if I clicked _log out_, that I was logged out of the app. _Pass_
+  
+* Profile Page:
+
+    - Should contain a form for entering my details.  My email address should be shown if given at registration. _Pass_
+    - If I am admin or staff, I should see a _Admin/Staff Development Data_ footer on the form with my activity details. _Pass_
+    - If I am not admin or staff, I should see a just the form for adding in my user details. _Pass_
+    - As an admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
+    - If I am not admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
+    - If I click on _Profile_ again, I should see my updated details. _Fail_
+
+* Blog Page:
+
+    - As an admin or staff, I should see the blog made by a Custom Drone admin or staff member. It will have a button to let me read more, which will let me expand the contents of the blog.  The Blog info should give me information about how many posts are approved and posts pending approval.  It should also provide a button for a new blog _Pass_
+      - If I click the new blog button, I am presented with a form form writing in details for posting a new blog.  I am able to use Markdown tags in the content box and preview my blog as Markdown. When I click back to blog it brings me back to the blogs.  If I click save, it creates the new blog and brings me back to blogs. _Pass_
 
 
+    - If I am not an admin, I should be able to see the blog. It will have a button to let me read more, which will let me expand the contents of the blog. If I The Blog info should give me information about Custom Drone and about the blogs, as well as provides a button for a new Bug _Pass_
+      - If I click on back to blog, it brings me back to all the blogs.  If I click on add comment, I am presented with a form for adding a comment. - - If I save my comment, I am brought back to the blog details page.  I can see my comment below the blog. _Pass_
 
+* Bugs Page:
 
+    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
+      - If I click on the read more button on the bug, I am brought to the bug details page.  I am presented with more buttons to carry out admin work on the bug _Pass_
+      - If I click add comment, I can add a comment.  If I click back to bugs, I am brought back to the bugs details page. _Pass_
+      - On the bug details page, I now have an option to approve or remove the comment.  The pending approval counter in the Task Information now shows one comment is pending approval. _Pass_
+      - If I click remove for the comment, the comment is removed. _Pass_
+      - If I add anther comment, the comment is saved and the comments counter increases by one.  The pending approval counter decreases by one. _Pass_
+      - If I click _Add Vote_, the vote counter increases by one.  A message bar appears to say thank you for voting. _Pass_
+      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. _Pass_
+      - If I click _Update_, I am brought to a new page with a dropdown menu.  This lets me select a new status for the task. if I change the status and click confirm, It returns me to the details page and a blue message alerts me that the status has been updated. _Pass_
+      - If I click _Remove_  I am brought to a confirmation button to remove the Bug or return to post.  If I click return to post, I am returned to the post details.  If I click conform, I am brought back to the list of issues.  An alert notice tells me that the item has been removed.
+      - The Task Information shows me that the Bugs Resolution and Bugs by Category counts have both dropped by one. _Pass_
+
+    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
+      - If I click on the _Read more_ button, it brings me to the bug details page. I can see more detailed information about the bug as well as comments made by other users. I can see stats about views and votes, as well as a button to _Add Comment_ and _Add Vote_. _Pass_
+      - If I click on _Add Comment_ I am brought to a page that has a form to let me add a comment.  If I click Back to Bugs, it brings me back to the list of bugs.  If I click _Save_, I am brought back to the bug details and I can see it below the other comments. _Pass_
+      - If I click _Add Vote_, the vote counter on the bug increases by one.  A message bar appears to say thank you for voting. _Pass_
+      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. 
 
 
 ### Debugging Strategy
@@ -374,13 +414,13 @@ As a logged out user:
 
    ### *The Fixes Implemented*
 
-1. Moved a copy of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
-2. Messaging was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
-3. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
-4. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an if, elif, else function now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
-5. I am still working on debugging the media queries.
-6. I need to implement a change to the cart framework to make the changes.
-7. I haven't found a way yet to safety truncate the Markdown text.  For the purpose of this exercise, I have had to remove truncate words till a solution can be found.
+8. Moved a copy of the blog URL to the public side of the login.  I then removed login required form the `get_posts` view.  I then tested the links on the page to insure the from the insecure/public side of the site, that the user is diverted to the login page.
+9. Messaging was added to the registration page and the login page. Messaging wasn't working due to an error with the messaging block tags.
+10. I used a django filter find function to find the Boolean values and then used a either count in the html framework, as well as in places, kept the count in the view function.
+11. To assign a unit of time to a particular type of work, changed the view functions that log a new feature as well as edit and existing bug/feature.  When the user selected a type of task that was a feature, such as 'Navigation', an if, elif, else function now evaluated the genre, and if it matches the genre chosen; then that genre = hours_required.  The hours_required was then saved to the table along with all the other information needed to log the issue.
+12. I am still working on debugging the media queries.
+13. I need to implement a change to the cart framework to make the changes.
+14. I haven't found a way yet to safety truncate the Markdown text.  For the purpose of this exercise, I have had to remove truncate words till a solution can be found.
 
 
 ## 6. Credits

@@ -440,11 +440,11 @@ Checks as a logged in user:
       - Clicking on the button from the empty cart screen, returns me to the issues page. __Pass__
       - If I fill out the form and provide the stripe developer credit card details, and click submit payment, I get a message saying my payment was successful. __Pass__
   
-  * Site Security
+  * Site Security `/urltampering/`
 
     - I have implemented custom 404 Page Not Found and 500 Server Error code pages
-      - To test the 404 error, I added a random word into the URL bar.  The 404 page was loaded as expected.  If I clicked on the image URL, I was brought back to the index page.
-      - To test the 500 Server error, I was debugging database error.  As a result, the 500 error was produced.  Clicking on the image, brought me back to the index page. 
+      - To test the 404 error, I added a random word into the URL bar.  The 404 page was loaded as expected.  If I clicked on the image URL, I was brought back to the index page. __Pass__
+      - To test the 500 Server error, I was debugging database error.  As a result, the 500 error was produced.  Clicking on the image, brought me back to the index page. __Pass__
 
 
 

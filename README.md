@@ -151,7 +151,6 @@ _Figure 8 Wireframe of the bug view as seen by the Admin of Staff._
    * Version management and test branches created in git
    * Web deployment is hosted on Heroku
 
-   
 
 2. Reference Literature
 
@@ -236,19 +235,18 @@ _Figure 8 Wireframe of the bug view as seen by the Admin of Staff._
     Use the following command line command:
     * `echo env.py >> .gitignore`
 
-   1.  env
-   2.  .vscode
-   3.  config.py
-   4.  '__pycache__'
-   5.  *.sqlite3
-   6.  media/
-   7.  .coverage
-   8.  *.code-workspace
-   9.  *.pyc
-   10. *.db
-   11. *.mwb
-   12. *.mwb.bak
-   13. *.mwb.beforefix
+   1.  `env`
+   2.  `.vscode`
+   3.  `config.py`
+   4.  `__pycache__`
+   5.  `*.sqlite3`
+   7.  `.coverage`
+   8.  `*.code-workspace`
+   9.  `*.pyc`
+   10. `*.db`
+   11. `*.mwb`
+   12. `*.mwb.bak`
+   13. `*.mwb.beforefix`
 
 4.  Production Deployment Instructions
 
@@ -331,7 +329,7 @@ Where CRUD operations were being carried out, the data was verified by watching 
 
 Server codes were used to monitor POST GET transitions from the forms.
 
-#### The following manual tests were carried out:
+#### The following manual tests were carried out
 
 **(This method of manual testing was suggested with thanks, by @johnL)**
 
@@ -358,43 +356,93 @@ Checks as a logged in user:
 * From the landing page, I should only see the index page content as intended, logout, blog, bugs and my name as the profile link, and the shopping cart link on the title navbar. _Pass_
 * I tested each link to be sure I was brought to the correct page and that if I clicked _log out_, that I was logged out of the app. _Pass_
   
-* Profile Page:
+* Profile Page: `/accounts/profile/`
 
     - Should contain a form for entering my details.  My email address should be shown if given at registration. _Pass_
     - If I am admin or staff, I should see a _Admin/Staff Development Data_ footer on the form with my activity details. _Pass_
     - If I am not admin or staff, I should see a just the form for adding in my user details. _Pass_
     - As an admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
     - If I am not admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
-    - If I click on _Profile_ again, I should see my updated details. _Fail_
+    - If I click on _Profile_ again, I should see my updated details. _Pass_
 
-* Blog Page:
+* Blog Page: `/posts/`
 
     - As an admin or staff, I should see the blog made by a Custom Drone admin or staff member. It will have a button to let me read more, which will let me expand the contents of the blog.  The Blog info should give me information about how many posts are approved and posts pending approval.  It should also provide a button for a new blog _Pass_
       - If I click the new blog button, I am presented with a form form writing in details for posting a new blog.  I am able to use Markdown tags in the content box and preview my blog as Markdown. When I click back to blog it brings me back to the blogs.  If I click save, it creates the new blog and brings me back to blogs. _Pass_
 
-
     - If I am not an admin, I should be able to see the blog. It will have a button to let me read more, which will let me expand the contents of the blog. If I The Blog info should give me information about Custom Drone and about the blogs, as well as provides a button for a new Bug _Pass_
       - If I click on back to blog, it brings me back to all the blogs.  If I click on add comment, I am presented with a form for adding a comment. - - If I save my comment, I am brought back to the blog details page.  I can see my comment below the blog. _Pass_
 
-* Bugs Page:
-
-    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
+* Bugs Page: `/issues/`
+  
+  *Bug Posts `/issues/1` 
+    
+    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
       - If I click on the read more button on the bug, I am brought to the bug details page.  I am presented with more buttons to carry out admin work on the bug _Pass_
+      
+      * `/issues/add_comment/1/new_comment`
       - If I click add comment, I can add a comment.  If I click back to bugs, I am brought back to the bugs details page. _Pass_
+      
       - On the bug details page, I now have an option to approve or remove the comment.  The pending approval counter in the Task Information now shows one comment is pending approval. _Pass_
       - If I click remove for the comment, the comment is removed. _Pass_
       - If I add anther comment, the comment is saved and the comments counter increases by one.  The pending approval counter decreases by one. _Pass_
       - If I click _Add Vote_, the vote counter increases by one.  A message bar appears to say thank you for voting. _Pass_
       - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. _Pass_
+      
+      * `/issues/1/update/`
       - If I click _Update_, I am brought to a new page with a dropdown menu.  This lets me select a new status for the task. if I change the status and click confirm, It returns me to the details page and a blue message alerts me that the status has been updated. _Pass_
+      
+      * `/issues/1/remove/`
       - If I click _Remove_  I am brought to a confirmation button to remove the Bug or return to post.  If I click return to post, I am returned to the post details.  If I click conform, I am brought back to the list of issues.  An alert notice tells me that the item has been removed.
       - The Task Information shows me that the Bugs Resolution and Bugs by Category counts have both dropped by one. _Pass_
 
-    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
+    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
+      
       - If I click on the _Read more_ button, it brings me to the bug details page. I can see more detailed information about the bug as well as comments made by other users. I can see stats about views and votes, as well as a button to _Add Comment_ and _Add Vote_. _Pass_
+      - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. _Pass_
+      - If this is someone else's bug, there is no edit bug button. _Pass_
       - If I click on _Add Comment_ I am brought to a page that has a form to let me add a comment.  If I click Back to Bugs, it brings me back to the list of bugs.  If I click _Save_, I am brought back to the bug details and I can see it below the other comments. _Pass_
       - If I click _Add Vote_, the vote counter on the bug increases by one.  A message bar appears to say thank you for voting. _Pass_
-      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. 
+      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug.
+  
+      * `/issues/1/edit/`
+      - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. _Pass_
+      - If this is someone else's bug, there is no edit bug button. _Pass_
+
+  * Feature Posts `/issues/2` 
+  
+    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
+      - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. _Pass_
+      - The rest of the functions on this page are the same functions as used in the bug posts above. _Pass_
+
+    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
+    - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. _Pass_
+      
+      * `/issues/2/edit/`
+      - If I posted the feature originally I have a button that will let me open a form and edit the details in the feature post. _Pass_
+      - If this is someone else's feature, there is no edit bug button. _Pass_
+
+      * `/cart/`
+      - If I click add to cart, I am brought to the cart page. _Pass_
+      
+      * `/checkout/`
+      - From the Cart, if I click Checkout, I am brought to the checkout page. _Page_
+      - If I return to the bugs page I and I add the same item to the cart again, the item is not incremented in the cart. _Pass_
+      - If I return to add another feature to the cart, the next item is shown in the cart. The subtotals for the cart are incremented. _Pass_
+
+* Checkout Page: `/cart/`
+
+      - The checkout page shows the items selected from the shopping cart.  The sub-totals for each of the items chosen is shown below each item and a total is then shown above _Payment Details_ form. _Pass_
+      - If I leave out the details on the payment details form and click _submit payment_, an alert appears on the form field to show the items that need to be filled in. _Pass_
+      - If I click _Return to Cart_, I am returned to the cart. _Pass_
+      - If I access the the shopping cart at a user or as admin or staff member, the pages is the same. I have an amend button, delete cart item button, a checkout button and a new bug button. _Pass_
+      - If I choose to amend the cart quantity, I can only choose between 1 and 0 items.  This is to facilitate future development where quantity could be a partial contribution in hours. _Pass_
+      - The delete button removes the item from the cart and brings me to an empty cart screen. _Pass_
+      - Clicking on the button from the empty cart screen, returns me to the issues page. _Pass_
+      - If I fill out the form and provide the stripe developer credit card details, and click submit payment, I get a message saying my payment was successful. _Pass_
+  
+
+
 
 
 ### Debugging Strategy

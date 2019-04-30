@@ -305,7 +305,6 @@ _Figure 8 Wireframe of the bug view as seen by the Admin of Staff._
         * A new superuser will be required for the new Postgres database, run `python manage.py creatsuperuser` and fill in the required superuser details to create  super user.
         * Run the app, `python manage.py runserver` and login as the administrator.  All your db models should be clean and empty.
   
-    4. 
 
 ## 4. MySQL / PostgreSQL Database Schema (using MySQL Workbench)
 
@@ -335,119 +334,119 @@ Server codes were used to monitor POST GET transitions from the forms.
 
 Checks as logged out user:
 
-* From the landing page, I should only see the index page content as intended, login, blog and register and title navbar. _Pass_
-* I could click on each link, which brought me to the respective page. _Pass_
-* I clicked the _blog page_ contains link and was brought to the blog page. _Pass_
-* From the blog page, I clicked on links and used the search function that would normally access other parts of the site.  Clicking these links, brought me to the login page. _Pass_
-* On the _login page_, I attempted to login without any registered details. An error message told me my "user name or password is incorrect". _Pass_
-* On the _Registration page_ I tried to register with a user name, a email address that I knew was already taken, and then a unique password. An error message told me my email address had to be unique. _Pass_
-* On the _Registration page_ I tried to register with a user name, a unique email address, and two different passwords.  An error message told me my passwords had to match. _Pass_
-* On the _Registration page_ I tried to register with a user name, a unique email address, and a numeric password.  An error message told me my passwords could not be entirely numeric. _Pass_
-* On the _Registration page_ I tried to register with a user name, a unique email address, and a alphanumeric password longer that the 4 character limit.  I was successfully registered and brought to the index page. _Pass_
+* From the landing page, I should only see the index page content as intended, login, blog and register and title navbar. __Pass__
+* I could click on each link, which brought me to the respective page. __Pass__
+* I clicked the _blog page_ contains link and was brought to the blog page. __Pass__
+* From the blog page, I clicked on links and used the search function that would normally access other parts of the site.  Clicking these links, brought me to the login page. __Pass__
+* On the _login page_, I attempted to login without any registered details. An error message told me my "user name or password is incorrect". __Pass__
+* On the _Registration page_ I tried to register with a user name, a email address that I knew was already taken, and then a unique password. An error message told me my email address had to be unique. __Pass__
+* On the _Registration page_ I tried to register with a user name, a unique email address, and two different passwords.  An error message told me my passwords had to match. __Pass__
+* On the _Registration page_ I tried to register with a user name, a unique email address, and a numeric password.  An error message told me my passwords could not be entirely numeric. __Pass__
+* On the _Registration page_ I tried to register with a user name, a unique email address, and a alphanumeric password longer that the 4 character limit.  I was successfully registered and brought to the index page. __Pass__
 * I logged out again and then tried to access the following pages
   
-  * Issues - redirected me to the login page. _Pass_
-  * Posts - brought me to the posts page. _Pass_
-  * Cart - redirected me to the login page. _Pass_
-  * Admin - redirected me to the admin login page. _Pass_
+  * Issues - redirected me to the login page. __Pass__
+  * Posts - brought me to the posts page. __Pass__
+  * Cart - redirected me to the login page. __Pass__
+  * Admin - redirected me to the admin login page. __Pass__
   
 Checks as a logged in user:
 
-* From the landing page, I should only see the index page content as intended, logout, blog, bugs and my name as the profile link, and the shopping cart link on the title navbar. _Pass_
-* I tested each link to be sure I was brought to the correct page and that if I clicked _log out_, that I was logged out of the app. _Pass_
+* From the landing page, I should only see the index page content as intended, logout, blog, bugs and my name as the profile link, and the shopping cart link on the title navbar. __Pass__
+* I tested each link to be sure I was brought to the correct page and that if I clicked _log out_, that I was logged out of the app. __Pass__
   
 * Profile Page: `/accounts/profile/`
 
-    - Should contain a form for entering my details.  My email address should be shown if given at registration. _Pass_
-    - If I am admin or staff, I should see a _Admin/Staff Development Data_ footer on the form with my activity details. _Pass_
-    - If I am not admin or staff, I should see a just the form for adding in my user details. _Pass_
-    - As an admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
-    - If I am not admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. _Pass_
-    - If I click on _Profile_ again, I should see my updated details. _Pass_
+    - Should contain a form for entering my details.  My email address should be shown if given at registration. __Pass__
+    - If I am admin or staff, I should see a _Admin/Staff Development Data_ footer on the form with my activity details. __Pass__
+    - If I am not admin or staff, I should see a just the form for adding in my user details. __Pass__
+    - As an admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. __Pass__
+    - If I am not admin, if I fill out the form and save, I am sent to the index page.  There is a message bar to say my profile was updated. __Pass__
+    - If I click on _Profile_ again, I should see my updated details. __Pass__
 
 * Blog Page: `/posts/`
 
-    - As an admin or staff, I should see the blog made by a Custom Drone admin or staff member. It will have a button to let me read more, which will let me expand the contents of the blog.  The Blog info should give me information about how many posts are approved and posts pending approval.  It should also provide a button for a new blog _Pass_
-      - If I click the new blog button, I am presented with a form form writing in details for posting a new blog.  I am able to use Markdown tags in the content box and preview my blog as Markdown. When I click back to blog it brings me back to the blogs.  If I click save, it creates the new blog and brings me back to blogs. _Pass_
+    - As an admin or staff, I should see the blog made by a Custom Drone admin or staff member. It will have a button to let me read more, which will let me expand the contents of the blog.  The Blog info should give me information about how many posts are approved and posts pending approval.  It should also provide a button for a new blog __Pass__
+      - If I click the new blog button, I am presented with a form form writing in details for posting a new blog.  I am able to use Markdown tags in the content box and preview my blog as Markdown. When I click back to blog it brings me back to the blogs.  If I click save, it creates the new blog and brings me back to blogs. __Pass__
 
-    - If I am not an admin, I should be able to see the blog. It will have a button to let me read more, which will let me expand the contents of the blog. If I The Blog info should give me information about Custom Drone and about the blogs, as well as provides a button for a new Bug _Pass_
-      - If I click on back to blog, it brings me back to all the blogs.  If I click on add comment, I am presented with a form for adding a comment. - - If I save my comment, I am brought back to the blog details page.  I can see my comment below the blog. _Pass_
+    - If I am not an admin, I should be able to see the blog. It will have a button to let me read more, which will let me expand the contents of the blog. If I The Blog info should give me information about Custom Drone and about the blogs, as well as provides a button for a new Bug __Pass__
+      - If I click on back to blog, it brings me back to all the blogs.  If I click on add comment, I am presented with a form for adding a comment. - - If I save my comment, I am brought back to the blog details page.  I can see my comment below the blog. __Pass__
 
 * Bugs Page: `/issues/`
   
-  *Bug Posts `/issues/1` 
+  * Bug Posts `/issues/1` 
     
-    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
-      - If I click on the read more button on the bug, I am brought to the bug details page.  I am presented with more buttons to carry out admin work on the bug _Pass_
+    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. __Pass__
+    - If I click on the read more button on the bug, I am brought to the bug details page.  I am presented with more buttons to carry out admin work on the bug __Pass__
       
-      * `/issues/add_comment/1/new_comment`
-      - If I click add comment, I can add a comment.  If I click back to bugs, I am brought back to the bugs details page. _Pass_
+    * `/issues/add_comment/1/new_comment`
+    - If I click add comment, I can add a comment.  If I click back to bugs, I am brought back to the bugs details page. __Pass__
       
-      - On the bug details page, I now have an option to approve or remove the comment.  The pending approval counter in the Task Information now shows one comment is pending approval. _Pass_
-      - If I click remove for the comment, the comment is removed. _Pass_
-      - If I add anther comment, the comment is saved and the comments counter increases by one.  The pending approval counter decreases by one. _Pass_
-      - If I click _Add Vote_, the vote counter increases by one.  A message bar appears to say thank you for voting. _Pass_
-      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. _Pass_
+    - On the bug details page, I now have an option to approve or remove the comment.  The pending approval counter in the Task Information now shows one comment is pending approval. __Pass__
+    - If I click remove for the comment, the comment is removed. __Pass__
+    - If I add anther comment, the comment is saved and the comments counter increases by one.  The pending approval counter decreases by one. __Pass__
+    - If I click _Add Vote_, the vote counter increases by one.  A message bar appears to say thank you for voting. __Pass__
+    - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug. __Pass__
       
-      * `/issues/1/update/`
-      - If I click _Update_, I am brought to a new page with a dropdown menu.  This lets me select a new status for the task. if I change the status and click confirm, It returns me to the details page and a blue message alerts me that the status has been updated. _Pass_
+    * `/issues/1/update/`
+    - If I click _Update_, I am brought to a new page with a dropdown menu.  This lets me select a new status for the task. if I change the status and click confirm, It returns me to the details page and a blue message alerts me that the status has been updated. __Pass__
       
-      * `/issues/1/remove/`
-      - If I click _Remove_  I am brought to a confirmation button to remove the Bug or return to post.  If I click return to post, I am returned to the post details.  If I click conform, I am brought back to the list of issues.  An alert notice tells me that the item has been removed.
-      - The Task Information shows me that the Bugs Resolution and Bugs by Category counts have both dropped by one. _Pass_
+    * `/issues/1/remove/`
+    - If I click _Remove_  I am brought to a confirmation button to remove the Bug or return to post.  If I click return to post, I am returned to the post details.  If I click conform, I am brought back to the list of issues.  An alert notice tells me that the item has been removed.
+    - The Task Information shows me that the Bugs Resolution and Bugs by Category counts have both dropped by one. __Pass__
 
-    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
+    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. __Pass__
       
-      - If I click on the _Read more_ button, it brings me to the bug details page. I can see more detailed information about the bug as well as comments made by other users. I can see stats about views and votes, as well as a button to _Add Comment_ and _Add Vote_. _Pass_
-      - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. _Pass_
-      - If this is someone else's bug, there is no edit bug button. _Pass_
-      - If I click on _Add Comment_ I am brought to a page that has a form to let me add a comment.  If I click Back to Bugs, it brings me back to the list of bugs.  If I click _Save_, I am brought back to the bug details and I can see it below the other comments. _Pass_
-      - If I click _Add Vote_, the vote counter on the bug increases by one.  A message bar appears to say thank you for voting. _Pass_
-      - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug.
-  
-      * `/issues/1/edit/`
-      - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. _Pass_
-      - If this is someone else's bug, there is no edit bug button. _Pass_
+     - If I click on the _Read more_ button, it brings me to the bug details page. I can see more detailed information about the bug as well as comments made by other users. I can see stats about views and votes, as well as a button to _Add Comment_ and _Add Vote_. __Pass__
+    - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. __Pass__
+    - If this is someone else's bug, there is no edit bug button. __Pass__
+     - If I click on _Add Comment_ I am brought to a page that has a form to let me add a comment.  If I click Back to Bugs, it brings me back to the list of bugs.  If I click _Save_, I am brought back to the bug details and I can see it below the other comments. __Pass__
+     - If I click _Add Vote_, the vote counter on the bug increases by one.  A message bar appears to say thank you for voting. __Pass__
+     - If I click _Add Vote_, again the vote counter stays the same.  An alert message bar appears to say that I have already voted for this bug.
+
+    * `/issues/1/edit/`
+    - If I posted the bug originally I have a button that will let me open a form and edit the details in the bug post. __Pass__
+    - If this is someone else's bug, there is no edit bug button. __Pass__
 
   * Feature Posts `/issues/2` 
   
-    - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. _Pass_
-      - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. _Pass_
-      - The rest of the functions on this page are the same functions as used in the bug posts above. _Pass_
+      - If I am admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page as well as a visual statistics of various aspects of the information.  There should also be a button for an to create a _New Blog_. __Pass__
+      - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. __Pass__
+      - The rest of the functions on this page are the same functions as used in the bug posts above. __Pass__
 
-    - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. _Pass_
-    - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. _Pass_
+      - If I am not admin or staff and I click on the _Bugs_ link, I should see all the bugs and features that have been logged in the app, similar to the blogs. Under Task Information I should see some information about the page, with a button for adding a _New Bug_. __Pass__
+      - If I click on the read more button on the feature, I am brought to the feature details page. This is the same page as for the bugs except that there is a add to cart button that lets a user add one item of the feature to a shopping cart. __Pass__
       
       * `/issues/2/edit/`
-      - If I posted the feature originally I have a button that will let me open a form and edit the details in the feature post. _Pass_
-      - If this is someone else's feature, there is no edit bug button. _Pass_
+      - If I posted the feature originally I have a button that will let me open a form and edit the details in the feature post. __Pass__
+      - If this is someone else's feature, there is no edit bug button. __Pass__
 
       * `/cart/`
-      - If I click add to cart, I am brought to the cart page. _Pass_
+      - If I click add to cart, I am brought to the cart page. __Pass__
       
       * `/checkout/`
       - From the Cart, if I click Checkout, I am brought to the checkout page. _Page_
-      - If I return to the bugs page I and I add the same item to the cart again, the item is not incremented in the cart. _Pass_
-      - If I return to add another feature to the cart, the next item is shown in the cart. The subtotals for the cart are incremented. _Pass_
+      - If I return to the bugs page I and I add the same item to the cart again, the item is not incremented in the cart. __Pass__
+      - If I return to add another feature to the cart, the next item is shown in the cart. The subtotals for the cart are incremented. __Pass__
 
-* Checkout Page: `/cart/`
+  * Checkout Page: `/cart/`
 
-      - The checkout page shows the items selected from the shopping cart.  The sub-totals for each of the items chosen is shown below each item and a total is then shown above _Payment Details_ form. _Pass_
-      - If I leave out the details on the payment details form and click _submit payment_, an alert appears on the form field to show the items that need to be filled in. _Pass_
-      - If I click _Return to Cart_, I am returned to the cart. _Pass_
-      - If I access the the shopping cart at a user or as admin or staff member, the pages is the same. I have an amend button, delete cart item button, a checkout button and a new bug button. _Pass_
-      - If I choose to amend the cart quantity, I can only choose between 1 and 0 items.  This is to facilitate future development where quantity could be a partial contribution in hours. _Pass_
-      - The delete button removes the item from the cart and brings me to an empty cart screen. _Pass_
-      - Clicking on the button from the empty cart screen, returns me to the issues page. _Pass_
-      - If I fill out the form and provide the stripe developer credit card details, and click submit payment, I get a message saying my payment was successful. _Pass_
+      - The checkout page shows the items selected from the shopping cart.  The sub-totals for each of the items chosen is shown below each item and a total is then shown above _Payment Details_ form. __Pass__
+      - If I leave out the details on the payment details form and click _submit payment_, an alert appears on the form field to show the items that need to be filled in. __Pass__
+      - If I click _Return to Cart_, I am returned to the cart. __Pass__
+      - If I access the the shopping cart at a user or as admin or staff member, the pages is the same. I have an amend button, delete cart item button, a checkout button and a new bug button. __Pass__
+      - If I choose to amend the cart quantity, I can only choose between 1 and 0 items.  This is to facilitate future development where quantity could be a partial contribution in hours. __Pass__
+      - The delete button removes the item from the cart and brings me to an empty cart screen. __Pass__
+      - Clicking on the button from the empty cart screen, returns me to the issues page. __Pass__
+      - If I fill out the form and provide the stripe developer credit card details, and click submit payment, I get a message saying my payment was successful. __Pass__
   
-
+  * 
 
 
 
 ### Debugging Strategy
 
-    I thought that the best way to test this application as I have done in the past, was to run a beta test by putting the application on Heroku and then letting everyone in my college try it. While doing so, I asked for feedback on the application. This is the feedback I got:
+  I thought that the best way to test this application as I have done in the past, was to run a beta test by putting the application on Heroku and then letting everyone in my college try it. While doing so, I asked for feedback on the application. This is the feedback I got:
     
    ### *Issues Found*
 
@@ -457,7 +456,7 @@ Checks as a logged in user:
 4. I had trouble trying to assign a integer value for hours required to do a particular tasks.  There were three different task types and so need 3 different amounts of time assigned to each one.  I was unable to to use a list then refence a time in the model.
 5. Colleagues have come back to me with problems that they have noticed with the media queries for transitioning between mobile view, table and larger screens.
 6. The shopping cart is meant to be able to align all the items in the cart horizontally, to where it meets the user aside on the right.  This stopped working after all refactored all the injected partials. Instead the shopping cart items line up below each other like to blog cards.
-7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've noticed how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdwon text will be sliced if any partial tags are left, they disrupt my html framework.
+7. I have implemented a 3rd party add-in for using Markdown with the blog entries.  I've noticed how ever that if use `{{ post.get_content_as_markdown|truncatewords:30 }}`, the Markdown text will be sliced if any partial tags are left, they disrupt my html framework.
 
 
    ### *The Fixes Implemented*

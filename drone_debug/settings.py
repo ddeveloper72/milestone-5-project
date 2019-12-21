@@ -15,10 +15,10 @@ import dj_database_url
 from django.contrib.messages import constants as messages
 
 # Switch Debug between True and False
-if os.environ.get('DEVELOPMENT'):
-    development = True
-else:
-    development = False
+# if os.environ.get('DEVELOPMENT', False):
+#    development = True
+# else:
+#    development = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = development
+if os.environ.get('DEVELOPMENT'):
+    DEBUG = True
+    print("Debug set to false")
+else:
+    DEBUG = False
+    print("Debug set to true")
 
 ALLOWED_HOSTS = [
     os.environ.get('localhost', '127.0.0.1'),
@@ -100,7 +105,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "DATABASE_URL" in os.environ:
+if "DEVELOPMENT" in os.environ:
     DATABASES = {'default': dj_database_url.parse
                  (os.environ.get('DATABASE_URL'))}
     print("Database URL found. Using PostgreSQL")

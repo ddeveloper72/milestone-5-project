@@ -114,10 +114,10 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'drone',
-            'USER': os.environ.get('MYSQL_USER'),
-            'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
+            'USER': os.environ.get('USER'),
+            'PASSWORD': os.environ.get('PASSWORD'),
             'HOST': os.environ.get('127.0.0.1', 'localhost'),
-            'PORT': os.environ.get('MYSQL_PORT'),
+            'PORT': os.environ.get('PORT'),
             'OPTIONS': {'charset': 'utf8mb4'},
         }
     }

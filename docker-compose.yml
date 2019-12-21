@@ -30,7 +30,7 @@ services:
       - "./mysql:/var/lib/mysql"
     container_name: custom-drone
     environment:
-      #DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${DATABASE_URL}
       SECRET_KEY: ${SECRET_KEY}
       DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}

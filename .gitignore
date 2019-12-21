@@ -1,11 +1,12 @@
 .venv
 .vscode
+.env
+.coverage
 config.py
-__pycache__
-db.sqlite3
+mysql
 drone.sqlite3
 media/
-.coverage
+__pycache__
 *.code-workspace
 *.sqlite3
 *.pyc
@@ -13,5 +14,3 @@ drone.db
 drone.mwb
 drone.mwb.bak
 drone.mwb.beforefix
-.env
-drone.sqlite3

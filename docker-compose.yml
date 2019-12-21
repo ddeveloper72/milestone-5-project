@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    ports:
+      - "3360:3360"
+    restart: always
+    container_name: drone-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_HOST: 27.0.0.1
+  
+  web:
+    restart: always
+    build: . # Current directory!
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app_dir
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    container_name: custom-drone
+    environment:
+      #DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      STRIPE_PUBLISHABLE: ${STRIPE_PUBLISHABLE}
+      STRIPE_SECRET: ${STRIPE_SECRET}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      EMAIL_ADDRESS: ${EMAIL_ADDRESS}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}

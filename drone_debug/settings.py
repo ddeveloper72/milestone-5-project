@@ -34,10 +34,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = development
+
+os.environ.get('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = [
-    os.environ.get('localhost', '127.0.0.1'),
+    os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost'),
     'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
@@ -112,12 +113,13 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'drone',
-            'USER': os.environ.get('USER'),
-            'PASSWORD': os.environ.get('PASSWORD'),
-            'HOST': os.environ.get('localhost', '127.0.0.1'),
-            'PORT': os.environ.get('PORT'),
-            }
+            'NAME': os.environ.get('MYSQL_DATABASE'),
+            'USER': os.environ.get('MYSQL_USER'),
+            'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
+            'HOST': os.environ.get('MYSQL_HOST', '127.0.0.1'),
+            'PORT': os.environ.get('MYSQL_PORT'),
+            'OPTIONS': {'charset': 'utf8mb4'},
+        }
     }
 
 
@@ -200,7 +202,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    )
+)
 
 MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
@@ -208,7 +210,7 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, 'media'),
-    )
+)
 
 # AWS custom domain and , media files location, gets injected here
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)

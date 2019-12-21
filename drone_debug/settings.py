@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-os.environ.get('DJANGO_DEBUG', False)
+DEBUG = development
 
 ALLOWED_HOSTS = [
     os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost'),
@@ -116,7 +116,7 @@ else:
             'NAME': os.environ.get('MYSQL_DATABASE'),
             'USER': os.environ.get('MYSQL_USER'),
             'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_HOST', '127.0.0.1'),
+            'HOST': os.environ.get('127.0.0.1', 'localhost'),
             'PORT': os.environ.get('MYSQL_PORT'),
             'OPTIONS': {'charset': 'utf8mb4'},
         }

@@ -105,7 +105,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "DEVELOPMENT" in os.environ:
+if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse
                  (os.environ.get('DATABASE_URL'))}
     print("Database URL found. Using PostgreSQL")

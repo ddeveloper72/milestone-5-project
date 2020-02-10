@@ -106,14 +106,15 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
 if "PG_DATABASE" in os.environ:
     DATABASES = {'default': dj_database_url.parse
-                 (os.environ.get('DATABASE_URL'))}
+                 (os.environ.get('DATABASE_URL'))
+                 }
     print("Database URL found. Using PostgreSQL")
 else:
     print("Database URL not found. Using MySQL instead")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE'),
+            'NAME': os.environ.get('MYSQL_DATABASE', 'drone'),
             'USER': os.environ.get('MYSQL_USER'),
             'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
             'HOST': os.environ.get('MYSQL_HOST'),

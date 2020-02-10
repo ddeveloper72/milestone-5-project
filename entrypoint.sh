@@ -1,0 +1,2 @@
+export
+DATABASE_URL=postgres://$PG_USER:$PG_PASSWORD@$PG_HOST:$PG_PORT/$PG_USER

@@ -31,15 +31,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('DEVELOPMENT', True):
+if os.environ.get('DEVELOPMENT'):
     DEBUG = True
-    print("Debug set to false")
-else:
-    DEBUG = False
     print("Debug set to true")
+else:
+    print("Debug set to false")
 
 ALLOWED_HOSTS = [
-    os.environ.get('localhost', '127.0.0.1'),
+    os.environ.get('ALLOWED_HOSTS', '127.0.0.1'),
     'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
@@ -105,7 +104,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "DATABASE_URL" in os.environ:
+if "PG_DATABASE" in os.environ:
     DATABASES = {'default': dj_database_url.parse
                  (os.environ.get('DATABASE_URL'))}
     print("Database URL found. Using PostgreSQL")
@@ -114,11 +113,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'drone',
-            'USER': os.environ.get('USER'),
-            'PASSWORD': os.environ.get('PASSWORD'),
-            'HOST': os.environ.get('localhost', '127.0.0.1'),
-            'PORT': os.environ.get('PORT'),
+            'NAME': os.environ.get('MYSQL_DATABASE'),
+            'USER': os.environ.get('MYSQL_USER'),
+            'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
+            'HOST': os.environ.get('MYSQL_HOST'),
+            'PORT': os.environ.get('MYSQL_PORT')
         }
     }
 

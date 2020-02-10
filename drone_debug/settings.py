@@ -104,7 +104,7 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "PG_DATABASE" in os.environ:
+if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse
                  (os.environ.get('DATABASE_URL'))
                  }
@@ -117,7 +117,7 @@ else:
             'NAME': os.environ.get('MYSQL_DATABASE', 'drone'),
             'USER': os.environ.get('MYSQL_USER'),
             'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_HOST', 'localhost'),
+            'HOST': os.environ.get('MYSQL_HOST', ),
             'PORT': os.environ.get('MYSQL_PORT')
         }
     }

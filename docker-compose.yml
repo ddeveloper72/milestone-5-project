@@ -1,0 +1,37 @@
+version: "3.1"
+
+services:
+  app:
+    build: .
+    image: 167.172.244.231:8000/custom_drone_systems
+          #  ddeveloper72/django-app:v0
+    command: "python manage.py runserver 0.0.0.0:8000"
+   
+    volumes:
+      - .:/app_dir
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    container_name: drone-app
+    env_file:
+      - ./.env
+    environment:
+      - USE_DOCKER=yes
+
+  db:
+    image: mysql:latest
+    command: "--default-authentication-plugin=mysql_native_password"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    container_name: drone-db
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    container_name: drone-adminer

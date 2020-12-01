@@ -52,7 +52,7 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "Your login is sucessfull!")
+                messages.success(request, "Your login is successful!")
                 return redirect(reverse('index'))
                 """
                 security which prevents access to the login page via url bar
@@ -75,7 +75,7 @@ def registration(request):
     if request.user.is_authenticated:
         return redirect(reverse('index')) 
         """
-        redirect a registerd user away from registration to the index
+        redirect a registered user away from registration to the index
         """
 
     if request.method == "POST":
@@ -90,17 +90,17 @@ def registration(request):
                                      password=request.POST['password1'])
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "You have registerd successfully")
+                messages.success(request, "You have registered successfully")
                 return redirect(reverse('index'))
                 """
-                redirect the newly registerd user away from registration to 
+                redirect the newly registered user away from registration to 
                 the index
                 """
 
         else:
             messages.error(request, registration_form.errors)
             """
-            messages.warning(request, "Plesse check that your passwords
+            messages.warning(request, "Please check that your passwords
             match and username/email is unique!")
             """        
 

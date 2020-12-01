@@ -6,7 +6,6 @@ config.py
 mysql
 drone.sqlite3
 media/
-<<<<<<< HEAD
 mysql/
 .coverage
 *.code-workspace
@@ -22,17 +21,6 @@ secrets/
 .dockerignore
 docker-compose.yml
 docker-stack.yml
-=======
-__pycache__
-*.code-workspace
-*.sqlite3
-*.pyc
-drone.db
-drone.mwb
-drone.mwb.bak
-drone.mwb.beforefix
-secrets/
->>>>>>> 614cbdc279fc1fc7b5afb2639a33b65408f26656
 prod_ocean.yml
 prod_ocean2.yml
 prod.yml

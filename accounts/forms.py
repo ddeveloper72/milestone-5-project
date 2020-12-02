@@ -12,9 +12,22 @@ class UserloginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-class UserRegistrationForm(UserCreationForm):
+# enforce users provide a unique email
+class uniqueEmailForm:
+    def clean_email(self):
+        qs = User.objects.filter(email=self.cleaned_data['email'])
+        if self.instance:
+            qs = qs.exclude(pk=self.instance.pk)
+        if qs.count():
+            raise forms.ValidationError(
+                'That email address is already in use')
+        else:
+            return self.cleaned_data['email']
+
+
+class UserRegistrationForm(UserCreationForm, uniqueEmailForm):
     """
-    Frorm is used to register the user
+    Form is used to register the user
     """
     password1 = forms.CharField(
         label="Password",
@@ -25,7 +38,7 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         """
-        Inner class is used by Djano to provide infomation about the forms.
+        Inner class is used by Django to provide infomation about the forms.
         """
         model = User
         """
@@ -33,40 +46,31 @@ class UserRegistrationForm(UserCreationForm):
         """
         fields = ['username', 'email', 'password1', 'password2']
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username):
-            raise forms.ValidationError(u'Email address must be unique')
-        return email
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
         if not password1 or not password2:
-            raise ValidationError("Please confirm your passwword")
+            raise forms.ValidationError("Please confirm your password")
 
         if password1 != password2:
-            raise ValidationError("Passwords must match")
+            raise forms.ValidationError("Passwords must match")
         return password2
 
 
-class UserNameForm(forms.ModelForm):
+class UserNameForm(forms.ModelForm, uniqueEmailForm):
     """
-    Frorm is used to register first and last name
+    Form is used to register first and last name
     """
 
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}))
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'special'}))
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'special'}))
     email = forms.EmailField(required=True)
 
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username):
-            return email

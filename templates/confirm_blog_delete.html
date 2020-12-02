@@ -28,7 +28,7 @@ Confirm Delete
                                 {% csrf_token %}
                                 <p>Are you sure you want to delete: "{{ post.title }} ?"</p>
 
-                                <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARDOWN BLOG WHICH IS UNRELATED TO THE FRAMWORK -->
+                                <!-- HTML VALIDATION MAY DETECT ERRORS IN THE USERS MARKDOWN BLOG WHICH IS UNRELATED TO THE FRAMEWORK -->
 
                                 <div class="card-text">{{ post.get_content_as_markdown|truncatewords:20 }}</div>
 

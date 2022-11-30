@@ -23,6 +23,7 @@ if environ.Env():
     DEBUG = True
     print("Debug set to true")
 else:
+    DEBUG = False
     print("Debug set to false")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -112,17 +113,17 @@ if "DATABASE_URL" in env:
         dj_database_url.parse(env('DATABASE_URL'))}
     print("Database URL found. Using PostgreSQL")
 else:
-    print("Database URL not found. Using MySQL instead")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': env('MYSQL_DATABASE', 'drone'),
+            'NAME': env('MYSQL_DATABASE'),
             'USER': env('MYSQL_USER'),
             'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
-            'HOST': env('MYSQL_HOST', 'localhost'),
+            'HOST': env('MYSQL_HOST'),
             'PORT': env('MYSQL_PORT')
         }
     }
+    print("Database URL not found. Using MySQL instead")
 
 
 # Password validation

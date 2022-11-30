@@ -9,16 +9,21 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-# import env
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 import dj_database_url
 from django.contrib.messages import constants as messages
 
 # Switch Debug between True and False
-# if os.environ.get('DEVELOPMENT', False):
-#    development = True
-# else:
-#    development = False
+if environ.Env():
+    DEBUG = True
+    print("Debug set to true")
+else:
+    print("Debug set to false")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,17 +33,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('DEVELOPMENT'):
-    DEBUG = True
-    print("Debug set to true")
-else:
-    print("Debug set to false")
+
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOSTS', '127.0.0.1'),
+    '.localhost',
+    '127.0.0.1',
     'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
@@ -104,21 +106,21 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "DATABASE_URL" in os.environ:
-    DATABASES = {'default': dj_database_url.parse
-                 (os.environ.get('DATABASE_URL'))
-                 }
+if "DATABASE_URL" in env:
+    DATABASES = {
+        'default':
+        dj_database_url.parse(env('DATABASE_URL'))}
     print("Database URL found. Using PostgreSQL")
 else:
     print("Database URL not found. Using MySQL instead")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE', 'drone'),
-            'USER': os.environ.get('MYSQL_USER'),
-            'PASSWORD': os.environ.get('MYSQL_ROOT_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_HOST', 'localhost'),
-            'PORT': os.environ.get('MYSQL_PORT')
+            'NAME': env('MYSQL_DATABASE', 'drone'),
+            'USER': env('MYSQL_USER'),
+            'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
+            'HOST': env('MYSQL_HOST', 'localhost'),
+            'PORT': env('MYSQL_PORT')
         }
     }
 
@@ -186,8 +188,8 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 AWS_STORAGE_BUCKET_NAME = 'custom-drone'
 AWS_S3_REGION_NAME = 'eu-west-1'
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 
 # AWS bucket name, 'custom-drone', gets injected here
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
@@ -217,11 +219,11 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
-STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+STRIPE_PUBLISHABLE = env('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = env('STRIPE_SECRET')
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = os.environ.get("EMAIL_ADDRESS")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_HOST_USER = env("EMAIL_ADDRESS")
+EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
 EMAIL_PORT = 587

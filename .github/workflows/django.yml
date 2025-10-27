@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.10, 3.11, 3.12]
+        python-version: ["3.10", "3.11", "3.12"]
 
     services:
       postgres:
@@ -20,6 +20,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -36,6 +37,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y postgresql-client libpq-dev python3-dev
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -43,7 +49,7 @@ jobs:
         
     - name: Set up environment variables
       run: |
-        echo "SECRET_KEY=test-secret-key-for-ci" >> $GITHUB_ENV
+        echo "SECRET_KEY=test-secret-key-for-ci-very-long-and-secure" >> $GITHUB_ENV
         echo "DEBUG=True" >> $GITHUB_ENV
         echo "DATABASE_URL=postgres://postgres:postgres@localhost:5432/test_db" >> $GITHUB_ENV
         echo "AWS_ACCESS_KEY_ID=test" >> $GITHUB_ENV
@@ -55,35 +61,54 @@ jobs:
         echo "STRIPE_SECRET=test" >> $GITHUB_ENV
         echo "EMAIL_ADDRESS=test@example.com" >> $GITHUB_ENV
         echo "EMAIL_PASSWORD=test" >> $GITHUB_ENV
+        echo "MYSQL_DATABASE=test" >> $GITHUB_ENV
+        echo "MYSQL_USER=test" >> $GITHUB_ENV
+        echo "MYSQL_PASSWORD=test" >> $GITHUB_ENV
+        echo "MYSQL_HOST=localhost" >> $GITHUB_ENV
+        echo "MYSQL_PORT=3306" >> $GITHUB_ENV
+        
+    - name: Wait for PostgreSQL
+      run: |
+        until pg_isready -h localhost -p 5432 -U postgres; do
+          echo "Waiting for PostgreSQL..."
+          sleep 2
+        done
+        
+    - name: Debug environment
+      run: |
+        echo "Python version: $(python --version)"
+        echo "Django version: $(python -c 'import django; print(django.get_version())')"
+        echo "DATABASE_URL: $DATABASE_URL"
         
     - name: Run Django system checks
       run: |
-        python manage.py check
+        python manage.py check --settings=drone_debug.settings
         
     - name: Run migrations
       run: |
-        python manage.py migrate
+        python manage.py migrate --settings=drone_debug.settings
         
     - name: Run tests
       run: |
-        python manage.py test
+        python manage.py test --settings=drone_debug.settings
         
     - name: Check for security issues
       run: |
-        python manage.py check --deploy --fail-level WARNING
+        python manage.py check --deploy --fail-level WARNING --settings=drone_debug.settings
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.12.14
-      with:
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: "custom-drone-ddeveloper72"
-        heroku_email: "duncan.niamh@gmail.com"
-        usedocker: false
+  # Deploy job commented out until HEROKU_API_KEY secret is configured
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   
+  #   - name: Deploy to Heroku
+  #     uses: akhileshns/heroku-deploy@v3.12.14
+  #     with:
+  #       heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+  #       heroku_app_name: "custom-drone-ddeveloper72"
+  #       heroku_email: "duncan.niamh@gmail.com"
+  #       usedocker: false

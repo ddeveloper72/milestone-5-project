@@ -1,0 +1,19 @@
+# Minimal CI requirements - only what's needed for testing
+# This ensures CI passes without breaking production
+
+# Core Django (current stable)
+Django==4.2.16
+asgiref==3.8.1
+
+# Essential for CI environment  
+dj-database-url==2.1.0
+django-environ==0.11.2
+
+# Basic testing
+coverage==7.3.2
+
+# Minimal requirements for basic Django functionality
+sqlparse==0.4.4
+pytz==2023.3
+
+# Note: psycopg2-binary will be installed separately in CI with system deps

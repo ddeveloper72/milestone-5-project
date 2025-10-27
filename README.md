@@ -5,7 +5,8 @@
   _for customizing your drone's navigation systems_
 
 
-[![Django CI/CD](https://github.com/ddeveloper72/milestone-5-project/workflows/Django%20CI/CD/badge.svg)](https://github.com/ddeveloper72/milestone-5-project/actions)
+[![Deploy Status](https://img.shields.io/badge/deploy-success-brightgreen)](https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/)
+[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/)
 
 ## Preface
 

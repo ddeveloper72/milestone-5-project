@@ -8,23 +8,29 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
 import environ
 
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+# Initialise environment variables (updated to match Movie Rater approach)
+env = environ.Env(
+    # Set default values
+    DEBUG=(bool, True),
+    SECRET_KEY=(str, 'django-insecure-default-key-please-change-in-production'),
+)
+
+# Read .env file explicitly
+env_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+if os.path.exists(env_file):
+    environ.Env.read_env(env_file)
+    print(f"Loading environment from: {env_file}")
+else:
+    print("No .env file found")
 
 import dj_database_url
 from django.contrib.messages import constants as messages
 
-# Switch Debug between True and False
-if environ.Env():
-    DEBUG = True
-    print("Debug set to true")
-else:
-    DEBUG = False
-    print("Debug set to false")
+# Toggle DEBUG via environment, default to True for local development
+DEBUG = env.bool("DEBUG", default=True)
+print("Running in development mode" if DEBUG else "Running in production mode")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +48,8 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = [
     '.localhost',
     '127.0.0.1',
-    'ddeveloper72-custom-drone.herokuapp.com'
+    '.herokuapp.com',
+    'custom-drone-ddeveloper72.herokuapp.com'
 ]
 
 
@@ -111,7 +118,29 @@ if "DATABASE_URL" in env:
     DATABASES = {
         'default':
         dj_database_url.parse(env('DATABASE_URL'))}
-    print("Database URL found. Using PostgreSQL")
+    print("Database URL found. Using PostgreSQL (Heroku)")
+elif "AZURE_SQL_HOST" in env:
+    # Azure SQL Server configuration with new schema (updated)
+    azure_sql_host = env('AZURE_SQL_HOST')
+    azure_schema = env('AZURE_SQL_SCHEMA', default='drone_app_v2')
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mssql',
+            'NAME': env('AZURE_SQL_NAME'),
+            'USER': env('AZURE_SQL_USER'),
+            'PASSWORD': env('AZURE_SQL_PASSWORD'),
+            'HOST': azure_sql_host,
+            'PORT': env('AZURE_SQL_PORT', default='1433'),
+            'OPTIONS': {
+                'driver': 'ODBC Driver 18 for SQL Server',
+                'extra_params': f'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;',
+                'host_is_server': True,
+            },
+        }
+    }
+    print(f"Azure SQL Server configuration found. Using Azure SQL Server: {env('AZURE_SQL_NAME')} on {azure_sql_host}")
+    print(f"Using schema: {azure_schema}")
 else:
     DATABASES = {
         'default': {
@@ -178,6 +207,10 @@ USE_L10N = True
 
 USE_TZ = False
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -187,8 +220,8 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=94608000',
 }
 
-AWS_STORAGE_BUCKET_NAME = 'custom-drone'
-AWS_S3_REGION_NAME = 'eu-west-1'
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='custom-drone')
+AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='eu-west-1')
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 

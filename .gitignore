@@ -1,23 +1,50 @@
+# Python and Django
 .venv
-.vscode
 .env
-.coverage
-config.py
-mysql
-drone.sqlite3
-media/
-mysql/
-.coverage
-*.code-workspace
-*.sqlite3
+.env.*
 *.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+*.sqlite3
 drone.*
 
+# Database files
+mysql/
+drone.sqlite3
 
-# dockerignore
+# Media files
+media/
+
+# IDE and Editor files
+.vscode/
+*.code-workspace
+
+# Test and development scripts
+test_*.py
+*_test.py
+check_*.py
+*_check.py
+troubleshoot_*.py
+*_troubleshoot.py
+azure_sql_direct.py
+list_users.py
+final_credential_test.py
+simple_test.py
+deployment_summary.py
+debug_apps.py
+nul
+
+# Keep documentation and setup scripts
+!docs/
+!docs/scripts/
+!*.sql
+
+# Docker files (commented out for local development)
 Dockerfile
-.env
-secrets/
 .dockerignore
 docker-compose.yml
 docker-stack.yml
@@ -25,3 +52,16 @@ prod_ocean.yml
 prod_ocean2.yml
 prod.yml
 app-secrets.yml
+
+# Secrets and credentials
+secrets/
+config.py
+
+# GitHub instructions (AI rules)
+.github/instructions/codacy.instructions.md
+
+# Heroku deployment scripts (keep deploy_heroku.sh)
+# deploy_heroku.sh - keeping this for deployment
+
+# Requirements files (keep updated one)
+requirements_new.txt

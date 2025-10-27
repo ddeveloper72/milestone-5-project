@@ -5,7 +5,7 @@
   _for customizing your drone's navigation systems_
 
 
-[![Build Status](https://travis-ci.org/ddeveloper72/milestone-5-project.svg?branch=master)](https://travis-ci.org/ddeveloper72/milestone-5-project)
+[![Django CI/CD](https://github.com/ddeveloper72/milestone-5-project/workflows/Django%20CI/CD/badge.svg)](https://github.com/ddeveloper72/milestone-5-project/actions)
 
 ## Preface
 

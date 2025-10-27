@@ -114,13 +114,17 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-if "DATABASE_URL" in env:
+# Database configuration with priority order: Heroku PostgreSQL > Azure SQL > MySQL
+database_url = env('DATABASE_URL', default=None)
+
+if database_url:
+    # Use Heroku PostgreSQL database
     DATABASES = {
-        'default':
-        dj_database_url.parse(env('DATABASE_URL'))}
+        'default': dj_database_url.parse(database_url)
+    }
     print("Database URL found. Using PostgreSQL (Heroku)")
-elif "AZURE_SQL_HOST" in env:
-    # Azure SQL Server configuration with new schema (updated)
+elif env('AZURE_SQL_HOST', default=None):
+    # Azure SQL Server configuration with new schema (backup option)
     azure_sql_host = env('AZURE_SQL_HOST')
     azure_schema = env('AZURE_SQL_SCHEMA', default='drone_app_v2')
     

@@ -1,28 +1,37 @@
-# The first instruction is what image we want to base our container on
-# We Use an official Python runtime as a parent image
-FROM python:3.11-alpine3.18
-ADD requirements.txt /app_dir/requirements.txt 
-ADD entrypoint.sh /app_dir/entrypoint.sh 
+# Dockerfile for Heroku deployment with Azure SQL
+FROM python:3.12-slim
 
-RUN set -ex \
-    && apk add --no-cache --virtual .build-deps postgresql-dev mysql-dev  libjpeg-turbo-dev zlib-dev build-base \
-    && python -m venv /env \
-    && /env/bin/pip install --upgrade pip \
-    && /env/bin/pip install --no-cache-dir -r /app_dir/requirements.txt \
-    && runDeps="$(scanelf --needed --nobanner --recursive /env \
-    | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-    | sort -u \
-    | xargs -r apk info --installed \
-    | sort -u)" \
-    && apk add --virtual rundeps $runDeps \
-    && apk del .build-deps
+# Install system dependencies and Microsoft ODBC Driver for SQL Server
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg2 \
+    unixodbc-dev \
+    gcc \
+    g++ \
+    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app_dir
-ADD . /app_dir
+# Set working directory
+WORKDIR /app
 
-ENV VIRTUAL_ENV /env
-ENV PATH /env/bin:$PATH
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir gunicorn
 
-EXPOSE 8000
+# Copy application code
+COPY . .
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "drone_debug.wsgi:application"]
+# Collect static files (will use S3 in production)
+RUN python manage.py collectstatic --noinput --clear || echo "Static files skipped"
+
+# Expose port (Heroku assigns PORT dynamically)
+EXPOSE $PORT
+
+# Start gunicorn
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 3 --timeout 120 drone_debug.wsgi:application

@@ -23,18 +23,22 @@
             <div class="card-body">
                 <p>Please review each comment before approving.</p>
                 <div class="row mt-3">
-                    <div class="col-xs-12 col-sm-6">
-                        <h3 class="title-partial">Comments</h3>
-                        <ul class="list-group list-group-flush list_partial">
-                            <li class="list-group-item list-group-flush"><span
-                                    class="badge  badge-pill badge-info">{{ approved.count }} </span> approved...</li>
+                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                        <h5 class="title-partial">Comments</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>approved...</span>
+                                <span class="badge badge-pill badge-info">{{ approved.count }}</span>
+                            </li>
                         </ul>
                     </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <h3 class="title-partial">Pending Approval</h3>
-                        <ul class="list-group list-group-flush list_partial">
-                            <li class="list-group-item list-group-flush"><span
-                                    class="badge  badge-pill badge-info">{{  pending.count }}</span></li>
+                    <div class="col-12 col-md-6">
+                        <h5 class="title-partial">Pending Approval</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>&nbsp;</span>
+                                <span class="badge badge-pill badge-info">{{ pending.count }}</span>
+                            </li>
                         </ul>
                     </div>
                 </div>

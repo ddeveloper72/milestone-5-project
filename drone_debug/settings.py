@@ -289,8 +289,15 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 STRIPE_PUBLISHABLE = env('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = env('STRIPE_SECRET')
 
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env("EMAIL_ADDRESS")
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = env("EMAIL_ADDRESS")
+SERVER_EMAIL = env("EMAIL_ADDRESS")
+
+# Password reset timeout (default is 3 days, setting to 1 hour for security)
+PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds

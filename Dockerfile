@@ -31,8 +31,22 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Copy application code
 COPY . .
 
-# Collect static files (will use S3 in production)
-RUN python manage.py collectstatic --noinput --clear || echo "Static files skipped"
+# Set minimal environment for collectstatic (dummy values, real ones set via Heroku config)
+ENV DJANGO_SETTINGS_MODULE=drone_debug.settings \
+    SECRET_KEY=temp-build-key-for-collectstatic-only \
+    DATABASE_URL=sqlite:///dummy.db \
+    DEBUG=False \
+    AWS_ACCESS_KEY_ID=dummy-key \
+    AWS_SECRET_ACCESS_KEY=dummy-secret \
+    AWS_STORAGE_BUCKET_NAME=dummy-bucket \
+    AWS_S3_REGION_NAME=us-east-1 \
+    STRIPE_PUBLISHABLE=pk_test_dummy \
+    STRIPE_SECRET=sk_test_dummy \
+    EMAIL_ADDRESS=build@dummy.com \
+    EMAIL_PASSWORD=dummy
+
+# Collect static files for WhiteNoise
+RUN python manage.py collectstatic --noinput --clear
 
 # Expose port (Heroku assigns PORT dynamically)
 EXPOSE $PORT

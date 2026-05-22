@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserProfileForm
@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 
 @login_required
 def user_profile(request):
+    """Private profile edit page - requires login"""
     if request.method == 'POST':
         userbio_form = UserProfileForm(request.POST,
                                        instance=request.user.profile)
@@ -31,3 +32,14 @@ def user_profile(request):
     return render(request, 'profile.html', {'profile': user,
                                             'userbio_form': userbio_form,
                                             'username_form': username_form})
+
+
+def public_profile(request, username):
+    """Public profile view - GDPR compliant, shows only non-sensitive data"""
+    user = get_object_or_404(User, username=username)
+    profile = user.profile
+    
+    return render(request, 'public_profile.html', {
+        'profile_user': user,
+        'profile': profile,
+    })

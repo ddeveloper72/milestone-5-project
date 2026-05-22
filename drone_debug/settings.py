@@ -49,7 +49,7 @@ ALLOWED_HOSTS = [
     '.localhost',
     '127.0.0.1',
     '.herokuapp.com',
-    'custom-drone-ddeveloper72.herokuapp.com'
+    'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
 

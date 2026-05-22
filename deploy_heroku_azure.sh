@@ -17,7 +17,7 @@ if ! heroku auth:whoami &> /dev/null; then
 fi
 
 # App name (change this to your existing app name)
-APP_NAME="custom-drone-ddeveloper72"
+APP_NAME="ddeveloper72-custom-drone"
 
 echo "📱 Configuring Heroku app: $APP_NAME"
 

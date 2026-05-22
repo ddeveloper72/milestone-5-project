@@ -65,3 +65,7 @@ config.py
 
 # Requirements files (keep updated one)
 requirements_new.txt
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md

@@ -1,0 +1,6 @@
+# Heroku container deployment configuration
+build:
+  docker:
+    web: Dockerfile.heroku
+run:
+  web: gunicorn --bind 0.0.0.0:$PORT --workers 3 --timeout 120 drone_debug.wsgi:application

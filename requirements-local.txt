@@ -1,5 +1,5 @@
 asgiref==3.8.1
-astroid==2.2.4
+# astroid==2.2.4  # Removed - requires typed-ast (C++ build). Not needed to run app.
 autopep8==2.0.0
 boto3==1.16.28
 botocore==1.19.28
@@ -16,7 +16,7 @@ django-storages==1.14.2
 django-mssql-backend==2.8.1
 dnspython==1.16.0
 docutils==0.14
-gunicorn==21.2.0
+gunicorn==19.9.0
 idna==2.8
 isort==4.3.10
 jmespath==0.9.4
@@ -24,13 +24,13 @@ lazy-object-proxy==1.3.1
 Markdown==3.1
 mccabe==0.6.1
 mysql-connector-python==8.0.31
-mysqlclient==2.1.1
+# mysqlclient==2.1.1  # Skipped for local Windows - requires MySQL C libraries
 pep8==1.7.1
 Pillow==9.5.0
 protobuf==3.18.3
-psycopg2-binary==2.9.6
+# psycopg2-binary==2.9.6  # Skipped for local Windows - requires PostgreSQL C libraries. Not needed for MySQL.
 pycodestyle==2.9.1
-pylint==2.3.1
+# pylint==2.3.1  # Removed - requires astroid/typed-ast. Not needed to run app.
 python-dateutil==2.8.0
 pytz==2021.1
 requests==2.25.0
@@ -39,6 +39,6 @@ six==1.12.0
 sqlparse==0.4.4
 stripe==2.24.1
 tomli==2.0.1
-typed-ast==1.5.4
+# typed-ast==1.5.4  # Not needed for Python 3.8+ - functionality built into stdlib
 urllib3==1.26.5
 wrapt==1.11.1

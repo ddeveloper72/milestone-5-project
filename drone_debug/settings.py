@@ -77,6 +77,8 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'drone_debug.middleware.DatabaseHealthCheckMiddleware',  # Health check endpoint
+    'drone_debug.middleware.DatabaseRetryMiddleware',  # Retry database connections
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,15 +116,27 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# Database configuration with priority order: Heroku PostgreSQL > Azure SQL > MySQL
+# Database configuration with priority order: DATABASE_URL > Azure SQL > MySQL
 database_url = env('DATABASE_URL', default=None)
 
 if database_url:
-    # Use Heroku PostgreSQL database
+    # Parse DATABASE_URL (supports PostgreSQL, MySQL, etc.)
     DATABASES = {
         'default': dj_database_url.parse(database_url)
     }
-    print("Database URL found. Using PostgreSQL (Heroku)")
+    # Add connection management settings
+    DATABASES['default']['CONN_MAX_AGE'] = 300
+    DATABASES['default']['CONN_HEALTH_CHECKS'] = True
+    
+    # Determine database type from URL
+    if database_url.startswith('postgres'):
+        print("Database URL found. Using PostgreSQL")
+    elif database_url.startswith('mysql'):
+        print("Database URL found. Using MySQL")
+        # Use mysql.connector (pure Python) instead of mysqlclient (requires C compilation)
+        DATABASES['default']['ENGINE'] = 'mysql.connector.django'
+    else:
+        print(f"Database URL found. Using database from: {database_url.split(':')[0]}")
 elif env('AZURE_SQL_HOST', default=None):
     # Azure SQL Server configuration with new schema (backup option)
     azure_sql_host = env('AZURE_SQL_HOST')
@@ -136,9 +150,11 @@ elif env('AZURE_SQL_HOST', default=None):
             'PASSWORD': env('AZURE_SQL_PASSWORD'),
             'HOST': azure_sql_host,
             'PORT': env('AZURE_SQL_PORT', default='1433'),
+            'CONN_MAX_AGE': 300,  # Keep connections alive for 5 minutes
+            'CONN_HEALTH_CHECKS': True,  # Test connection before each request
             'OPTIONS': {
                 'driver': 'ODBC Driver 18 for SQL Server',
-                'extra_params': f'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;',
+                'extra_params': f'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=120;Login Timeout=120;',
                 'host_is_server': True,
             },
         }
@@ -153,7 +169,9 @@ else:
             'USER': env('MYSQL_USER'),
             'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
             'HOST': env('MYSQL_HOST'),
-            'PORT': env('MYSQL_PORT')
+            'PORT': env('MYSQL_PORT'),
+            'CONN_MAX_AGE': 300,
+            'CONN_HEALTH_CHECKS': True,
         }
     }
     print("Database URL not found. Using MySQL instead")
@@ -235,7 +253,7 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_DEFAULT_ACL = None
 
 STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  # Disabled for local development
 
 
 STATIC_URL = '/static/'
@@ -245,7 +263,7 @@ STATICFILES_DIRS = (
 )
 
 MEDIAFILES_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'  # S3 storage for media files (images, uploads)
 
 
 MEDIA_ROOT = (

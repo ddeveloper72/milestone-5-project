@@ -52,6 +52,15 @@ ALLOWED_HOSTS = [
     'ddeveloper72-custom-drone.herokuapp.com'
 ]
 
+# CSRF and Security Settings for Heroku
+CSRF_TRUSTED_ORIGINS = [
+    'https://ddeveloper72-custom-drone.herokuapp.com',
+    'https://*.herokuapp.com',
+]
+
+# Tell Django to trust X-Forwarded-Proto header from Heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
@@ -80,6 +89,7 @@ MIDDLEWARE = [
     'drone_debug.middleware.DatabaseHealthCheckMiddleware',  # Health check endpoint
     'drone_debug.middleware.DatabaseRetryMiddleware',  # Retry database connections
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,29 +126,10 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# Database configuration with priority order: DATABASE_URL > Azure SQL > MySQL
-database_url = env('DATABASE_URL', default=None)
-
-if database_url:
-    # Parse DATABASE_URL (supports PostgreSQL, MySQL, etc.)
-    DATABASES = {
-        'default': dj_database_url.parse(database_url)
-    }
-    # Add connection management settings
-    DATABASES['default']['CONN_MAX_AGE'] = 300
-    DATABASES['default']['CONN_HEALTH_CHECKS'] = True
-    
-    # Determine database type from URL
-    if database_url.startswith('postgres'):
-        print("Database URL found. Using PostgreSQL")
-    elif database_url.startswith('mysql'):
-        print("Database URL found. Using MySQL")
-        # Use mysql.connector (pure Python) instead of mysqlclient (requires C compilation)
-        DATABASES['default']['ENGINE'] = 'mysql.connector.django'
-    else:
-        print(f"Database URL found. Using database from: {database_url.split(':')[0]}")
-elif env('AZURE_SQL_HOST', default=None):
-    # Azure SQL Server configuration with new schema (backup option)
+# Database configuration with priority order: Azure SQL > DATABASE_URL > MySQL
+# Check Azure SQL first (for production on Heroku)
+if env('AZURE_SQL_HOST', default=None):
+    # Azure SQL Server configuration for production
     azure_sql_host = env('AZURE_SQL_HOST')
     azure_schema = env('AZURE_SQL_SCHEMA', default='drone_app_v2')
     
@@ -161,6 +152,25 @@ elif env('AZURE_SQL_HOST', default=None):
     }
     print(f"Azure SQL Server configuration found. Using Azure SQL Server: {env('AZURE_SQL_NAME')} on {azure_sql_host}")
     print(f"Using schema: {azure_schema}")
+elif env('DATABASE_URL', default=None):
+    # Parse DATABASE_URL (fallback for local development or other platforms)
+    database_url = env('DATABASE_URL')
+    DATABASES = {
+        'default': dj_database_url.parse(database_url)
+    }
+    # Add connection management settings
+    DATABASES['default']['CONN_MAX_AGE'] = 300
+    DATABASES['default']['CONN_HEALTH_CHECKS'] = True
+    
+    # Determine database type from URL
+    if database_url.startswith('postgres'):
+        print("Database URL found. Using PostgreSQL")
+    elif database_url.startswith('mysql'):
+        print("Database URL found. Using MySQL")
+        # Use mysql.connector (pure Python) instead of mysqlclient (requires C compilation)
+        DATABASES['default']['ENGINE'] = 'mysql.connector.django'
+    else:
+        print(f"Database URL found. Using database from: {database_url.split(':')[0]}")
 else:
     DATABASES = {
         'default': {
@@ -253,10 +263,11 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_DEFAULT_ACL = None
 
 STATICFILES_LOCATION = 'static'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'  # Disabled for local development
-
+# STATICFILES_STORAGE = 'custom_storages.StaticStorage'  # Disabled - serving from container
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # WhiteNoise for production
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

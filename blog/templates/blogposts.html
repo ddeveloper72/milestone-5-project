@@ -8,8 +8,8 @@
     <div class="row flex-column-reverse flex-md-row">
 
         <div class="col-sm-12 col-md-8">
-        {% if posts %}
-        {% for post in posts %}
+            {% if posts %}
+            {% for post in posts %}
             <div class="card mb-3">
                 <div class="box">
                     <div class="card-header text-center">
@@ -32,7 +32,7 @@
                         {% autoescape on %}
                         <div class="card-text">{{ post.get_content_as_markdown|truncatewords:60 }}</div>
                         {% endautoescape %}
-                        
+
                         <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default btn-primary">Read
                                 more</a></p>
                         <p><span class="boldtext">Published: </span> {{ post.published_date|naturaltime }}</p>
@@ -50,8 +50,9 @@
                 New Blog</a>
             {% endif %}
         </div>
-        <hr class="featureette-divider"> 
+        <hr class="featureette-divider">
 
+        {% if posts %}
         {% if user.is_superuser or user.is_staff %}
 
         {% include 'partials/_post_admin_paginated.html' %}
@@ -60,8 +61,9 @@
 
         {% include 'partials/_post_paginated.html' %}
 
-        {% endif%}     
-        
+        {% endif%}
+        {% endif %}
+
     </div>
 </div>
 

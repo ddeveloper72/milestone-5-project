@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Post, Comment, UserSeenPosts
 from .forms import PostForm, CommentForm
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 # Create your views here.
@@ -17,30 +17,40 @@ def get_posts(request):
     Create a view that will return a list
     of Posts that were published prior to 'now'
     and render them to the 'blogpost.html' template.
+    Handles pagination and empty blog list scenarios.
     """
+    # Get all published posts ordered by most recent first
+    blog_list = Post.objects.filter(published_date__lte=timezone.now()
+                                    ).order_by('-published_date')
+    # Get comment counts for sidebar display
+    approved = Comment.objects.filter(approved_comment=True)
+    pending = Comment.objects.filter(approved_comment=False)
+    
+    # Handle empty blog list - display message instead of pagination error
+    if not blog_list.exists():
+        return render(request, "blogposts.html", {
+            'posts': None,
+            'approved': approved,
+            'pending': pending
+        })
+    
+    # Paginate posts - show 3 per page
+    paginator = Paginator(blog_list, 3)
+    page = request.GET.get('page', 1)
+    
+    # Handle pagination exceptions gracefully
     try:
-        blog_list = Post.objects.filter(published_date__lte=timezone.now()
-                                        ).order_by('-published_date')
-        approved = Comment.objects.filter(approved_comment=True)
-        pending = Comment.objects.filter(approved_comment=False)
-        paginator = Paginator(blog_list, 3)
-        page_request_var = "page"
-        page = request.GET.get('page', 1)
-        try:
-            posts = paginator.page(page)
-        except PageNotAnInteger:
-            # if page is not an ineger, deliver first page
-            posts = paginator.page(1)
-        except EmptyPage:
-            # if page is out of range (eg 9999), deliver last page in range
-            posts = paginator.page(paginator.num_pages)
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page
+        posts = paginator.page(paginator.num_pages)
 
-        return render(request, "blogposts.html", {'posts': posts,
-                                                  'approved': approved,
-                                                  'pending': pending})
-    except:
-        messages.info(request, "There are no posts yet")
-        return redirect(reverse('get_posts'))
+    return render(request, "blogposts.html", {'posts': posts,
+                                              'approved': approved,
+                                              'pending': pending})
 
 
 @login_required
@@ -51,22 +61,18 @@ def post_detail(request, pk):
     render it to the 'postdetail.html' template,
     or return an error if the post is not found.
     """
-    try:
-        post = get_object_or_404(Post, pk=pk)
-        approved = Comment.objects.filter(approved_comment=True)
-        pending = Comment.objects.filter(approved_comment=False)
-        count = post.post_count()
+    post = get_object_or_404(Post, pk=pk)
+    approved = Comment.objects.filter(approved_comment=True)
+    pending = Comment.objects.filter(approved_comment=False)
+    count = post.post_count()
 
-        if not request.user.seen_posts.filter(post_id=pk).exists():
-            post.views += 1
-            post.save()
-            UserSeenPosts.objects.create(user=request.user, post=post)
-        return render(request, "postdetail.html", {'post': post,
-                                                   'approved': approved,
-                                                   'pending': pending})
-    except:
-        messages.info(request, "There are no posts yet")
-        return redirect(reverse('get_posts'))
+    if not request.user.seen_posts.filter(post_id=pk).exists():
+        post.views += 1
+        post.save()
+        UserSeenPosts.objects.create(user=request.user, post=post)
+    return render(request, "postdetail.html", {'post': post,
+                                               'approved': approved,
+                                               'pending': pending})
 
 
 @login_required

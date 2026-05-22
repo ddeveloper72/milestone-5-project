@@ -36,7 +36,9 @@ class Post(models.Model):
         ordering = ['-created_date']
 
     def get_content_as_markdown(self):
-        return mark_safe(markdown(self.content, safe_mode='escape'))
+        """Convert markdown content to HTML for display.
+        Note: safe_mode parameter removed as deprecated in Markdown 3.0+"""
+        return mark_safe(markdown(self.content))
 
     def __unicode__(self):
         return self.title

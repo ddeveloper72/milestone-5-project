@@ -290,14 +290,35 @@ STRIPE_PUBLISHABLE = env('STRIPE_PUBLISHABLE')
 STRIPE_SECRET = env('STRIPE_SECRET')
 
 # Email Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env("EMAIL_ADDRESS")
-EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = env("EMAIL_ADDRESS")
-SERVER_EMAIL = env("EMAIL_ADDRESS")
+# Option 1: SendGrid (Recommended for production - no 2FA required)
+if env('SENDGRID_API_KEY', default=None):
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_HOST_USER = 'apikey'  # This is literal 'apikey', not your actual key
+    EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = env("EMAIL_ADDRESS")
+    SERVER_EMAIL = env("EMAIL_ADDRESS")
+    print("Using SendGrid for email delivery")
 
-# Password reset timeout (default is 3 days, setting to 1 hour for security)
-PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
+# Option 2: Gmail (Requires 2FA + App Password)
+elif env('EMAIL_PASSWORD', default=None):
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = env("EMAIL_ADDRESS")
+    EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = env("EMAIL_ADDRESS")
+    SERVER_EMAIL = env("EMAIL_ADDRESS")
+    print("Using Gmail for email delivery")
+
+# Option 3: Console backend for development (emails print to console)
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'noreply@customdrone.com'
+    print("Using console email backend - emails will print to terminal")
+
+# Password reset timeout (1 hour for security)
+PASSWORD_RESET_TIMEOUT = 3600

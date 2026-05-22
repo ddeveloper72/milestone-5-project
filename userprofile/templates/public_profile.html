@@ -20,7 +20,7 @@ User Profile
                         <p class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ profile.location }}</p>
                         {% endif %}
                     </div>
-                    
+
                     <div class="card-body">
                         {% if profile.bio %}
                         <div class="bio-section">
@@ -32,7 +32,7 @@ User Profile
                         {% else %}
                         <p class="text-muted text-center">This user hasn't added a bio yet.</p>
                         {% endif %}
-                        
+
                         {% if user.username == profile_user.username %}
                         <hr class="my-4">
                         <div class="text-center">
@@ -42,10 +42,10 @@ User Profile
                         </div>
                         {% endif %}
                     </div>
-                    
+
                     <div class="card-footer text-muted text-center">
                         <small>
-                            <i class="fas fa-shield-alt"></i> 
+                            <i class="fas fa-shield-alt"></i>
                             Privacy Protected - Only public information is displayed
                         </small>
                     </div>

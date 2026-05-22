@@ -37,27 +37,29 @@ Home
 
                     {% block alert_message %}
                     {% endblock alert_message %}
-                    
+
                     <div class="col-sm-12">
                         <div class="alert alert-info" role="alert">
                             <h5><i class="fas fa-shield-alt"></i> Privacy & GDPR</h5>
                             <ul class="mb-0">
-                                <li><strong>Display Name:</strong> Public name shown on your posts (defaults to username)</li>
+                                <li><strong>Display Name:</strong> Public name shown on your posts (defaults to
+                                    username)</li>
                                 <li><strong>Bio:</strong> Visible on your public profile page</li>
                                 <li><strong>Location:</strong> Only shown if you enable "Show location"</li>
                                 <li><strong>Birth Date:</strong> Private - never shown publicly</li>
                             </ul>
-                            <a href="{% url 'public_profile' user.username %}" class="btn btn-sm btn-outline-primary mt-2" target="_blank">
+                            <a href="{% url 'public_profile' user.username %}"
+                                class="btn btn-sm btn-outline-primary mt-2" target="_blank">
                                 <i class="fas fa-eye"></i> View Your Public Profile
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-12">
                         <form method="POST">
                             {% csrf_token %}
-                            {%  bootstrap_form username_form  %}
-                            {%  bootstrap_form userbio_form  %}
+                            {% bootstrap_form username_form %}
+                            {% bootstrap_form userbio_form %}
                             <div class="col-sm-12 text-right">
                                 <button type="submit" class="btn btn-default btn-success mb-4">Save</button>
                             </div>

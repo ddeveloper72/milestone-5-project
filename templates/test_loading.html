@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3><i class="fas fa-flask"></i> Database Loading Test Page</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Test the loading overlay and database wake-up behavior</p>
+                    
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle"></i> How to Use</h5>
+                        <ul class="mb-0">
+                            <li>Click the test buttons below to simulate different database delays</li>
+                            <li>Watch the animated drone loading overlay appear</li>
+                            <li>See how the system handles long database wake-up times</li>
+                        </ul>
+                    </div>
+
+                    <h4 class="mt-4">Quick Tests</h4>
+                    <div class="btn-group-vertical w-100" role="group">
+                        <a href="/health/?simulate_delay=0" class="btn btn-success btn-lg mb-2">
+                            <i class="fas fa-bolt"></i> Instant Response (0s delay)
+                        </a>
+                        <a href="/health/?simulate_delay=3" class="btn btn-info btn-lg mb-2">
+                            <i class="fas fa-clock"></i> Normal Wake-up (3s delay)
+                        </a>
+                        <a href="/health/?simulate_delay=10" class="btn btn-warning btn-lg mb-2">
+                            <i class="fas fa-hourglass-half"></i> Slow Wake-up (10s delay)
+                        </a>
+                        <a href="/health/?simulate_delay=25" class="btn btn-danger btn-lg mb-2">
+                            <i class="fas fa-exclamation-triangle"></i> Very Slow (25s delay)
+                        </a>
+                    </div>
+
+                    <h4 class="mt-5">Custom Delay Test</h4>
+                    <form action="/health/" method="GET" class="form-inline">
+                        <div class="form-group mb-2 mr-2">
+                            <label for="customDelay" class="mr-2">Delay (seconds):</label>
+                            <input type="number" class="form-control" id="customDelay" name="simulate_delay" 
+                                   min="0" max="30" step="0.5" value="5" style="width: 100px;">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">
+                            <i class="fas fa-play"></i> Test Custom Delay
+                        </button>
+                    </form>
+
+                    <h4 class="mt-5">System Status</h4>
+                    <div id="healthStatus" class="card bg-dark">
+                        <div class="card-body">
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-spinner fa-spin"></i> Click a test button to check system status...
+                            </p>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-5">What You're Testing</h4>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <div class="card bg-info mb-3">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-spinner fa-3x mb-2"></i>
+                                    <h5>Loading Overlay</h5>
+                                    <small>Animated drone with spinning propellers</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success mb-3">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-database fa-3x mb-2"></i>
+                                    <h5>Database Health</h5>
+                                    <small>Connection test with timing</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning mb-3">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-exclamation-triangle fa-3x mb-2"></i>
+                                    <h5>503 Error Page</h5>
+                                    <small>Graceful timeout handling</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-secondary mt-4">
+                        <h5><i class="fas fa-lightbulb"></i> Production Behavior</h5>
+                        <p class="mb-0">
+                            In production, Azure SQL Serverless auto-pauses after 1 hour of inactivity. 
+                            The first connection after pause takes 20-30 seconds. Subsequent requests are instant!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update health status display when coming from health check
+    window.addEventListener('load', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('simulate_delay')) {
+            // We were redirected from health check - fetch and display results
+            const delay = urlParams.get('simulate_delay');
+            setTimeout(function() {
+                fetch('/health/?simulate_delay=' + delay)
+                    .then(response => response.json())
+                    .then(data => {
+                        const statusDiv = document.getElementById('healthStatus');
+                        const statusClass = data.status === 'healthy' ? 'bg-success' : 'bg-danger';
+                        statusDiv.className = 'card ' + statusClass;
+                        statusDiv.innerHTML = `
+                            <div class="card-body">
+                                <h5><i class="fas fa-check-circle"></i> Health Check Results</h5>
+                                <p class="mb-1"><strong>Status:</strong> ${data.status}</p>
+                                <p class="mb-1"><strong>Database:</strong> ${data.database}</p>
+                                <p class="mb-1"><strong>Response Time:</strong> ${data.response_time_ms} ms</p>
+                                ${data.simulated_delay_s ? '<p class="mb-0"><strong>Simulated Delay:</strong> ' + data.simulated_delay_s + 's</p>' : ''}
+                            </div>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Health check failed:', error);
+                    });
+            }, 100);
+        }
+    });
+</script>
+
+{% endblock %}

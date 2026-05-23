@@ -176,7 +176,7 @@ else:
     if env('MYSQL_DATABASE', default=None):
         DATABASES = {
             'default': {
-                'ENGINE': 'django.db.backends.mysql',
+                'ENGINE': 'mysql.connector.django',
                 'NAME': env('MYSQL_DATABASE'),
                 'USER': env('MYSQL_USER'),
                 'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
@@ -192,7 +192,7 @@ else:
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
             }
         }
         print("No database configuration found. Using SQLite for local development")

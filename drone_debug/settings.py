@@ -172,19 +172,30 @@ elif env('DATABASE_URL', default=None):
     else:
         print(f"Database URL found. Using database from: {database_url.split(':')[0]}")
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': env('MYSQL_DATABASE'),
-            'USER': env('MYSQL_USER'),
-            'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
-            'HOST': env('MYSQL_HOST'),
-            'PORT': env('MYSQL_PORT'),
-            'CONN_MAX_AGE': 300,
-            'CONN_HEALTH_CHECKS': True,
+    # Check if MySQL credentials are available
+    if env('MYSQL_DATABASE', default=None):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'mysql.connector.django',
+                'NAME': env('MYSQL_DATABASE'),
+                'USER': env('MYSQL_USER'),
+                'PASSWORD': env('MYSQL_ROOT_PASSWORD'),
+                'HOST': env('MYSQL_HOST'),
+                'PORT': env('MYSQL_PORT'),
+                'CONN_MAX_AGE': 300,
+                'CONN_HEALTH_CHECKS': True,
+            }
         }
-    }
-    print("Database URL not found. Using MySQL instead")
+        print("Using MySQL for local development")
+    else:
+        # Fallback to SQLite for local development (no setup required)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
+        }
+        print("No database configuration found. Using SQLite for local development")
 
 
 # Password validation

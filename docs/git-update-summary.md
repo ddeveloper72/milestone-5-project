@@ -52,7 +52,7 @@
 
 ### 🔗 **Repository Links:**
 - **GitHub:** https://github.com/ddeveloper72/milestone-5-project
-- **Heroku App:** https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/
+- **Heroku App:** https://ddeveloper72-custom-drone.herokuapp.com/
 - **Branch:** `main` (default)
 
 Your Custom Drone Django application is now ready for production! 🌟

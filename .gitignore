@@ -11,6 +11,7 @@ __pycache__/
 .coverage
 *.sqlite3
 drone.*
+*.bat
 
 # Database files
 mysql/
@@ -37,6 +38,7 @@ simple_test.py
 deployment_summary.py
 debug_apps.py
 drop_*.py
+add_duncan_bio.py
 nul
 
 # PowerShell scripts with sensitive data
@@ -46,6 +48,8 @@ update_heroku_*.ps1
 
 # SQL setup scripts with passwords
 setup_mysql_user.sql
+add_duncan_bio.sql
+custom_drone_backup.sql
 
 # Keep documentation and setup scripts
 !docs/

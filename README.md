@@ -1,12 +1,12 @@
 # Milestone 5 Project
 
-## [Custom Drone Systems](https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/)
+## [Custom Drone Systems](https://ddeveloper72-custom-drone.herokuapp.com/)
 
   _for customizing your drone's navigation systems_
 
 
-[![Deploy Status](https://img.shields.io/badge/deploy-success-brightgreen)](https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/)
-[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://custom-drone-ddeveloper72-6e5549276368.herokuapp.com/)
+[![Deploy Status](https://img.shields.io/badge/deploy-success-brightgreen)](https://ddeveloper72-custom-drone.herokuapp.com/)
+[![Live Demo](https://img.shields.io/badge/demo-live-blue)](https://ddeveloper72-custom-drone.herokuapp.com/)
 
 ## Preface
 
